@@ -1,0 +1,1258 @@
+@font-face {
+  font-family: "Santa Catorina";
+  src: url("assets/fonts/Santa Catarina.otf") format("opentype"),
+       url("assets/fonts/Santa Catarina.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@300;400;500;600&display=swap");
+
+:root {
+  --bg: #06070b;
+  --text: #f6f1e8;
+  --muted: rgba(246, 241, 232, 0.7);
+  --stroke: rgba(255, 255, 255, 0.12);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  --red: #ff3b1f;
+  --orange: #ff7a1a;
+  --violet: #7b3cff;
+  --blue: #2b76ff;
+  --gold: #d8b374;
+  --menu-content-inset: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Manrope", system-ui, sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 8% 8%, rgba(255, 59, 31, 0.25), transparent 60%),
+    radial-gradient(900px 600px at 15% 35%, rgba(255, 122, 26, 0.2), transparent 60%),
+    radial-gradient(900px 700px at 90% 10%, rgba(123, 60, 255, 0.28), transparent 60%),
+    radial-gradient(900px 700px at 80% 50%, rgba(43, 118, 255, 0.2), transparent 60%),
+    var(--bg);
+  scroll-behavior: smooth;
+}
+
+main {
+  padding-top: 132px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.menu-toggle-btn {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 20;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(8, 8, 12, 0.7);
+  display: none;
+  place-items: center;
+  gap: 4px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.menu-toggle-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #fff1d4;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-toggle-btn.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle-btn.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle-btn.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20% -10% -10% -10%;
+  background: linear-gradient(180deg, rgba(6, 7, 11, 0.96), rgba(6, 7, 11, 0.75));
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"160\" height=\"160\" viewBox=\"0 0 160 160\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"1\" stitchTiles=\"stitch\"/></filter><rect width=\"160\" height=\"160\" filter=\"url(%23n)\" opacity=\"0.06\"/></svg>");
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero {
+  padding: 46px 0 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 28px 18px 26px;
+  border-radius: 24px;
+  background: linear-gradient(140deg, rgba(16, 16, 22, 0.85), rgba(10, 10, 14, 0.6));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slider {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.slider-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 48px 28px;
+  scrollbar-width: none;
+  transform: perspective(1200px) rotateX(2deg);
+  position: relative;
+  z-index: 1;
+  overflow-y: visible;
+}
+
+.slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.cocktail-card {
+  min-width: 240px;
+  max-width: 300px;
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  padding: 16px;
+  border-radius: 300px 300px 18px 18px;
+  background: linear-gradient(160deg, rgba(18, 18, 26, 0.95), rgba(10, 10, 14, 0.75));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.4);
+  text-align: left;
+  display: grid;
+  gap: 10px;
+  transform: translateY(var(--curve, -8px)) scale(var(--scale, 1));
+  position: relative;
+  overflow: visible;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cocktail-card:hover {
+  transform: translateY(calc(var(--curve, -8px) - 6px)) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.55);
+}
+
+
+.card-media {
+  width: 100%;
+  aspect-ratio: 16 / 22.5;
+  border-radius: 300px 300px 16px 16px;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 122, 26, 0.45), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(123, 60, 255, 0.45), transparent 55%),
+    rgba(8, 8, 12, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  overflow: hidden;
+}
+
+.card-media .card-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
+.cocktail-card:hover .card-media {
+  transform: translateY(-4px) scale(1.01);
+  filter: saturate(1.15);
+}
+
+@media (min-width: 721px) {
+  .slider-track {
+    gap: 14px;
+    padding: 12px 24px 28px;
+  }
+
+  /* Desktop: show only three cocktail cards in viewport; others scroll horizontally. */
+  .cocktail-card {
+    flex: 0 0 calc((100% - 28px) / 3);
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+.cocktail-card h2 {
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: 22px;
+  letter-spacing: 0.8px;
+  color: var(--gold);
+}
+
+.card-desc {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.card-meta .price {
+  color: #fff1d4;
+  font-weight: 500;
+  font-family: "Santa Catorina", "Manrope", serif;
+}
+
+.slider-controls {
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.slider-btn {
+  height: 52px;
+  width: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(8, 8, 12, 0.7);
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.slider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 0;
+}
+
+.slider-dot.is-active {
+  background: var(--gold);
+  width: 18px;
+}
+
+.hero-content::before {
+  content: "";
+  position: absolute;
+  inset: -40% 30% auto -10%;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.35), transparent 60%);
+  opacity: 0.7;
+}
+
+.hero-content::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.hero-slider-block {
+  padding: 48px 0 64px;
+  overflow: hidden;
+  width: min(1400px, 100vw);
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-slider-block .hero-slider {
+  padding: 32px 0 36px;
+  border-radius: 26px;
+  background: transparent;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  margin-top: 0;
+  animation: none;
+}
+
+.hero-slider-block::before,
+.hero-slider-block::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+}
+
+.hero-slider-block::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(6, 7, 11, 0.95), rgba(6, 7, 11, 0));
+}
+
+.hero-slider-block::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(6, 7, 11, 0.95), rgba(6, 7, 11, 0));
+}
+
+.hero-slider-block .hero-slider::before {
+  display: none;
+}
+
+.logo {
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: 30px;
+  letter-spacing: 1.6px;
+  color: var(--gold);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 8px 0 6px;
+  font-size: 11px;
+}
+
+h1 {
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: clamp(42px, 12vw, 70px);
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  background: linear-gradient(120deg, #fff3df, #e3c18b, #ffd1a8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 16px;
+}
+
+.menu-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: grid;
+  gap: 8px;
+  padding: 10px 20px 8px;
+  margin-top: 0;
+  background: rgba(8, 9, 13, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.menu-nav-top {
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) minmax(260px, 520px) minmax(220px, 1fr);
+  align-items: center;
+  gap: 18px;
+}
+
+.menu-nav-meta {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.menu-nav-meta--left {
+  justify-self: start;
+  font-family: "Santa Catorina", "Manrope", serif;
+  color: var(--gold);
+  font-size: 25px;
+  letter-spacing: 0.9px;
+  font-weight: 400;
+}
+
+.menu-nav-meta--right {
+  justify-self: end;
+  font-family: "Santa Catorina", "Manrope", serif;
+  color: var(--gold);
+  font-size: 23px;
+  letter-spacing: 0.8px;
+  font-weight: 400;
+}
+
+.menu-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  row-gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+  overflow: visible;
+}
+
+.menu-search {
+  justify-self: center;
+  width: min(620px, 100%);
+  position: relative;
+}
+
+.menu-search input {
+  width: 100%;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(216, 179, 116, 0.55);
+  background:
+    linear-gradient(180deg, rgba(216, 179, 116, 0.12), rgba(10, 10, 14, 0.18)),
+    rgba(7, 8, 12, 0.76);
+  color: #fff3df;
+  padding: 0 15px;
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 20px rgba(0, 0, 0, 0.34);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.menu-search input::placeholder {
+  color: rgba(255, 231, 195, 0.58);
+}
+
+.menu-search input:focus {
+  border-color: rgba(216, 179, 116, 0.95);
+  background:
+    linear-gradient(180deg, rgba(216, 179, 116, 0.16), rgba(10, 10, 14, 0.2)),
+    rgba(7, 8, 12, 0.84);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 0 2px rgba(216, 179, 116, 0.28), 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.menu-search-suggest {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(9, 10, 14, 0.96);
+  border: 1px solid rgba(216, 179, 116, 0.28);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.46);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 60;
+}
+
+.menu-search-suggest.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu-search-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: grid;
+  gap: 2px;
+}
+
+.menu-search-item:hover,
+.menu-search-item.is-active {
+  background: rgba(216, 179, 116, 0.15);
+}
+
+.menu-search-item-title {
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.menu-search-item-meta {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.menu-nav a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  padding: 8px 4px 7px;
+  border: 0;
+  border-radius: 0;
+  white-space: nowrap;
+  background: transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.22s ease, opacity 0.22s ease;
+}
+
+.menu-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(216, 179, 116, 0.85), rgba(255, 255, 255, 0.75));
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 1;
+  transition: transform 0.24s ease, opacity 0.24s ease;
+}
+
+.menu-nav a::first-letter {
+  text-transform: uppercase;
+}
+
+.menu-nav a:hover,
+.menu-nav a:focus-visible {
+  color: var(--text);
+}
+
+.menu-nav a:hover::after,
+.menu-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.menu-nav a.active {
+  color: var(--text);
+}
+
+.menu-nav a.active::after {
+  transform: scaleX(1);
+  box-shadow: 0 0 12px rgba(216, 179, 116, 0.55);
+}
+
+section {
+  padding: 40px 6vw 84px;
+}
+
+.section-title {
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: 30px;
+  letter-spacing: 1.2px;
+}
+
+.section-title p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.menu-grid {
+  display: grid;
+  gap: 36px;
+  grid-template-columns: 1fr;
+}
+
+.menu-col {
+  display: grid;
+  gap: 40px;
+}
+
+.menu-group {
+  display: grid;
+  gap: 40px;
+  animation-fill-mode: both;
+}
+
+.menu-group.is-entering {
+  animation: menuGroupIn 0.24s ease;
+}
+
+.menu-section {
+  padding: 18px 16px 14px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(18, 18, 24, 0.7), rgba(10, 10, 14, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+  scroll-margin-top: 96px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55);
+}
+
+.menu-col h3 {
+  margin: 0 0 12px;
+  font-size: 30px;
+  font-family: "Santa Catorina", "Manrope", serif;
+  letter-spacing: 1px;
+  color: var(--gold);
+  display: block;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.menu-col h3::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, rgba(216, 179, 116, 0.7), rgba(255, 255, 255, 0.08));
+}
+
+.menu-col ul {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.menu-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  padding-bottom: 10px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.menu-list li:not(.has-image) {
+  padding-left: var(--menu-content-inset);
+  padding-right: var(--menu-content-inset);
+}
+
+.menu-list li.has-image {
+  gap: 14px;
+  display: block;
+  padding: 8px 0 14px;
+}
+
+.menu-list li.has-image > span {
+  width: 100%;
+}
+
+.menu-item-image {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+  margin-bottom: 10px;
+}
+
+.menu-item-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 95% at 50% 10%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.24) 62%, rgba(0, 0, 0, 0.48) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08) 32%, rgba(0, 0, 0, 0.66) 100%);
+  pointer-events: none;
+}
+
+.menu-item-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  filter: brightness(0.76) saturate(0.92);
+}
+
+.menu-item-caption {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  background: linear-gradient(180deg, rgba(10, 11, 15, 0.24), rgba(10, 11, 15, 0.72));
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px 10px 10px 10px;
+  padding: 12px 13px;
+  backdrop-filter: blur(1px);
+}
+
+.menu-item-caption-main {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.menu-item-details {
+  display: grid;
+  gap: 6px;
+}
+
+.menu-item-details small {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  line-height: 1.45;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.72);
+}
+
+.menu-item-image .menu-item-name,
+.menu-item-image .item-title {
+  color: #fff9ee;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: 0.1px;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8);
+}
+
+.menu-item-image .item-title {
+  width: auto;
+  max-width: 100%;
+}
+
+.menu-item-image .menu-item-price {
+  color: #fff1d4;
+  font-size: 19px;
+  line-height: 1;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  flex: 0 0 auto;
+  font-family: "Santa Catorina", "Manrope", serif;
+  padding-top: 4px;
+}
+
+
+.menu-list li.has-image > span > em {
+  display: none;
+}
+
+.menu-toggle {
+  position: fixed;
+  left: 50%;
+  right: auto;
+  bottom: 78px;
+  transform: translateX(-50%);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+  z-index: 20;
+  min-width: 260px;
+  width: max-content;
+  justify-content: center;
+  max-width: 90vw;
+}
+
+.toggle-pill {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.toggle-pill.is-active {
+  color: #fff3df;
+  background: transparent;
+  border: 1px solid rgba(216, 179, 116, 0.75);
+  transform: translateY(-1px);
+}
+
+.toggle-pill:focus-visible {
+  outline: 2px solid rgba(216, 179, 116, 0.6);
+  outline-offset: 2px;
+}
+
+.menu-group.is-hidden {
+  display: none;
+}
+
+@keyframes menuGroupIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-list li::after {
+  content: "";
+  position: absolute;
+  left: var(--menu-content-inset);
+  bottom: 0;
+  height: 1px;
+  width: calc(100% - (var(--menu-content-inset) * 2));
+  background: linear-gradient(90deg, rgba(216, 179, 116, 0.42), rgba(255, 255, 255, 0.1), rgba(216, 179, 116, 0.24));
+  opacity: 0.45;
+}
+
+.menu-list li.search-hit {
+  animation: searchPulse 1.2s ease;
+}
+
+@keyframes searchPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(216, 179, 116, 0.35);
+    border-radius: 10px;
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(216, 179, 116, 0);
+    border-radius: 10px;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(216, 179, 116, 0);
+    border-radius: 10px;
+  }
+}
+
+.menu-list em {
+  font-style: normal;
+  color: #fff1d4;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: right;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  font-family: "Santa Catorina", "Manrope", serif;
+}
+
+.menu-list > li > span {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
+.menu-list .item-title {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
+
+.menu-list .item-title .title-text {
+  order: 1;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.menu-list .item-title .icon {
+  order: 0;
+  display: none;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  display: inline-block;
+  vertical-align: -2px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+  flex: 0 0 auto;
+}
+
+.icon-gem {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4 9l4-5h8l4 5-8 10L4 9z' fill='%23d8b374'/><path d='M8 4l4 5-4 5-4-5 4-5zm8 0l4 5-4 5-4-5 4-5z' fill='%23d8b374' opacity='0.75'/></svg>");
+}
+
+.icon-orbit {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='3.2' fill='%23d8b374'/><ellipse cx='12' cy='12' rx='9' ry='4.5' fill='none' stroke='%23d8b374' stroke-width='1.6'/><ellipse cx='12' cy='12' rx='4.5' ry='9' fill='none' stroke='%23d8b374' stroke-width='1.2' opacity='0.7'/></svg>");
+}
+
+.icon-crown {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M3 9l4 3 5-6 5 6 4-3-2 10H5L3 9z' fill='%23d8b374'/><rect x='5' y='19' width='14' height='2' fill='%23d8b374'/></svg>");
+}
+
+.icon-flame {
+  background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 3c3 3 5 5 5 9a5 5 0 1 1-10 0c0-2 1-4 3-6-1 4 4 4 2-3z' fill='%23d8b374'/><path d='M12 10c1 1 2 2 2 3a2 2 0 1 1-4 0c0-1 1-2 2-3z' fill='%23d8b374' opacity='0.75'/></svg>\");
+}
+
+.icon-comet {
+  background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='16' cy='8' r='4' fill='%23d8b374'/><path d='M2 18c6-6 8-7 13-8' stroke='%23d8b374' stroke-width='2' stroke-linecap='round'/><path d='M4 21c5-4 8-6 12-7' stroke='%23d8b374' stroke-width='1.4' stroke-linecap='round' opacity='0.8'/></svg>\");
+}
+
+.icon-crest {
+  background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 4h12v7c0 4-3 7-6 9-3-2-6-5-6-9V4z' fill='%23d8b374'/><path d='M12 7l2 2-2 2-2-2 2-2z' fill='%23d8b374' opacity='0.8'/></svg>\");
+}
+
+.icon-moon {
+  background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M15 3a8 8 0 1 0 6 13 7 7 0 1 1-6-13z' fill='%23d8b374'/><circle cx='17.5' cy='7.5' r='1.4' fill='%23d8b374'/></svg>\");
+}
+
+.icon-garnet {
+  background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2c3 2 5 4 5 8a5 5 0 1 1-10 0c0-4 2-6 5-8z' fill='%23d8b374'/><path d='M7 12c2 3 4 5 5 8 1-3 3-5 5-8' fill='%23d8b374' opacity='0.7'/></svg>\");
+}
+
+.icon-infinity {
+  background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 8c-2 0-4 2-4 4s2 4 4 4c3 0 4-6 7-6 2 0 4 2 4 4s-2 4-4 4c-3 0-4-6-7-6z' fill='none' stroke='%23d8b374' stroke-width='2'/></svg>\");
+}
+
+.menu-list small {
+  display: block;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.menu-list .volume {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  font-family: "Manrope", system-ui, sans-serif;
+}
+
+@media (min-width: 721px) {
+  .menu-list > li > span {
+    font-size: 24px;
+    line-height: 1.22;
+  }
+
+  .menu-list small {
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .menu-list .volume {
+    font-size: 15px;
+  }
+
+  .menu-list em {
+    font-size: 23px;
+  }
+
+  .menu-item-image .menu-item-name,
+  .menu-item-image .item-title {
+    font-family: "Santa Catorina", "Manrope", serif;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .menu-item-details small {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .menu-item-image .menu-item-price {
+    font-size: 24px;
+  }
+}
+
+.detail {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --menu-content-inset: 11px;
+  }
+
+  body.menu-open {
+    overflow: auto;
+  }
+  body {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .hero {
+    padding: 28px 5vw 16px;
+  }
+
+  .hero-content {
+    padding: 20px 14px 18px;
+  }
+
+  .menu-col h3 {
+    font-size: 28px;
+  }
+
+  h1 {
+    letter-spacing: 1px;
+  }
+
+  .menu-nav {
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+    margin: 0;
+    padding: 8px 10px;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(8, 9, 13, 0.88);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(10px);
+    overflow-y: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+  }
+
+  .menu-nav-meta {
+    display: none;
+  }
+
+  .menu-nav-top {
+    display: none;
+  }
+
+  .menu-nav-links {
+    justify-content: flex-start;
+    gap: 14px;
+    row-gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .menu-nav a {
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    padding: 10px 2px 9px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .menu-search-suggest {
+    display: none;
+  }
+
+  .menu-toggle-btn {
+    display: none !important;
+  }
+
+  section {
+    padding-bottom: 240px;
+  }
+
+  .hero-slider-block {
+    padding: 10px 0 28px;
+  }
+
+  .hero-slider-block .hero-slider {
+    padding: 18px 0 14px;
+  }
+
+  /* Keep side fades on mobile, but move them behind content and soften them. */
+  .hero-slider-block::before,
+  .hero-slider-block::after {
+    width: 34px;
+    z-index: 0;
+    backdrop-filter: blur(3px);
+  }
+
+  .hero-slider-block::before {
+    background: linear-gradient(90deg, rgba(6, 7, 11, 0.35), rgba(6, 7, 11, 0));
+  }
+
+  .hero-slider-block::after {
+    background: linear-gradient(270deg, rgba(6, 7, 11, 0.35), rgba(6, 7, 11, 0));
+  }
+
+  .hero-slider-block .hero-slider,
+  .slider-track,
+  .slider-controls,
+  .slider-btn,
+  .slider-dots {
+    position: relative;
+    z-index: 2;
+  }
+
+  .slider-track {
+    padding: 8px 24px 20px;
+  }
+
+  .cocktail-card {
+    min-width: 220px;
+    max-width: 260px;
+    padding: 14px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+  }
+
+  .menu-list > li > span {
+    font-size: 14px;
+    font-family: "Santa Catorina", "Manrope", serif;
+  }
+
+  .menu-list em {
+    font-size: 14px;
+  }
+
+  .menu-item-image {
+    width: 100%;
+  }
+
+  .menu-item-image .menu-item-name,
+  .menu-item-image .item-title,
+  .menu-item-image .menu-item-price {
+    font-size: 16px;
+  }
+
+  .menu-item-details small {
+    font-size: 11px;
+  }
+
+  .menu-item-image .menu-item-name,
+  .menu-item-image .item-title {
+    font-family: "Santa Catorina", "Manrope", serif;
+  }
+
+  .menu-item-caption {
+    left: 8px;
+    right: 8px;
+    bottom: 0;
+    gap: 12px;
+    padding: 12px 11px;
+    border-radius: 9px;
+  }
+
+  .menu-item-details small {
+    font-size: 11px;
+  }
+
+  .menu-toggle {
+    bottom: 116px;
+    min-width: 240px;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section,
+.hero-content {
+  animation: rise 0.6s ease both;
+}

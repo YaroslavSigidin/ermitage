@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Барная карта — Караоке «Эрмитаж»</title>
+  <meta name="description" content="Электронная барная карта. Напитки, объёмы и цены." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="logo">Караоке «Эрмитаж»</div>
+      <h1>Электронное меню</h1>
+    </div>
+  </header>
+
+  <button class="menu-toggle-btn" type="button" aria-label="Открыть меню" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="menu-nav" aria-label="Навигация по разделам">
+    <div class="menu-nav-top">
+      <div class="menu-nav-meta menu-nav-meta--left">Караоке «Эрмитаж»</div>
+      <form class="menu-search" role="search" aria-label="Поиск по меню">
+        <input type="search" name="q" placeholder="Поиск по меню" autocomplete="off" />
+      </form>
+      <div class="menu-nav-meta menu-nav-meta--right">+7 (___) ___-__-__</div>
+    </div>
+    <div class="menu-nav-links">
+      <a href="#cold-snacks">Закуски</a>
+      <a href="#salads">Салаты</a>
+      <a href="#hot-snacks">Горячие</a>
+      <a href="#soups">Супы</a>
+      <a href="#pasta">Паста</a>
+      <a href="#hot-mains">Горячие блюда</a>
+      <a href="#sides">Гарниры</a>
+      <a href="#sauces">Соусы</a>
+      <a href="#bread">Хлеб</a>
+      <a href="#desserts">Десерты</a>
+      <a href="#cocktails">Коктейли</a>
+      <a href="#coffee-tea">Кофе и чай</a>
+      <a href="#beer">Пиво</a>
+      <a href="#soft">Безалк.</a>
+      <a href="#wine">Вино</a>
+      <a href="#spirits">Крепкое</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="menu" id="menu">
+<div class="menu-grid">
+        <div class="menu-col">
+          <div class="menu-group" id="cold-snacks" data-category="food">
+            <div class="menu-section">
+              <h3>Холодные закуски</h3>
+              <ul class="menu-list">
+                <li><span><span class="item-title"><span class="title-text">Европейские сыры</span> <span class="icon icon-gem" aria-hidden="true"></span></span><small>чеддер, камамбер, маасдам, пармезан, дор блю, мёд, виноград, орех грецкий</small><small class="volume">200/30/30 г</small></span><em>1 480 ₽</em></li>
+                <li><span>Мясная коллекция <small>ростбиф, буженина, язык говяжий, пастрами, горчица, хрен</small><small class="volume">240/30/30 г</small></span><em>1 500 ₽</em></li>
+                <li><span>Рыбная коллекция <small>сёмга слабосолёная, масляная рыба холодного копчения, тунец слабосолёный, лимон</small><small class="volume">210 г</small></span><em>1 600 ₽</em></li>
+                <li><span>Ассорти из свежих овощей и зелени <small>помидор, огурец, редис, болгарский перец, зелень</small><small class="volume">300 г</small></span><em>670 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Ассорти сезонных фруктов</span> <span class="icon icon-orbit" aria-hidden="true"></span></span><small>апельсин, грейпфрут, ананас, киви, виноград, яблоко, груша, сезонный фрукт*</small><small class="volume">1000 г</small></span><em>2 500 ₽</em></li>
+                <li><span>Закуска под водочку <small>сало, сельдь с красным луком, микс маринованных грибов, маринованный огурец, квашеная капуста, зелёный лук, укроп, бородинские гренки</small><small class="volume">390/30 г</small></span><em>690 ₽</em></li>
+                <li><span>Ассорти брускетт <small>ростбиф, креветка и авокадо, сёмга и сливочный сыр</small></span><em>1 670 ₽</em></li>
+                <li><span>Брускетта с ростбифом <small class="volume">150 г</small></span><em>570 ₽</em></li>
+                <li><span>Брускетта с креветкой и авокадо <small class="volume">150 г</small></span><em>520 ₽</em></li>
+                <li><span>Брускетта с сёмгой и сливочным сыром <small class="volume">150 г</small></span><em>580 ₽</em></li>
+                <li><span>Ассорти маслин и оливок <small class="volume">50/50 г</small></span><em>380 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="salads" data-category="food">
+            <div class="menu-section">
+              <h3>Салаты</h3>
+              <ul class="menu-list">
+                <li><span>Цезарь с курицей <small>микс салата, филе куриное, помидоры черри, яйцо перепелиное, сыр пармезан, чипсы из чиабатты, соус Цезарь</small><small class="volume">250 г</small></span><em>760 ₽</em></li>
+                <li><span>Цезарь с креветками <small>микс салата, тигровые креветки, помидоры черри, яйцо перепелиное, сыр пармезан, чипсы из чиабатты, соус Цезарь</small><small class="volume">250 г</small></span><em>890 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Фирменный салат «Эрмитаж» с говядиной</span> <span class="icon icon-crown" aria-hidden="true"></span></span><small>микс салата, руккола, говядина, помидоры черри, свежий огурец, шампиньоны обжаренные, редис, миндальные лепестки, заправка медово‑горчичная</small><small class="volume">320 г</small></span><em>950 ₽</em></li>
+                <li><span>Тартар из лосося <small>лосось, авокадо, вяленые томаты, свежий огурец, помидор, лист салата айсберг, лимон</small><small class="volume">250 г</small></span><em>820 ₽</em></li>
+                <li><span>Тёплый из баклажанов с творожным сыром <small>баклажан, помидор, творожный сыр, орех, зелень</small><small class="volume">300 г</small></span><em>670 ₽</em></li>
+                <li><span>Морской <small>микс салата, сёмга, креветки, мидии киви, помидор черри, творожный сыр, кунжут</small><small class="volume">320 г</small></span><em>940 ₽</em></li>
+                <li><span>Креветка руккола с томлёной грушей <small>креветка, авокадо, груша, помидоры черри, руккола, микс салата</small><small class="volume">250 г</small></span><em>780 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="hot-snacks" data-category="food">
+            <div class="menu-section">
+              <h3>Горячие закуски</h3>
+              <ul class="menu-list">
+                <li><span>Пивной сет <small>сырные палочки, луковые кольца, суджук говяжий, фисташки, сыр чечил копчёный, чесночные гренки с сыром пармезан, соус сладкий чили</small><small class="volume">400/30 г</small></span><em>1 300 ₽</em></li>
+                <li><span>Мидии‑киви, запечённые в сырно‑сливочном соусе <small class="volume">200 г</small></span><em>980 ₽</em></li>
+                <li><span>Тигровые креветки «Фламбе» с чесноком и розмарином <small class="volume">150 г</small></span><em>1 500 ₽</em></li>
+                <li><span>Хрустящие морепродукты в панировке с белым чесночным соусом <small>тигровые креветки, мясо мидий, кальмар</small><small class="volume">170/30 г</small></span><em>1 250 ₽</em></li>
+                <li><span>Микс баварских колбас <small>баварские колбаски, соус красный, соус белый чесночный</small><small class="volume">500/30/30 г</small></span><em>1 250 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="soups" data-category="food">
+            <div class="menu-section">
+              <h3>Супы</h3>
+              <ul class="menu-list">
+                <li><span>Куриный бульон с птитимом и яйцом <small>куриный бульон, птитим, морковь, лук, зелень, курица филе, яйцо перепелиное</small><small class="volume">300 г</small></span><em>450 ₽</em></li>
+                <li><span>Борщ <small>подаётся с салом, зелёным луком, бородинским хлебом, сметаной</small><small class="volume">300 г</small></span><em>520 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Том Ям Кунг</span> <span class="icon icon-flame" aria-hidden="true"></span></span><small>креветка, кальмар, сёмга, шампиньоны, имбирь, сливки, кокосовое молоко, помидор черри, подаётся с рисом и лаймом</small><small class="volume">300 г</small></span><em>720 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="pasta" data-category="food">
+            <div class="menu-section">
+              <h3>Паста</h3>
+              <ul class="menu-list">
+                <li><span>Карбонара <small>спагетти, бекон, яйцо, сливки, сыр пармезан, черри</small><small class="volume">300 г</small></span><em>610 ₽</em></li>
+                <li><span>С морепродуктами <small>спагетти нери, сёмга, мидии, креветки, сливки, сыр пармезан, икра масаго, вяленые томаты, лимон</small><small class="volume">330 г</small></span><em>790 ₽</em></li>
+                <li><span>С курицей и грибами <small>феттуччине, курица, шампиньоны, сливки, сыр пармезан, черри</small><small class="volume">340 г</small></span><em>630 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="hot-mains" data-category="food">
+            <div class="menu-section">
+              <h3>Горячие основные блюда</h3>
+              <ul class="menu-list">
+                <li><span><span class="item-title"><span class="title-text">Стейк из сёмги с овощами‑гриль</span> <span class="icon icon-comet" aria-hidden="true"></span></span><small class="volume">180/150 г</small></span><em>1 680 ₽</em></li>
+                <li><span>Филе судака с рисом «Венера» в кокосовом молоке <small class="volume">180/150 г</small></span><em>720 ₽</em></li>
+                <li><span>Жаркое из свинины с овощами <small>картофельные дольки, свинина, помидоры, болгарский жёлтый перец, цукини, баклажан, зелёная фасоль, лук красный, зелень</small><small class="volume">350 г</small></span><em>710 ₽</em></li>
+                <li><span>Сковородка с курицей <small>курица филе, картофельные дольки, помидоры, перец болгарский жёлтый, цукини, баклажан, зелёная фасоль, лук зелёный свежий</small><small class="volume">350 г</small></span><em>680 ₽</em></li>
+                <li><span>Стейк из говядины <small>подаётся со спаржей, редисом, перцем чили и розмарином</small><small class="volume">весовое блюдо: за 100 г</small></span><em>850 ₽</em></li>
+                <li><span>Запечённая свинина‑гриль <small>подаётся со спаржей, редисом, перцем чили и розмарином</small><small class="volume">весовое блюдо: за 100 г</small></span><em>500 ₽</em></li>
+                <li><span>Куриное филе‑гриль <small>подаётся с миксом салата, помидорами черри, свежими огурцами, редисом и сливочно‑грибным соусом</small><small class="volume">150/80/30 г</small></span><em>480 ₽</em></li>
+                <li><span>Бефстроганов с картофельным пюре и грибным соусом с трюфельным маслом <small class="volume">150/150 г</small></span><em>850 ₽</em></li>
+                <li><span>Рёбра барбекю <small>подаются с квашеной капустой и маринованным красным луком</small><small class="volume">весовое блюдо: за 100 г</small></span><em>410 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Медальоны из телятины с птитимом и сливочным шпинатом</span> <span class="icon icon-crest" aria-hidden="true"></span></span><small class="volume">350 г</small></span><em>1 650 ₽</em></li>
+              </ul>
+            </div>
+
+            <div class="menu-section">
+              <h3>Бургеры</h3>
+              <ul class="menu-list">
+                <li><span>Чикен бургер <small>куриное филе, яйцо куриное, сыр Чеддер, лист салата, свежий помидор, свежий огурец, подаётся с картофелем фри и сырным соусом</small><small class="volume">600 г</small></span><em>720 ₽</em></li>
+                <li><span>Бургер с говядиной <small>говядина, бекон, яйцо куриное, сыр Чеддер, лист салата, свежий помидор, солёный огурец, подаётся с картофелем фри и соусом BBQ</small><small class="volume">600 г</small></span><em>800 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="sides" data-category="food">
+            <div class="menu-section">
+              <h3>Гарниры</h3>
+              <ul class="menu-list">
+                <li><span>Овощи гриль <small>шампиньоны, цукини, болгарский перец, помидор</small><small class="volume">200 г</small></span><em>520 ₽</em></li>
+                <li><span>Картофельные дольки <small class="volume">150 г</small></span><em>300 ₽</em></li>
+                <li><span>Картофель фри <small class="volume">150 г</small></span><em>300 ₽</em></li>
+                <li><span>Картофель жаренный по‑домашнему, с шампиньонами, луком и зеленью <small class="volume">200 г</small></span><em>300 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="sauces" data-category="food">
+            <div class="menu-section">
+              <h3>Соусы</h3>
+              <ul class="menu-list">
+                <li><span>Красный <small class="volume">50 г</small></span><em>110 ₽</em></li>
+                <li><span>Сырный <small class="volume">50 г</small></span><em>110 ₽</em></li>
+                <li><span>Белый‑чесночный <small class="volume">50 г</small></span><em>110 ₽</em></li>
+                <li><span>BBQ <small class="volume">50 г</small></span><em>110 ₽</em></li>
+                <li><span>Сладкий Чили <small class="volume">50 г</small></span><em>110 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="bread" data-category="food">
+            <div class="menu-section">
+              <h3>Хлеб</h3>
+              <ul class="menu-list">
+                <li><span>Булочка белая <small class="volume">1 шт.</small></span><em>60 ₽</em></li>
+                <li><span>Булочка ржаная <small class="volume">1 шт.</small></span><em>60 ₽</em></li>
+                <li><span>Булочка со злаками <small class="volume">1 шт.</small></span><em>60 ₽</em></li>
+                <li><span>Сырная булочка <small class="volume">1 шт.</small></span><em>60 ₽</em></li>
+                <li><span>Чиабатта <small class="volume">1 шт.</small></span><em>60 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="desserts" data-category="food">
+            <div class="menu-section">
+              <h3>Десерты</h3>
+              <ul class="menu-list">
+                <li><span>Сырники с соусом на выбор: сгущённое молоко, сметана, мёд <small class="volume">150/50 г</small></span><em>320 ₽</em></li>
+                <li><span>Наполеон <small class="volume">140 г</small></span><em>380 ₽</em></li>
+                <li><span>Медовик <small class="volume">120 г</small></span><em>350 ₽</em></li>
+                <li><span>Красный бархат <small class="volume">120 г</small></span><em>350 ₽</em></li>
+                <li><span>Чизкейк <small class="volume">120 г</small></span><em>380 ₽</em></li>
+              </ul>
+            </div>
+          </div>
+          <div class="menu-group" id="coffee-tea" data-category="drinks">
+            <div class="menu-section">
+              <h3>Кофе</h3>
+              <ul class="menu-list">
+              <li><span>Эспрессо <small class="volume">40 мл</small><small class="detail">sprint</small></span><em>200 ₽</em></li>
+              <li><span>Ристретто <small class="volume">20 мл</small></span><em>200 ₽</em></li>
+              <li><span>Допио <small class="volume">40 мл</small></span><em>250 ₽</em></li>
+              <li><span>Американо <small class="volume">150 мл</small></span><em>230 ₽</em></li>
+              <li><span>Капучино <small class="volume">200 мл</small><small class="detail">пена</small></span><em>300 ₽</em></li>
+              <li><span>Латте <small class="volume">200 мл</small></span><em>320 ₽</em></li>
+              <li><span>Флэт уайт <small class="volume">200 мл</small></span><em>350 ₽</em></li>
+              <li><span>Капучино Айс <small class="volume">200 мл</small></span><em>300 ₽</em></li>
+              <li><span>Кофе Фраппе <small class="volume">200 мл</small></span><em>330 ₽</em></li>
+              <li><span>Раф‑кофе <small class="volume">200 мл</small></span><em>300 ₽</em></li>
+              <li><span>Какао <small class="volume">200 мл</small></span><em>150 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Натуральные чаи</h3>
+              <ul class="menu-list">
+              <li><span>Малина‑Имбирь <small class="volume">400 мл</small><small class="detail">согревает</small></span><em>600 ₽</em></li>
+              <li><span>Тропический <small class="volume">400 мл</small></span><em>600 ₽</em></li>
+              <li><span>Тайский цветок <small class="volume">400 мл</small></span><em>600 ₽</em></li>
+              <li><span>Тодди <small class="volume">400 мл</small></span><em>600 ₽</em></li>
+              <li><span>Облепиховый чай <small class="volume">400 мл</small></span><em>600 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Листовые чаи</h3>
+              <ul class="menu-list">
+              <li><span>Ассам <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+              <li><span>Эрл Грей <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+              <li><span>Сенча <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+              <li><span>Молочный улонг <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+              <li><span>Цветок жасмина <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+              <li><span>Нахальный фрукт <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+              <li><span>Таёжный сбор <small class="volume">400 мл</small></span><em>450 ₽</em></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-col">
+          <div class="menu-group" id="beer" data-category="drinks">
+            <div class="menu-section">
+              <h3>Пиво разливное</h3>
+              <ul class="menu-list">
+              <li><span>Фирменное светлое <small class="detail">house</small><small class="volume">0,5 л</small></span><em>480 ₽</em></li>
+              <li><span>Фирменное светлое <small class="volume">0,3 л</small></span><em>500 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Пиво бутылочное</h3>
+              <ul class="menu-list">
+              <li><span>Бакалар б/а <small>в ассортименте</small><small class="volume">0,5 л</small></span><em>500 ₽</em></li>
+              <li><span>Корона Экстра светлое <small>в ассортименте</small><small class="volume">0,33 л</small></span><em>500 ₽</em></li>
+              <li><span>Гинесс тёмное <small>в ассортименте</small><small class="detail">кремовое</small><small class="volume">0,44 л</small></span><em>750 ₽</em></li>
+              <li><span>Бакалар премиум лагер светлое <small>в ассортименте</small><small class="volume">0,5 л</small></span><em>700 ₽</em></li>
+            </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="soft" data-category="drinks">
+            <div class="menu-section">
+              <h3>Прохладительные напитки</h3>
+              <ul class="menu-list">
+              <li><span>Компот <small>в ассортименте</small><small class="volume">0,25 л</small></span><em>125 ₽</em></li>
+              <li><span>Cola <small class="volume">330 мл</small></span><em>350 ₽</em></li>
+              <li><span>Добрый Апельсин <small class="volume">330 мл</small></span><em>220 ₽</em></li>
+              <li><span>Добрый Лимон‑лайм <small class="volume">330 мл</small></span><em>220 ₽</em></li>
+              <li><span>Tonic <small class="volume">330 мл</small></span><em>240 ₽</em></li>
+              <li><span>Аскания <small>негазированная</small><small class="volume">500 мл</small></span><em>350 ₽</em></li>
+              <li><span>Славяновская <small>газированная</small><small class="volume">500 мл</small></span><em>350 ₽</em></li>
+              <li><span>Джермук <small>газированная</small><small class="volume">500 мл</small></span><em>230 ₽</em></li>
+              <li><span>Боржоми <small>газированная</small><small class="volume">500 мл</small></span><em>400 ₽</em></li>
+              <li><span>Энергетический напиток <small class="volume">250 мл</small></span><em>380 ₽</em></li>
+              <li><span>Сок <small>в ассортименте</small><small class="volume">1 л</small></span><em>500 ₽</em></li>
+              <li><span>Сок <small>в ассортименте</small><small class="volume">0,25 л</small></span><em>125 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Фреши</h3>
+              <ul class="menu-list">
+              <li><span>Морковный <small class="volume">250 мл</small></span><em>300 ₽</em></li>
+              <li><span>Яблочный <small class="volume">250 мл</small></span><em>400 ₽</em></li>
+              <li><span>Апельсиновый <small class="volume">250 мл</small></span><em>400 ₽</em></li>
+              <li><span>Грейпфрутовый <small class="volume">250 мл</small></span><em>400 ₽</em></li>
+              <li><span>Ананасовый <small class="volume">250 мл</small></span><em>600 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Безалкогольные коктейли</h3>
+              <ul class="menu-list">
+              <li><span>Лимонад Малина‑Маракуйя <small class="volume">250 мл</small></span><em>450 ₽</em></li>
+              <li><span>Лимонад Цитрусовый <small class="volume">250 мл</small></span><em>450 ₽</em></li>
+              <li><span>Лимонад Базилик‑Клубника <small class="volume">250 мл</small></span><em>450 ₽</em></li>
+              <li><span>Мохито <small class="volume">250 мл</small></span><em>450 ₽</em></li>
+              <li><span>Молочный сливочный <small>с сиропом на выбор</small><small class="volume">250 мл</small></span><em>350 ₽</em></li>
+            </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="wine" data-category="drinks">
+            <div class="menu-section">
+              <h3>Игристые вина (Россия)</h3>
+              <ul class="menu-list">
+              <li><span>Шато Тамань Селект Блан <small>брют белое / розовое / белое полусладкое</small><small class="detail">ежедневно</small> <small class="volume">0,75 л</small></span><em>2 200 ₽</em></li>
+              <li><span>Абрау‑Дюрсо Виктор Дравиньи <small>белое брют / розе брют / белое полусладкое</small> <small class="volume">0,75 л</small></span><em>2 400 ₽</em></li>
+              <li><span>Мысхако <small>белое брют / белое полусладкое</small> <small class="volume">0,75 л</small></span><em>1 500 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Игристые вина (Италия)</h3>
+              <ul class="menu-list">
+              <li><span>Солиго Просекко Тревизо <small>белое брют</small> <small class="volume">0,75 л</small></span><em>3 300 ₽</em></li>
+              <li><span>Акелум Азоло Просекко Суперьоре <small>белое брют</small> <small class="volume">0,75 л</small></span><em>3 600 ₽</em></li>
+              <li><span>Мондоро Просекко <small class="volume">0,75 л</small></span><em>4 500 ₽</em></li>
+              <li><span>Мартини Просекко <small class="volume">0,75 л</small></span><em>4 500 ₽</em></li>
+              <li><span>Мондоро Асти <small class="volume">0,75 л</small></span><em>4 500 ₽</em></li>
+              <li><span>Мартини Асти <small class="volume">0,75 л</small></span><em>4 500 ₽</em></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-col">
+          <div class="menu-group" id="spirits" data-category="drinks">
+            <div class="menu-section">
+              <h3>Шампанское</h3>
+              <ul class="menu-list">
+              <li><span>Гамэ Рив Друа Блан де Нуар <small>брют шампань</small><small class="detail">select</small> <small class="volume">0,75 л</small></span><em>10 000 ₽</em></li>
+              <li><span>Николя Майяр Платине Премье Крю <small>брют шампань</small> <small class="volume">0,75 л</small></span><em>15 000 ₽</em></li>
+              <li><span>Моэт и Шандон Империаль <small>белое брют / розе брют</small> <small class="volume">0,75 л</small></span><em>19 000 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Тихие вина — Россия (Кубанские вина)</h3>
+              <ul class="menu-list">
+              <li><span>Абрау‑Дюрсо Эстейтс <small>красное сухое / белое сухое</small> <small class="volume">0,75 л / 250 мл</small></span><em>1 500 ₽ / 500 ₽</em></li>
+              <li><span>Раевское Парфюм Совиньон Блан <small>белое сухое</small> <small class="volume">0,75 л / 250 мл</small></span><em>2 400 ₽</em></li>
+              <li><span>Раевское Парфюм Руж <small>красное сухое</small> <small class="volume">0,75 л / 250 мл</small></span><em>2 400 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Тихие вина — Грузия</h3>
+              <ul class="menu-list">
+              <li><span>Киндзмараули <small>белое брют</small> <small class="volume">0,75 л / 250 мл</small></span><em>1 800 ₽ / 600 ₽</em></li>
+              <li><span>Алазанская долина <small>красное полусладкое / белое полусладкое</small> <small class="volume">0,75 л / 250 мл</small></span><em>1 650 ₽ / 550 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Тихие вина — Италия/Австрия/Чили/Испания</h3>
+              <ul class="menu-list">
+              <li><span>Пино Гриджио Альма Романо <small>белое полусухое</small> <small class="volume">0,75 л</small></span><em>1 800 ₽</em></li>
+              <li><span>Луизелла Пино Гриджио Делле Венеция <small>белое сухое</small> <small class="volume">0,75 л</small></span><em>2 100 ₽</em></li>
+              <li><span>Бодегас Тагуа‑Тагуа Шардоне <small>белое сухое</small> <small class="volume">0,75 л</small></span><em>2 100 ₽</em></li>
+              <li><span>Подджатико Кьянти <small>красное сухое</small> <small class="volume">0,75 л</small></span><em>2 600 ₽</em></li>
+              <li><span>Хенингер Ребенхоф Рислинг Кремсталь <small class="volume">0,75 л</small></span><em>2 800 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Ликёры</h3>
+              <ul class="menu-list">
+              <li><span>Ягермайстер <small class="volume">50 мл</small></span><em>550 ₽</em></li>
+              <li><span>Самбука <small class="volume">50 мл</small></span><em>420 ₽</em></li>
+              <li><span>Абсент <small class="volume">50 мл</small></span><em>550 ₽</em></li>
+              <li><span>Лимончелло <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Аперитив</h3>
+              <ul class="menu-list">
+              <li><span>Апероль <small class="volume">50 мл</small></span><em>360 ₽</em></li>
+              <li><span>Кампари <small class="volume">50 мл</small></span><em>360 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Вермут</h3>
+              <ul class="menu-list">
+              <li><span>Мартини Бьянко <small class="volume">50 мл</small></span><em>200 ₽</em></li>
+              <li><span>Мартини Фиеро <small class="volume">50 мл</small></span><em>200 ₽</em></li>
+              <li><span>Мартини Россо <small class="volume">50 мл</small></span><em>200 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Бурбон</h3>
+              <ul class="menu-list">
+              <li><span>Джим Бим <small class="volume">50 мл</small></span><em>510 ₽</em></li>
+              <li><span>Джим Бим Ред Стаг Черри <small class="volume">50 мл</small></span><em>540 ₽</em></li>
+              <li><span>Джим Бим Эпл <small class="volume">50 мл</small></span><em>540 ₽</em></li>
+              <li><span>Джек Дениелс Теннесси <small class="volume">50 мл</small></span><em>650 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Виски шотландский</h3>
+              <ul class="menu-list">
+              <li><span>Баллантайнс Файнест <small class="volume">купажированный, 50 мл</small></span><em>550 ₽</em></li>
+              <li><span>Броллахан <small class="volume">купажированный, 50 мл</small></span><em>450 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Виски шотландский</h3>
+              <ul class="menu-list">
+              <li><span>Макаллан 12 лет <small class="volume">односолодовый, 50 мл</small></span><em>2 500 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Текила</h3>
+              <ul class="menu-list">
+              <li><span>Ольмека Серебро <small class="volume">50 мл</small></span><em>550 ₽</em></li>
+              <li><span>Курадо <small>Эспадин / Купреата / Бланка (100% блю агавы)</small> <small class="volume">50 мл</small></span><em>750 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Виски ирландский</h3>
+              <ul class="menu-list">
+              <li><span>Грейс О'Мэлли <small class="volume">купажированный, 50 мл</small></span><em>430 ₽</em></li>
+              <li><span>Джемесон <small class="volume">купажированный, 50 мл</small></span><em>650 ₽</em></li>
+              <li><span>Гроган <small class="volume">купажированный, 50 мл</small></span><em>350 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Виски Японии</h3>
+              <ul class="menu-list">
+              <li><span>Якусун <small>Классик / Юдзу / Маракуйя</small> <small class="volume">50 мл</small></span><em>380 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Бренди</h3>
+              <ul class="menu-list">
+              <li><span>Бодуэн VS <small class="volume">Армения, 50 мл</small></span><em>300 ₽</em></li>
+              <li><span>Бодуэн VSOP <small class="volume">Армения, 50 мл</small></span><em>330 ₽</em></li>
+              <li><span>Арарат 3 года <small class="volume">Армения, 50 мл</small></span><em>450 ₽</em></li>
+              <li><span>Арарат 5 лет <small class="volume">Армения, 50 мл</small></span><em>580 ₽</em></li>
+              <li><span>Арарат Абрикос <small class="volume">Армения, 50 мл</small></span><em>420 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Коньяк</h3>
+              <ul class="menu-list">
+              <li><span>Пьер Дебе VS <small class="volume">50 мл</small></span><em>620 ₽</em></li>
+              <li><span>Пьер Дебе VSOP <small class="volume">50 мл</small></span><em>800 ₽</em></li>
+              <li><span>Курвуазье VS <small class="volume">50 мл</small></span><em>990 ₽</em></li>
+              <li><span>Курвуазье VSOP <small class="volume">50 мл</small></span><em>1 300 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Водка</h3>
+              <ul class="menu-list">
+              <li><span>Белая Березка <small class="volume">Россия, 50 мл</small></span><em>310 ₽</em></li>
+              <li><span>Царская <small class="volume">Россия, 50 мл</small></span><em>330 ₽</em></li>
+              <li><span>Оригинальная / Смородина / Лимон <small class="volume">Россия, 50 мл</small></span><em>330 ₽</em></li>
+              <li><span>Белуга Нобл <small class="volume">Россия, 50 мл</small></span><em>450 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Органик‑водка</h3>
+              <ul class="menu-list">
+              <li><span>Чистые Росы <small class="volume">50 мл</small></span><em>550 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Импорт</h3>
+              <ul class="menu-list">
+              <li><span>Абсолют оригинальная <small class="volume">50 мл</small></span><em>380 ₽</em></li>
+              <li><span>Монблан <small class="volume">50 мл</small></span><em>550 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Ром кубинский</h3>
+              <ul class="menu-list">
+              <li><span>Каминанте чёрный спайсед <small class="volume">50 мл</small></span><em>300 ₽</em></li>
+              <li><span>Каминанте белый <small class="volume">50 мл</small></span><em>300 ₽</em></li>
+              <li><span>Гавана Клуб Аньехо 3 года <small>белый</small> <small class="volume">50 мл</small></span><em>410 ₽</em></li>
+              <li><span>Бич Хаус Белый Спайсед <small>белый</small> <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+              <li><span>Бич Хаус Голд Спайсед <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Настойки</h3>
+              <ul class="menu-list">
+              <li><span>Вишневая <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+              <li><span>Чернично‑йогуртовая <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+              <li><span>Хреновуха <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+              <li><span>Банановая <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+              <li><span>Шоколадная <small class="volume">50 мл</small></span><em>400 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Сет настоек от бармена</h3>
+              <ul class="menu-list">
+              <li><span>6 + 1</span><em>2 400 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Джин</h3>
+              <ul class="menu-list">
+              <li><span>Цитадель <small class="volume">50 мл</small></span><em>650 ₽</em></li>
+              <li><span>Амаззони Маниуара <small class="volume">50 мл</small></span><em>470 ₽</em></li>
+              <li><span>Амаззони Рио Негро <small class="volume">50 мл</small></span><em>580 ₽</em></li>
+            </ul>
+            </div>
+          </div>
+
+          <div class="menu-group" id="cocktails" data-category="cocktails">
+            <div class="menu-section">
+              <h3>Авторские коктейли</h3>
+              <ul class="menu-list">
+              <li><span>Martini Fiero &amp; Tonic <small class="volume">250 мл</small></span><em>550 ₽</em></li>
+              <li><span>Тропический джин‑тоник <small class="volume">250 мл</small></span><em>550 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Слезы бывшего</span> <span class="icon icon-moon" aria-hidden="true"></span></span><small class="volume">250 мл</small></span><em>700 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Гранатовый шприц</span> <span class="icon icon-garnet" aria-hidden="true"></span></span><small class="volume">250 мл</small></span><em>700 ₽</em></li>
+              <li><span>Северное сияние <small class="volume">250 мл</small></span><em>700 ₽</em></li>
+              <li><span>Два кактуса <small class="volume">200 мл</small></span><em>700 ₽</em></li>
+              <li><span>Ромовая Баба <small class="volume">170 мл</small></span><em>700 ₽</em></li>
+              <li><span>Ежевичный стронг <small class="volume">100 мл</small></span><em>700 ₽</em></li>
+              <li><span>На основе ликёров <small class="volume">250 мл</small></span><em>550 ₽</em></li>
+              <li><span>На основе джина <small class="volume">250 мл</small></span><em>700 ₽</em></li>
+              <li><span>На основе виски <small class="volume">100 мл</small></span><em>700 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Классика</h3>
+              <ul class="menu-list">
+              <li><span>Апероль Спритц <small class="volume">250 мл</small></span><em>700 ₽</em></li>
+              <li><span>Мохито <small class="volume">250 мл</small></span><em>600 ₽</em></li>
+                <li><span><span class="item-title"><span class="title-text">Негрони</span> <span class="icon icon-infinity" aria-hidden="true"></span></span><small class="volume">200 мл</small><small class="detail">классика</small></span><em>600 ₽</em></li>
+              <li><span>Дайкири <small class="volume">200 мл</small></span><em>600 ₽</em></li>
+              <li><span>Лонг Айленд Айс Ти <small class="volume">300 мл</small></span><em>850 ₽</em></li>
+              <li><span>Белый русский <small class="volume">90 мл</small></span><em>600 ₽</em></li>
+              <li><span>Клубничный <small class="volume">200 мл</small></span><em>600 ₽</em></li>
+              <li><span>Виски Сауэр <small class="volume">170 мл</small><small class="detail">шелковистый</small></span><em>650 ₽</em></li>
+            </ul>
+            </div>
+            <div class="menu-section">
+              <h3>Коктейли‑shot</h3>
+              <ul class="menu-list">
+              <li><span>Б‑52 <small class="volume">60 мл</small></span><em>550 ₽</em></li>
+              <li><span>Б‑53 <small class="volume">60 мл</small></span><em>550 ₽</em></li>
+              <li><span>Хиросима <small class="volume">60 мл</small></span><em>600 ₽</em></li>
+              <li><span>Российский флаг <small class="volume">60 мл</small></span><em>550 ₽</em></li>
+              <li><span>Сет №1 <small>6 шотов</small></span><em>2 500 ₽</em></li>
+              <li><span>Сет №2 <small>6 шотов</small></span><em>2 500 ₽</em></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="hero-slider-block" aria-label="Слайдер коктейлей">
+    <div class="hero-slider">
+      <div class="slider-track">
+        <article class="cocktail-card">
+          <div class="card-media">Фото коктейля</div>
+          <h2>Martini Fiero &amp; Tonic</h2>
+          <p class="card-desc">Яркий цитрус, искры тоника и лёгкая пряность — старт вечера с первого глотка.</p>
+          <div class="card-meta">
+            <span class="volume">250 мл</span>
+            <span class="price">550 ₽</span>
+          </div>
+        </article>
+        <article class="cocktail-card">
+          <div class="card-media">Фото коктейля</div>
+          <h2>Тропический джин‑тоник</h2>
+          <p class="card-desc">Сочный тропик, прохлада и свежесть — вкус, который хочется повторить.</p>
+          <div class="card-meta">
+            <span class="volume">250 мл</span>
+            <span class="price">550 ₽</span>
+          </div>
+        </article>
+        <article class="cocktail-card">
+          <div class="card-media">Фото коктейля</div>
+          <h2>Слезы бывшего</h2>
+          <p class="card-desc">Нежный, дерзкий и чуть сладкий — оставляет приятное послевкусие победы.</p>
+          <div class="card-meta">
+            <span class="volume">250 мл</span>
+            <span class="price">700 ₽</span>
+          </div>
+        </article>
+        <article class="cocktail-card">
+          <div class="card-media">Фото коктейля</div>
+          <h2>Гранатовый шприц</h2>
+          <p class="card-desc">Рубиновый блеск, игристая свежесть и магия граната — идеален для фото и вкуса.</p>
+          <div class="card-meta">
+            <span class="volume">250 мл</span>
+            <span class="price">700 ₽</span>
+          </div>
+        </article>
+        <article class="cocktail-card">
+          <div class="card-media">Фото коктейля</div>
+          <h2>Северное сияние</h2>
+          <p class="card-desc">Холодная искра и мягкая сладость — напиток, который зажигает настроение.</p>
+          <div class="card-meta">
+            <span class="volume">250 мл</span>
+            <span class="price">700 ₽</span>
+          </div>
+        </article>
+        <article class="cocktail-card">
+          <div class="card-media">Фото коктейля</div>
+          <h2>Негрони</h2>
+          <p class="card-desc">Глубокий, бархатный и уверенный — классика с характером.</p>
+          <div class="card-meta">
+            <span class="volume">200 мл</span>
+            <span class="price">600 ₽</span>
+          </div>
+        </article>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-btn" type="button" data-dir="prev" aria-label="Предыдущий коктейль">‹</button>
+        <div class="slider-dots" role="tablist" aria-label="Выбор коктейля"></div>
+        <button class="slider-btn" type="button" data-dir="next" aria-label="Следующий коктейль">›</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="menu-toggle" aria-label="Переключатель меню">
+    <button class="toggle-pill is-active" type="button" data-filter="food">Еда</button>
+    <button class="toggle-pill" type="button" data-filter="drinks">Напитки</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

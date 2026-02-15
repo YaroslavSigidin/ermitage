@@ -1,0 +1,11 @@
+{
+  "name": "Timeweb",
+  "protocol": "ftp",
+  "host": "ВАШ_ЛОГИН.timeweb.ru",
+  "port": 21,
+  "username": "ВАШ_FTP_ЛОГИН",
+  "password": "ВАШ_ПАРОЛЬ",
+  "remotePath": "/public_html",
+  "uploadOnSave": true,
+  "ignore": [".vscode", ".git", "DEPLOY.md", "*.md"]
+}
