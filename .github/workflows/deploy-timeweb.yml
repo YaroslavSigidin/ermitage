@@ -1,0 +1,30 @@
+# Автодеплой на Timeweb при каждом пуше в main
+name: Deploy to Timeweb
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Загрузка репозитория
+        uses: actions/checkout@v4
+
+      - name: Деплой на Timeweb по FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: ./
+          server-dir: ./
+          exclude: |
+            .git/
+            .github/
+            .vscode/
+            *.md
+            .gitignore
