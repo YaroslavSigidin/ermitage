@@ -1,4 +1,4 @@
-# Автодеплой на Timeweb при каждом пуше в main
+# Автодеплой на Timeweb по SFTP при каждом пуше в main
 name: Deploy to Timeweb
 
 on:
@@ -12,19 +12,16 @@ jobs:
       - name: Загрузка репозитория
         uses: actions/checkout@v4
 
-      - name: Деплой на Timeweb по FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Деплой на Timeweb по SFTP
+        uses: sand4rt/ftp-deployer@v1.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          sftp: true
+          host: ${{ secrets.FTP_SERVER }}
+          port: 22
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: ./
-          server-dir: ./
-          exclude: |
-            .git/
-            .github/
-            .vscode/
-            *.md
-            .gitignore
+          remote_folder: ./
+          local_folder: .
+          cleanup: false
+          include: '[ "*", "**/*" ]'
+          exclude: '[".git/**", ".github/**", ".vscode/**", "*.md", ".gitignore"]'
