@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Проверка подключения</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #eee;
+      padding: 20px;
+    }
+    .card {
+      max-width: 480px;
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+    }
+    h1 { margin: 0 0 8px; font-size: 1.5rem; }
+    .status {
+      font-size: 3rem;
+      margin: 16px 0;
+      line-height: 1;
+    }
+    .ok { color: #4ade80; }
+    .url, .host {
+      margin: 12px 0;
+      padding: 12px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      word-break: break-all;
+      font-size: 0.9rem;
+    }
+    .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 4px; }
+    ul {
+      text-align: left;
+      margin: 24px 0 0;
+      padding-left: 20px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Проверка подключения</h1>
+    <p style="color:#94a3b8; margin:0;">Домен → Timeweb</p>
+
+    <div class="status ok" id="status">✓</div>
+    <p id="message">Сайт открыт с сервера. Подключение настроено правильно.</p>
+
+    <div class="label">Сейчас вы открыли:</div>
+    <div class="url" id="url"></div>
+
+    <div class="label">Домен (хост):</div>
+    <div class="host" id="host"></div>
+
+    <ul>
+      <li>Если выше виден <strong>ваш домен</strong> — DNS в Reg.ru настроен верно.</li>
+      <li>Если страница открылась — файлы с Timeweb отдаются правильно.</li>
+      <li>Ссылка на меню: <a href="index.html">index.html</a></li>
+    </ul>
+  </div>
+  <script>
+    document.getElementById('url').textContent = window.location.href;
+    document.getElementById('host').textContent = window.location.hostname;
+  </script>
+</body>
+</html>
