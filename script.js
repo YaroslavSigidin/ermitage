@@ -553,7 +553,11 @@ var searchInitialized = false;
 function runInitSearchOnce() {
   if (searchInitialized) return;
   searchInitialized = true;
-  initSearch();
+  try {
+    initSearch();
+  } catch (e) {
+    // Не ломаем страницу: фото и слайдер должны подгрузиться
+  }
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', runInitSearchOnce);
