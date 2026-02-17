@@ -195,43 +195,39 @@ body::after {
   height: 280px;
   z-index: 0;
   pointer-events: none;
-  filter: drop-shadow(0 0 24px rgba(216, 179, 116, 0.2));
-  animation: soundBreath 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(216, 179, 116, 0.15));
+  animation: soundBreath 6s ease-in-out infinite;
 }
 
 @keyframes soundBreath {
-  0%, 100% { opacity: 0.85; transform: translateY(-50%) scale(1); }
-  50% { opacity: 1; transform: translateY(-50%) scale(1.02); }
+  0%, 100% { opacity: 0.9; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.01); }
 }
 
-/* Плавное «перетекание» волн — как живой звуковой сигнал */
+/* Плавное «дыхание» волн без обрыва — только opacity, без скачков */
 .hero-sound .sound-wave {
-  stroke-dasharray: 800 800;
-  animation: soundWaveFlow 8s linear infinite;
+  opacity: 0.9;
+  animation: soundWaveSoft 5s ease-in-out infinite;
 }
 
 .hero-sound .sound-wave-2 {
-  stroke-dasharray: 600 600;
   animation-duration: 6s;
-  animation-direction: reverse;
+  animation-delay: 0.5s;
 }
 
 .hero-sound .sound-wave-3 {
-  stroke-dasharray: 1000 1000;
-  animation-duration: 10s;
-  animation-delay: -2s;
+  animation-duration: 5.5s;
+  animation-delay: 1s;
 }
 
 .hero-sound .sound-wave-4 {
-  stroke-dasharray: 700 700;
-  animation-duration: 7s;
-  animation-direction: reverse;
-  animation-delay: -1s;
+  animation-duration: 6.5s;
+  animation-delay: 0.25s;
 }
 
-@keyframes soundWaveFlow {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: -1600; }
+@keyframes soundWaveSoft {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 .hero-slider {
@@ -464,7 +460,7 @@ body::after {
 
 .logo {
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: 30px;
+  font-size: 90px;
   letter-spacing: 1.6px;
   color: var(--gold);
 }
@@ -479,9 +475,10 @@ body::after {
 
 h1 {
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: clamp(48px, 14vw, 70px);
+  font-size: clamp(72px, 18vw, 140px);
   margin-bottom: 8px;
   letter-spacing: 2px;
+  white-space: nowrap;
   background: linear-gradient(120deg, #fff3df, #e3c18b, #ffd1a8);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1360,8 +1357,12 @@ section {
     display: none;
   }
 
+  .hero .logo {
+    font-size: clamp(72px, 10vw, 90px);
+  }
+
   .hero h1 {
-    font-size: clamp(42px, 6.2vw, 64px);
+    font-size: clamp(72px, 11vw, 140px);
     white-space: nowrap;
   }
 }
