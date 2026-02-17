@@ -352,7 +352,7 @@ function initSearch() {
 
   let searchIndexCache = null;
   const buildSearchIndex = () => {
-    if (searchIndexCache) return searchIndexCache;
+    if (searchIndexCache && searchIndexCache.length > 0) return searchIndexCache;
     const rows = document.querySelectorAll('.menu-list li');
     const rowEntries = Array.from(rows).map((row) => {
       const title = getMenuItemTitle(row) || row.querySelector(':scope > span')?.textContent || '';
@@ -375,8 +375,9 @@ function initSearch() {
       searchText: `${section.id || ''} ${section.textContent || ''}`,
       element: section
     }));
-    searchIndexCache = [...rowEntries, ...sectionEntries];
-    return searchIndexCache;
+    const index = [...rowEntries, ...sectionEntries];
+    if (index.length > 0) searchIndexCache = index;
+    return index;
   };
 
   const matchSearch = (query) => {
