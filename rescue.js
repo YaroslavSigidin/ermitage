@@ -60,6 +60,15 @@
     return null;
   }
 
+  function closestEl(el, selector) {
+    var node = el;
+    while (node && node.nodeType === 1) {
+      if (node.matches && node.matches(selector)) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
   function getTitle(row) {
     var titleNode = row.querySelector('.item-title .title-text');
     if (titleNode && titleNode.textContent) return titleNode.textContent.trim();
@@ -142,24 +151,220 @@
     }
   }
 
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = String(text || '');
+    return div.innerHTML;
+  }
+
+  function getSearchIndex() {
+    var index = [];
+    var rows = document.querySelectorAll('.menu-list li');
+    for (var i = 0; i < rows.length; i += 1) {
+      var row = rows[i];
+      var title = getTitle(row) || String(row.textContent || '').trim();
+      var sectionWrap = closestEl(row, '.menu-group, .menu-section');
+      var h = sectionWrap ? sectionWrap.querySelector('h3') : null;
+      var section = h ? String(h.textContent || '').trim() : 'Блюдо';
+      index.push({
+        type: 'row',
+        label: title,
+        meta: section,
+        text: normalize(title + ' ' + row.textContent + ' ' + section),
+        element: row
+      });
+    }
+
+    var sections = document.querySelectorAll('.menu-group[id], .menu-section');
+    for (var j = 0; j < sections.length; j += 1) {
+      var s = sections[j];
+      var hs = s.querySelector('h3');
+      var label = hs ? String(hs.textContent || '').trim() : (s.id || 'Раздел');
+      index.push({
+        type: 'section',
+        label: label,
+        meta: 'Раздел',
+        text: normalize((s.id || '') + ' ' + label + ' ' + (s.textContent || '')),
+        element: s
+      });
+    }
+    return index;
+  }
+
+  function findMatches(query, limit) {
+    var q = normalize(query);
+    if (!q) return [];
+    var list = getSearchIndex();
+    var matches = [];
+    for (var i = 0; i < list.length; i += 1) {
+      var item = list[i];
+      if (item.text.indexOf(q) !== -1 || normalize(item.label).indexOf(q) !== -1) {
+        matches.push(item);
+      }
+    }
+    matches.sort(function (a, b) {
+      var an = normalize(a.label);
+      var bn = normalize(b.label);
+      var as = an.indexOf(q) === 0 ? 1 : 0;
+      var bs = bn.indexOf(q) === 0 ? 1 : 0;
+      if (as !== bs) return bs - as;
+      return an.length - bn.length;
+    });
+    return matches.slice(0, limit || 8);
+  }
+
   function bindSearch() {
     if (window.__rescueSearchBound) return;
+    if (window.__richSearchReady) return;
     var input = document.querySelector('.menu-search input[name="q"], input[name="q"]');
     if (!input) return;
-    var form = input.form || input.closest('form');
+    var form = input.form || closestEl(input, 'form');
     if (!form) return;
 
     window.__rescueSearchBound = true;
+    var activeIndex = -1;
+    var matches = [];
+    var closeTimer = 0;
+    var suggest = document.createElement('div');
+    suggest.className = 'menu-search-suggest';
+    suggest.setAttribute('role', 'listbox');
+    suggest.setAttribute('aria-label', 'Подсказки поиска');
+    document.body.appendChild(suggest);
+
+    function setActive(index) {
+      activeIndex = index;
+      var items = suggest.querySelectorAll('.menu-search-item[data-index]');
+      for (var i = 0; i < items.length; i += 1) {
+        if (i === index) items[i].classList.add('is-active');
+        else items[i].classList.remove('is-active');
+      }
+    }
+
+    function positionSuggest() {
+      var rect = input.getBoundingClientRect();
+      suggest.style.position = 'fixed';
+      suggest.style.left = rect.left + 'px';
+      suggest.style.top = (rect.bottom + 8) + 'px';
+      suggest.style.width = Math.max(rect.width, 280) + 'px';
+    }
+
+    function closeSuggest() {
+      suggest.classList.remove('is-open');
+      suggest.innerHTML = '';
+      matches = [];
+      activeIndex = -1;
+    }
+
+    function choose(item) {
+      if (!item || !item.element) return;
+      input.value = item.label || input.value;
+      scrollToElement(item.element);
+      if (item.type === 'row') markHit(item.element);
+      closeSuggest();
+    }
+
+    function renderSuggest(value) {
+      var q = String(value || '').trim();
+      if (!q) {
+        closeSuggest();
+        return;
+      }
+
+      matches = findMatches(q, 8);
+      if (matches.length === 0) {
+        suggest.innerHTML = '<div class="menu-search-item menu-search-empty">Ничего не найдено</div>';
+        positionSuggest();
+        suggest.classList.add('is-open');
+        activeIndex = -1;
+        return;
+      }
+
+      var html = '';
+      for (var i = 0; i < matches.length; i += 1) {
+        html += '<button type="button" class="menu-search-item' + (i === 0 ? ' is-active' : '') + '" data-index="' + i + '">';
+        html += '<span class="menu-search-item-title">' + escapeHtml(matches[i].label) + '</span>';
+        html += '<span class="menu-search-item-meta">' + escapeHtml(matches[i].meta || '') + '</span>';
+        html += '</button>';
+      }
+      suggest.innerHTML = html;
+      activeIndex = 0;
+      positionSuggest();
+      suggest.classList.add('is-open');
+    }
+
+    function submitWithSuggest() {
+      if (matches.length > 0) {
+        var idx = activeIndex >= 0 ? activeIndex : 0;
+        choose(matches[idx]);
+        return;
+      }
+      runSearch(input);
+    }
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
-      runSearch(input);
+      submitWithSuggest();
     });
 
     input.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (!suggest.classList.contains('is-open')) renderSuggest(input.value);
+        if (matches.length > 0) setActive(Math.min(activeIndex + 1, matches.length - 1));
+        return;
+      }
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!suggest.classList.contains('is-open')) renderSuggest(input.value);
+        if (matches.length > 0) setActive(Math.max(activeIndex - 1, 0));
+        return;
+      }
+      if (event.key === 'Escape') {
+        closeSuggest();
+        return;
+      }
       if (event.key !== 'Enter') return;
       event.preventDefault();
-      runSearch(input);
+      submitWithSuggest();
+    });
+
+    input.addEventListener('input', function () {
+      if (closeTimer) {
+        window.clearTimeout(closeTimer);
+        closeTimer = 0;
+      }
+      renderSuggest(input.value);
+    });
+
+    input.addEventListener('focus', function () {
+      renderSuggest(input.value);
+    });
+
+    input.addEventListener('blur', function () {
+      closeTimer = window.setTimeout(function () {
+        closeSuggest();
+      }, 180);
+    });
+
+    window.addEventListener('resize', function () {
+      if (suggest.classList.contains('is-open')) positionSuggest();
+    });
+
+    window.addEventListener('scroll', function () {
+      if (suggest.classList.contains('is-open')) positionSuggest();
+    }, { passive: true });
+
+    suggest.addEventListener('mousedown', function (event) {
+      event.preventDefault();
+    });
+
+    suggest.addEventListener('click', function (event) {
+      var btn = closestEl(event.target, '.menu-search-item[data-index]');
+      if (!btn) return;
+      var idx = Number(btn.getAttribute('data-index'));
+      if (isNaN(idx) || idx < 0 || idx >= matches.length) return;
+      setActive(idx);
+      choose(matches[idx]);
     });
   }
 
