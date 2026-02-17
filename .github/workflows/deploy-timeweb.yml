@@ -1,5 +1,6 @@
-# Автодеплой на Timeweb по SFTP при каждом пуше в main
-name: Deploy to Timeweb
+# Автодеплой на Timeweb (VPS) при каждом пуше в main.
+# Механика: GitHub Actions по SSH заходит на сервер и делает git pull в /var/www/ermitage
+name: Deploy to Timeweb (SSH)
 
 on:
   push:
@@ -9,29 +10,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Загрузка репозитория
-        uses: actions/checkout@v4
-
-      - name: Деплой на Timeweb по SFTP
-        uses: sand4rt/ftp-deployer@v1.4
+      - name: Обновить сайт на сервере (git pull)
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          sftp: true
-          host: ${{ secrets.FTP_SERVER }}
-          port: 22
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          remote_folder: public_html/
-          local_folder: .
-          cleanup: false
-          include: '[ "*", "**/*" ]'
-          exclude: '[".git/**", ".github/**", ".vscode/**", "*.md", ".gitignore"]'
-
-      - name: Проверка содержимого на сервере
-        continue-on-error: true
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          apt-get update -qq && apt-get install -qq -y sshpass openssh-client > /dev/null
-          echo -e "pwd\nls -la\nbye" | sshpass -p "$FTP_PASSWORD" sftp -o StrictHostKeyChecking=no -P 22 -b - "$FTP_USERNAME@$FTP_SERVER" 2>/dev/null || true
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+            cd /var/www/ermitage
+            git fetch --all
+            git reset --hard origin/main
+            sudo nginx -t
+            sudo systemctl reload nginx
