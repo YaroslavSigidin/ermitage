@@ -318,6 +318,7 @@ function initSearch() {
 
   const positionSuggest = () => {
     const rect = searchInput.getBoundingClientRect();
+    if (rect.width <= 0) return;
     suggestBox.style.position = 'fixed';
     suggestBox.style.left = rect.left + 'px';
     suggestBox.style.top = (rect.bottom + 8) + 'px';
@@ -345,9 +346,9 @@ function initSearch() {
     window.setTimeout(() => row.classList.remove('search-hit'), 1300);
   };
 
-  const splitTokens = (value) => normalizeLabel(value).split(' ').filter(Boolean);
-
+  let searchIndexCache = null;
   const buildSearchIndex = () => {
+    if (searchIndexCache) return searchIndexCache;
     const rows = document.querySelectorAll('.menu-list li');
     const rowEntries = Array.from(rows).map((row) => {
       const title = getMenuItemTitle(row) || row.querySelector(':scope > span')?.textContent || '';
@@ -362,44 +363,36 @@ function initSearch() {
         element: row
       };
     });
-
-    const sectionEls = sections.length > 0 ? sections : Array.from(document.querySelectorAll('.menu-group[id]'));
-    const sectionEntries = sectionEls.map((section) => ({
+    const sectionEls = document.querySelectorAll('.menu-group[id]');
+    const sectionEntries = Array.from(sectionEls).map((section) => ({
       type: 'section',
       label: section.querySelector('h3')?.textContent?.trim() || section.id || '',
       secondary: 'Раздел',
       searchText: `${section.id || ''} ${section.textContent || ''}`,
       element: section
     }));
-
-    return [...rowEntries, ...sectionEntries];
+    searchIndexCache = [...rowEntries, ...sectionEntries];
+    return searchIndexCache;
   };
 
-  const scoreEntry = (entry, rawQuery) => {
-    const query = normalizeLabel(rawQuery);
-    if (!query) return -1;
-    const tokens = splitTokens(query);
-    const label = normalizeLabel(String(entry.label || ''));
-    const text = normalizeLabel(String(entry.searchText || ''));
-
-    let score = 0;
-    if (label === query) score += 1200;
-    else if (label.startsWith(query)) score += 900;
-    else if (text.includes(query)) score += 400;
-
-    const labelTokens = splitTokens(label);
-    let tokenPenalty = 0;
-    tokens.forEach((token) => {
-      if (token.length === 0) return;
-      if (labelTokens.some((t) => t.startsWith(token) || t.includes(token))) score += 180;
-      else if (text.includes(token)) score += 90;
-      else tokenPenalty += 80;
+  const matchSearch = (query) => {
+    const q = normalizeLabel(query);
+    if (!q) return [];
+    const index = buildSearchIndex();
+    const matched = index.filter((entry) => {
+      const text = normalizeLabel(String(entry.searchText || ''));
+      const label = normalizeLabel(String(entry.label || ''));
+      return text.includes(q) || label.includes(q);
     });
-    score -= tokenPenalty;
-
-    if (entry.type === 'row') score += 30;
-    if (score < 0) return -1;
-    return score;
+    matched.sort((a, b) => {
+      const aLabel = normalizeLabel(String(a.label || ''));
+      const bLabel = normalizeLabel(String(b.label || ''));
+      const aStarts = aLabel.startsWith(q) ? 1 : 0;
+      const bStarts = bLabel.startsWith(q) ? 1 : 0;
+      if (bStarts !== aStarts) return bStarts - aStarts;
+      return aLabel.length - bLabel.length;
+    });
+    return matched.slice(0, 8);
   };
 
   const hideSuggest = () => {
@@ -430,33 +423,22 @@ function initSearch() {
 
   const renderSuggest = (query) => {
     const raw = String(query || '').trim();
-    const normalized = normalizeLabel(raw);
     if (!raw) {
       hideSuggest();
       return;
     }
-
-    let allEntries = [];
     try {
-      allEntries = buildSearchIndex();
+      searchResults = matchSearch(raw);
     } catch (e) {
       hideSuggest();
       return;
     }
-    const ranked = allEntries
-      .map((entry) => ({ entry, score: scoreEntry(entry, normalized || raw.toLowerCase()) }))
-      .filter((item) => item.score >= 0)
-      .sort((a, b) => b.score - a.score || a.entry.label.length - b.entry.label.length)
-      .slice(0, 8);
-
-    searchResults = ranked.map((item) => item.entry);
     if (searchResults.length === 0) {
-      suggestBox.innerHTML = `<div class="menu-search-item menu-search-empty">Ничего не найдено</div>`;
+      suggestBox.innerHTML = '<div class="menu-search-item menu-search-empty">Ничего не найдено</div>';
       positionSuggest();
       suggestBox.classList.add('is-open');
       return;
     }
-
     suggestBox.innerHTML = searchResults
       .map(
         (entry, i) =>
