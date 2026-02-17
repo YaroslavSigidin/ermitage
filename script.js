@@ -558,6 +558,53 @@ function initSearch() {
       hideSuggest();
     }
   });
+
+  window.__richSearchReady = true;
+}
+
+function initSearchFallback() {
+  const input = document.querySelector('.menu-search input[name="q"], input[name="q"]');
+  if (!input || input.dataset.searchFallbackBound === '1') return;
+  input.dataset.searchFallbackBound = '1';
+
+  const form = input.closest('form');
+  if (!form) return;
+
+  const scrollToWithOffset = (element) => {
+    if (!element || !element.getBoundingClientRect) return;
+    const nav = document.querySelector('.menu-nav');
+    const isMobile = window.matchMedia('(max-width: 720px)').matches;
+    const offset = isMobile ? 14 : (nav?.offsetHeight || 0) + 18;
+    const rect = element.getBoundingClientRect();
+    const top = Math.max(rect.top + window.scrollY - offset, 0);
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  const runFallbackSearch = () => {
+    const q = normalizeLabel(input.value || '');
+    if (!q) return;
+
+    const rows = Array.from(document.querySelectorAll('.menu-list li'));
+    const hitRow = rows.find((row) => normalizeLabel(row.textContent || '').includes(q));
+    if (hitRow) {
+      scrollToWithOffset(hitRow);
+      hitRow.classList.add('search-hit');
+      window.setTimeout(() => hitRow.classList.remove('search-hit'), 1300);
+      return;
+    }
+
+    const sections = Array.from(document.querySelectorAll('.menu-group[id], .menu-section'));
+    const hitSection = sections.find((section) => normalizeLabel(section.textContent || '').includes(q));
+    if (hitSection) {
+      scrollToWithOffset(hitSection);
+    }
+  };
+
+  form.addEventListener('submit', (event) => {
+    if (window.__richSearchReady) return;
+    event.preventDefault();
+    runFallbackSearch();
+  });
 }
 
 var searchInitialized = false;
@@ -568,7 +615,9 @@ function runInitSearchOnce() {
     initSearch();
   } catch (e) {
     // Не ломаем страницу: фото и слайдер должны подгрузиться
+    initSearchFallback();
   }
+  if (!window.__richSearchReady) initSearchFallback();
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', runInitSearchOnce);
