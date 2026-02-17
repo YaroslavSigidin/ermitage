@@ -203,13 +203,17 @@ if (slider) {
   };
 
   btnPrev?.addEventListener('click', () => {
-    const step = cardStep();
-    track.scrollBy({ left: -step, behavior: 'smooth' });
+    if (!track) return;
+    const current = getActiveIndex();
+    const prevIndex = Math.max(0, current - 1);
+    scrollToIndex(prevIndex);
   });
 
   btnNext?.addEventListener('click', () => {
-    const step = cardStep();
-    track.scrollBy({ left: step, behavior: 'smooth' });
+    if (!track) return;
+    const current = getActiveIndex();
+    const nextIndex = Math.min(cards.length - 1, current + 1);
+    scrollToIndex(nextIndex);
   });
 
   let sliderTick = false;
@@ -398,6 +402,7 @@ function initSearch() {
   const hideSuggest = () => {
     suggestBox.classList.remove('is-open');
     suggestBox.innerHTML = '';
+    suggestBox.style.display = '';
     searchResults = [];
     activeResultIndex = -1;
   };
@@ -421,6 +426,14 @@ function initSearch() {
     if (result.type === 'row') highlightFoundRow(result.element);
   };
 
+  const openSuggest = () => {
+    suggestBox.style.display = 'block';
+    positionSuggest();
+    requestAnimationFrame(() => {
+      suggestBox.classList.add('is-open');
+    });
+  };
+
   const renderSuggest = (query) => {
     const raw = String(query || '').trim();
     if (!raw) {
@@ -435,8 +448,7 @@ function initSearch() {
     }
     if (searchResults.length === 0) {
       suggestBox.innerHTML = '<div class="menu-search-item menu-search-empty">Ничего не найдено</div>';
-      positionSuggest();
-      suggestBox.classList.add('is-open');
+      openSuggest();
       return;
     }
     suggestBox.innerHTML = searchResults
@@ -449,8 +461,7 @@ function initSearch() {
       )
       .join('');
     activeResultIndex = 0;
-    positionSuggest();
-    suggestBox.classList.add('is-open');
+    openSuggest();
   };
 
   const submitSearch = () => {

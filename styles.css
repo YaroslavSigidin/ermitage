@@ -437,6 +437,9 @@ body::after {
   font-size: 26px;
   line-height: 1;
   cursor: pointer;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .slider-dots {
@@ -661,14 +664,14 @@ h1 {
   justify-content: flex-end;
   gap: 12px 20px;
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: 28px;
+  font-size: 56px;
   letter-spacing: 0.9px;
   font-weight: 400;
-  color: #d8b374;
+  color: var(--gold);
 }
 
 .menu-nav-phone {
-  color: #d8b374;
+  color: var(--gold);
   text-decoration: none;
   transition: color 0.2s ease, opacity 0.2s ease;
   white-space: nowrap;
@@ -1039,7 +1042,7 @@ section {
 .menu-item-image .item-title {
   color: #fff9ee;
   font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 17px;
   line-height: 1.35;
   letter-spacing: 0.1px;
@@ -1178,7 +1181,7 @@ section {
   gap: 6px;
   font-size: 15px;
   font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0.4px;
 }
 
@@ -1197,6 +1200,7 @@ section {
   order: 1;
   flex: 0 1 auto;
   min-width: 0;
+  font-weight: 300;
 }
 
 .menu-list .item-title .icon {
@@ -1297,7 +1301,7 @@ section {
     font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
     font-size: 24px;
     line-height: 1.2;
-    font-weight: 400;
+    font-weight: 300;
   }
 
   .menu-item-details small {
