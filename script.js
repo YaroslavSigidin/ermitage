@@ -540,11 +540,17 @@ function initSearch() {
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initSearch);
-} else {
+var searchInitialized = false;
+function runInitSearchOnce() {
+  if (searchInitialized) return;
+  searchInitialized = true;
   initSearch();
 }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runInitSearchOnce);
+}
+window.addEventListener('load', runInitSearchOnce);
+if (document.readyState !== 'loading') runInitSearchOnce();
 
 const menuImageItems = [
   {

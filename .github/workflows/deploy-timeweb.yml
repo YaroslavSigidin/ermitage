@@ -12,15 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Подготовить SSH-ключ
+        id: key
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY_B64 }}" | base64 -d > "$RUNNER_TEMP/deploy_key"
-          chmod 600 "$RUNNER_TEMP/deploy_key"
+          KEY_PATH="$RUNNER_TEMP/deploy_key"
+          echo "${{ secrets.SSH_PRIVATE_KEY_B64 }}" | base64 -d > "$KEY_PATH"
+          chmod 600 "$KEY_PATH"
+          echo "path=$KEY_PATH" >> $GITHUB_OUTPUT
       - name: Обновить сайт на сервере (git pull)
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key_path: ${{ runner.temp }}/deploy_key
+          key_path: ${{ steps.key.outputs.path }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
