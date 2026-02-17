@@ -493,6 +493,14 @@ function initSearch() {
     if (chosen) {
       navigateToResult(chosen);
       hideSuggest();
+      return;
+    }
+
+    const rows = Array.from(document.querySelectorAll('.menu-list li'));
+    const fallbackRow = rows.find((row) => normalizeLabel(row.textContent || '').includes(query));
+    if (fallbackRow) {
+      navigateToResult({ type: 'row', element: fallbackRow });
+      hideSuggest();
     }
   };
 
@@ -520,6 +528,12 @@ function initSearch() {
   });
 
   searchInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      submitSearch();
+      return;
+    }
+
     if (!suggestBox.classList.contains('is-open') && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
       renderSuggest(searchInput.value);
     }
@@ -727,15 +741,7 @@ menuImageItems.forEach((item) => {
 
 function resolveImageUrl(path) {
   if (!path) return path;
-  if (typeof path === 'string' && path.normalize) {
-    path = path.split('/').map(function (s) { return s.normalize('NFC'); }).join('/');
-  }
-  const base = document.querySelector('base')?.href || (window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/') || window.location.href);
-  try {
-    return new URL(path, base).href;
-  } catch {
-    return path;
-  }
+  return path;
 }
 
 const attachMenuImages = () => {
