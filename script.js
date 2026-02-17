@@ -21,24 +21,27 @@ const revealSelectors = [
 const revealTargets = document.querySelectorAll(revealSelectors.join(','));
 revealTargets.forEach((el) => {
   el.classList.add('reveal');
-  const siblings = Array.from(el.parentElement?.children || []);
+  const siblings = Array.from((el.parentElement && el.parentElement.children) || []);
   const index = siblings.indexOf(el);
   const delay = Math.min(Math.max(index, 0) * 0.03, 0.3);
   el.style.setProperty('--reveal-delay', `${delay}s`);
 });
 
-const observer = new IntersectionObserver(
-  (entries, obs) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-visible');
-      obs.unobserve(entry.target);
-    });
-  },
-  { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
-);
-
-revealTargets.forEach((el) => observer.observe(el));
+if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+  );
+  revealTargets.forEach((el) => observer.observe(el));
+} else {
+  revealTargets.forEach((el) => el.classList.add('is-visible'));
+}
 
 const sectionLinks = Array.from(document.querySelectorAll('.menu-nav a'));
 const sections = sectionLinks
@@ -64,14 +67,17 @@ const setActiveLink = (id) => {
 
 const updateActiveSection = () => {
   const nav = document.querySelector('.menu-nav');
-  const offset = (nav?.offsetHeight || 0) + 12;
+  const offset = ((nav && nav.offsetHeight) || 0) + 12;
   const fromTop = window.scrollY + offset;
   const visibleSections = sections.filter(
-    (section) => !section.closest('.menu-group')?.classList.contains('is-hidden')
+    (section) => {
+      const parentGroup = section.closest('.menu-group');
+      return !(parentGroup && parentGroup.classList.contains('is-hidden'));
+    }
   );
   const sectionsForCheck = visibleSections.length > 0 ? visibleSections : sections;
 
-  let currentId = sectionsForCheck[0]?.id;
+  let currentId = sectionsForCheck[0] ? sectionsForCheck[0].id : '';
   sectionsForCheck.forEach((section) => {
     const top = section.offsetTop;
     const bottom = top + section.offsetHeight;
@@ -132,7 +138,7 @@ if (menuToggleBtn && menuNav) {
 const slider = document.querySelector('.hero-slider');
 if (slider) {
   const track = slider.querySelector('.slider-track');
-  const cards = Array.from(track?.children || []);
+  const cards = Array.from((track && track.children) || []);
   const dotsWrap = slider.querySelector('.slider-dots');
   const btnPrev = slider.querySelector('[data-dir="prev"]');
   const btnNext = slider.querySelector('[data-dir="next"]');
@@ -202,19 +208,23 @@ if (slider) {
     });
   };
 
-  btnPrev?.addEventListener('click', () => {
-    if (!track) return;
-    const current = getActiveIndex();
-    const prevIndex = Math.max(0, current - 1);
-    scrollToIndex(prevIndex);
-  });
+  if (btnPrev) {
+    btnPrev.addEventListener('click', () => {
+      if (!track) return;
+      const current = getActiveIndex();
+      const prevIndex = Math.max(0, current - 1);
+      scrollToIndex(prevIndex);
+    });
+  }
 
-  btnNext?.addEventListener('click', () => {
-    if (!track) return;
-    const current = getActiveIndex();
-    const nextIndex = Math.min(cards.length - 1, current + 1);
-    scrollToIndex(nextIndex);
-  });
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      if (!track) return;
+      const current = getActiveIndex();
+      const nextIndex = Math.min(cards.length - 1, current + 1);
+      scrollToIndex(nextIndex);
+    });
+  }
 
   let sliderTick = false;
   const onSliderScroll = () => {
@@ -259,7 +269,7 @@ if (menuToggle) {
     if (!target) return;
     const nav = document.querySelector('.menu-nav');
     const isMobile = window.matchMedia('(max-width: 720px)').matches;
-    const offset = isMobile ? 14 : (nav?.offsetHeight || 0) + 18;
+    const offset = isMobile ? 14 : ((nav && nav.offsetHeight) || 0) + 18;
     const top = Math.max(target.offsetTop - offset, 0);
     window.scrollTo({ top, behavior: 'smooth' });
   };
@@ -302,7 +312,8 @@ const getDirectChildren = (parent, selector) => {
 };
 
 const getMenuItemTitle = (row) => {
-  const titleFromBadge = row.querySelector('.item-title .title-text')?.textContent?.trim();
+  const titleEl = row.querySelector('.item-title .title-text');
+  const titleFromBadge = titleEl ? titleEl.textContent.trim() : '';
   if (titleFromBadge) return titleFromBadge;
 
   const textWrap = getDirectChild(row, 'span');
@@ -312,12 +323,12 @@ const getMenuItemTitle = (row) => {
     (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0
   );
 
-  return firstTextNode?.textContent?.trim() || '';
+  return firstTextNode ? firstTextNode.textContent.trim() : '';
 };
 
 function initSearch() {
   const menuSearchForm = document.querySelector('.menu-search');
-  const searchInput = menuSearchForm?.querySelector('input[name="q"]') || document.querySelector('input[name="q"]');
+  const searchInput = (menuSearchForm ? menuSearchForm.querySelector('input[name="q"]') : null) || document.querySelector('input[name="q"]');
   if (!searchInput) return;
   const form = menuSearchForm || searchInput.closest('form');
 
@@ -354,7 +365,7 @@ function initSearch() {
     if (!element || !element.getBoundingClientRect) return;
     const nav = document.querySelector('.menu-nav');
     const isMobile = window.matchMedia('(max-width: 720px)').matches;
-    const offset = isMobile ? 14 : (nav?.offsetHeight || 0) + 18;
+    const offset = isMobile ? 14 : ((nav && nav.offsetHeight) || 0) + 18;
     const rect = element.getBoundingClientRect();
     const top = Math.max(rect.top + window.scrollY - offset, 0);
     window.scrollTo({ top, behavior: 'smooth' });
@@ -377,10 +388,11 @@ function initSearch() {
     const rows = document.querySelectorAll('.menu-list li');
     const rowEntries = Array.from(rows).map((row) => {
       const rowMain = getDirectChild(row, 'span');
-      const title = getMenuItemTitle(row) || rowMain?.textContent || '';
+      const title = getMenuItemTitle(row) || (rowMain ? rowMain.textContent : '') || '';
       const sectionEl = row.closest('.menu-group, .menu-section');
-      const section = sectionEl?.querySelector('h3')?.textContent?.trim() || '';
-      const details = rowMain?.textContent || '';
+      const sectionTitle = sectionEl ? sectionEl.querySelector('h3') : null;
+      const section = sectionTitle ? sectionTitle.textContent.trim() : '';
+      const details = rowMain ? rowMain.textContent : '';
       return {
         type: 'row',
         label: String(title).trim(),
@@ -392,7 +404,7 @@ function initSearch() {
     const sectionEls = document.querySelectorAll('.menu-group[id]');
     const sectionEntries = Array.from(sectionEls).map((section) => ({
       type: 'section',
-      label: section.querySelector('h3')?.textContent?.trim() || section.id || '',
+      label: (section.querySelector('h3') ? section.querySelector('h3').textContent.trim() : '') || section.id || '',
       secondary: 'Раздел',
       searchText: `${section.id || ''} ${section.textContent || ''}`,
       element: section
@@ -444,7 +456,7 @@ function initSearch() {
   };
 
   const navigateToResult = (result) => {
-    if (!result?.element) return;
+    if (!result || !result.element) return;
     scrollToWithOffset(result.element);
     if (result.type === 'row') highlightFoundRow(result.element);
   };
@@ -484,7 +496,7 @@ function initSearch() {
   };
 
   const submitSearch = () => {
-    const query = normalizeLabel(searchInput?.value || '');
+    const query = normalizeLabel(searchInput ? searchInput.value : '');
     if (!query) return;
     if (searchResults.length === 0) {
       renderSuggest(query);
@@ -511,50 +523,52 @@ function initSearch() {
     });
   }
 
-  searchInput?.addEventListener('input', () => {
-    if (suggestCloseTimer) {
-      window.clearTimeout(suggestCloseTimer);
-      suggestCloseTimer = 0;
-    }
-    renderSuggest(searchInput.value);
-  });
-
-  searchInput?.addEventListener('focus', () => {
-    renderSuggest(searchInput.value);
-  });
-
-  searchInput?.addEventListener('blur', () => {
-    suggestCloseTimer = window.setTimeout(() => hideSuggest(), 200);
-  });
-
-  searchInput?.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      submitSearch();
-      return;
-    }
-
-    if (!suggestBox.classList.contains('is-open') && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      if (suggestCloseTimer) {
+        window.clearTimeout(suggestCloseTimer);
+        suggestCloseTimer = 0;
+      }
       renderSuggest(searchInput.value);
-    }
+    });
 
-    if (!suggestBox.classList.contains('is-open')) return;
+    searchInput.addEventListener('focus', () => {
+      renderSuggest(searchInput.value);
+    });
 
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      const next = Math.min(activeResultIndex + 1, searchResults.length - 1);
-      setActiveSuggest(next);
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      const prev = Math.max(activeResultIndex - 1, 0);
-      setActiveSuggest(prev);
-    } else if (event.key === 'Escape') {
-      hideSuggest();
-    } else if (event.key === 'Enter') {
-      event.preventDefault();
-      submitSearch();
-    }
-  });
+    searchInput.addEventListener('blur', () => {
+      suggestCloseTimer = window.setTimeout(() => hideSuggest(), 200);
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitSearch();
+        return;
+      }
+
+      if (!suggestBox.classList.contains('is-open') && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+        renderSuggest(searchInput.value);
+      }
+
+      if (!suggestBox.classList.contains('is-open')) return;
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        const next = Math.min(activeResultIndex + 1, searchResults.length - 1);
+        setActiveSuggest(next);
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        const prev = Math.max(activeResultIndex - 1, 0);
+        setActiveSuggest(prev);
+      } else if (event.key === 'Escape') {
+        hideSuggest();
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        submitSearch();
+      }
+    });
+  }
 
   suggestBox.addEventListener('mousedown', (event) => {
     event.preventDefault();
@@ -588,7 +602,7 @@ function initSearchFallback() {
     if (!element || !element.getBoundingClientRect) return;
     const nav = document.querySelector('.menu-nav');
     const isMobile = window.matchMedia('(max-width: 720px)').matches;
-    const offset = isMobile ? 14 : (nav?.offsetHeight || 0) + 18;
+    const offset = isMobile ? 14 : ((nav && nav.offsetHeight) || 0) + 18;
     const rect = element.getBoundingClientRect();
     const top = Math.max(rect.top + window.scrollY - offset, 0);
     window.scrollTo({ top, behavior: 'smooth' });
