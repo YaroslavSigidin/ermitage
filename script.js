@@ -291,11 +291,21 @@ const normalizeLabel = (value) => {
   return s.replace(/[^a-zа-я0-9]+/gi, ' ').trim();
 };
 
+const getDirectChild = (parent, selector) => {
+  if (!parent) return null;
+  return Array.from(parent.children).find((child) => child.matches(selector)) || null;
+};
+
+const getDirectChildren = (parent, selector) => {
+  if (!parent) return [];
+  return Array.from(parent.children).filter((child) => child.matches(selector));
+};
+
 const getMenuItemTitle = (row) => {
   const titleFromBadge = row.querySelector('.item-title .title-text')?.textContent?.trim();
   if (titleFromBadge) return titleFromBadge;
 
-  const textWrap = row.querySelector(':scope > span');
+  const textWrap = getDirectChild(row, 'span');
   if (!textWrap) return '';
 
   const firstTextNode = Array.from(textWrap.childNodes).find(
@@ -366,10 +376,11 @@ function initSearch() {
     if (searchIndexCache && searchIndexCache.length > 0) return searchIndexCache;
     const rows = document.querySelectorAll('.menu-list li');
     const rowEntries = Array.from(rows).map((row) => {
-      const title = getMenuItemTitle(row) || row.querySelector(':scope > span')?.textContent || '';
+      const rowMain = getDirectChild(row, 'span');
+      const title = getMenuItemTitle(row) || rowMain?.textContent || '';
       const sectionEl = row.closest('.menu-group, .menu-section');
       const section = sectionEl?.querySelector('h3')?.textContent?.trim() || '';
-      const details = row.querySelector(':scope > span')?.textContent || '';
+      const details = rowMain?.textContent || '';
       return {
         type: 'row',
         label: String(title).trim(),
@@ -647,12 +658,12 @@ const menuImageItems = [
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
   // Коктейли (фото из assets/images/2/)
-  { src: 'assets/images/2/1.jpg', aliases: ['Эрмитаж'] },
-  { src: 'assets/images/2/2.jpg', aliases: ['Ромовая Баба', 'Ромовая баба'] },
+  { src: 'assets/images/2/1.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic'] },
+  { src: 'assets/images/2/2.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
   { src: 'assets/images/2/3.jpg', aliases: ['Слезы бывшего'] },
-  { src: 'assets/images/2/4.jpg', aliases: ['Розовая пантера'] },
+  { src: 'assets/images/2/4.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
   { src: 'assets/images/2/MPH_8174-редакт.jpg', aliases: ['Северное сияние'] },
-  { src: 'assets/images/2/MPH_8184-редакт.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник'] },
+  { src: 'assets/images/2/MPH_8184-редакт.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
   { src: 'assets/images/2/MPH_8200-редакт.jpg', aliases: ['Лимонад клубника базилик'] },
   { src: 'assets/images/2/MPH_8248-редакт.jpg', aliases: ['Российский флаг'] },
   { src: 'assets/images/2/MPH_8249-редакт.jpg', aliases: ['Хиросима'] }
@@ -685,7 +696,7 @@ const attachMenuImages = () => {
     const imageSrc = menuImageMap.get(normalizeLabel(title));
     if (!imageSrc) return;
 
-    const textWrap = row.querySelector(':scope > span');
+    const textWrap = getDirectChild(row, 'span');
     if (!textWrap || textWrap.querySelector('.menu-item-image')) return;
 
     const imageWrap = document.createElement('div');
@@ -702,7 +713,7 @@ const attachMenuImages = () => {
     const captionMain = document.createElement('div');
     captionMain.className = 'menu-item-caption-main';
 
-    const decoratedTitle = textWrap.querySelector(':scope > .item-title');
+    const decoratedTitle = getDirectChild(textWrap, '.item-title');
     let titleNode = decoratedTitle;
     if (!titleNode) {
       const firstTextNode = Array.from(textWrap.childNodes).find(
@@ -718,10 +729,10 @@ const attachMenuImages = () => {
       }
     }
 
-    const price = row.querySelector(':scope > em');
+    const price = getDirectChild(row, 'em');
     if (titleNode) captionMain.appendChild(titleNode);
 
-    const notes = Array.from(textWrap.querySelectorAll(':scope > small'));
+    const notes = getDirectChildren(textWrap, 'small');
     if (notes.length > 0) {
       const details = document.createElement('div');
       details.className = 'menu-item-details';
@@ -770,7 +781,7 @@ attachCocktailSliderImages();
 const orderMenuItemsByImage = () => {
   const lists = Array.from(document.querySelectorAll('.menu-list'));
   lists.forEach((list) => {
-    const rows = Array.from(list.querySelectorAll(':scope > li'));
+    const rows = getDirectChildren(list, 'li');
     if (rows.length < 2) return;
 
     const withImage = rows.filter((row) => row.classList.contains('has-image'));
