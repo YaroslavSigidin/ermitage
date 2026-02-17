@@ -314,11 +314,19 @@ if (menuSearchForm) {
   let suggestCloseTimer = 0;
 
   const scrollToWithOffset = (element) => {
+    if (!element || !element.getBoundingClientRect) return;
     const nav = document.querySelector('.menu-nav');
     const isMobile = window.matchMedia('(max-width: 720px)').matches;
     const offset = isMobile ? 14 : (nav?.offsetHeight || 0) + 18;
-    const top = Math.max(element.offsetTop - offset, 0);
+    const rect = element.getBoundingClientRect();
+    const top = Math.max(rect.top + window.scrollY - offset, 0);
     window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  const escapeHtml = (str) => {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   };
 
   const highlightFoundRow = (row) => {
@@ -401,22 +409,30 @@ if (menuSearchForm) {
   };
 
   const renderSuggest = (query) => {
-    const normalized = normalizeLabel(query);
-    if (!normalized) {
+    const raw = String(query || '').trim();
+    const normalized = normalizeLabel(raw);
+    if (!raw) {
       hideSuggest();
       return;
     }
 
-    const allEntries = buildSearchIndex();
+    let allEntries = [];
+    try {
+      allEntries = buildSearchIndex();
+    } catch (e) {
+      hideSuggest();
+      return;
+    }
     const ranked = allEntries
-      .map((entry) => ({ entry, score: scoreEntry(entry, normalized) }))
+      .map((entry) => ({ entry, score: scoreEntry(entry, normalized || raw.toLowerCase()) }))
       .filter((item) => item.score >= 0)
       .sort((a, b) => b.score - a.score || a.entry.label.length - b.entry.label.length)
       .slice(0, 8);
 
     searchResults = ranked.map((item) => item.entry);
     if (searchResults.length === 0) {
-      hideSuggest();
+      suggestBox.innerHTML = `<div class="menu-search-item menu-search-empty">Ничего не найдено</div>`;
+      suggestBox.classList.add('is-open');
       return;
     }
 
@@ -424,8 +440,8 @@ if (menuSearchForm) {
       .map(
         (entry, i) =>
           `<button type="button" class="menu-search-item${i === 0 ? ' is-active' : ''}" data-index="${i}">
-            <span class="menu-search-item-title">${entry.label}</span>
-            <span class="menu-search-item-meta">${entry.secondary || ''}</span>
+            <span class="menu-search-item-title">${escapeHtml(entry.label)}</span>
+            <span class="menu-search-item-meta">${escapeHtml(entry.secondary || '')}</span>
           </button>`
       )
       .join('');
