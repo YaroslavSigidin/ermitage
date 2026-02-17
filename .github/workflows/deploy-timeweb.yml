@@ -5,17 +5,22 @@ name: Deploy to Timeweb (SSH)
 on:
   push:
     branches: [main]
+  workflow_dispatch:  # кнопка «Run workflow» в Actions
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Подготовить SSH-ключ
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY_B64 }}" | base64 -d > "$RUNNER_TEMP/deploy_key"
+          chmod 600 "$RUNNER_TEMP/deploy_key"
       - name: Обновить сайт на сервере (git pull)
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key_path: ${{ runner.temp }}/deploy_key
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e

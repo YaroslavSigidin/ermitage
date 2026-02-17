@@ -7,6 +7,15 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "ION Cottrill";
+  src: url("assets/fonts/ION-Cottrill.otf") format("opentype"),
+       url("assets/fonts/ION-Cottrill.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@300;400;500;600&display=swap");
 
 :root {
@@ -124,6 +133,7 @@ body::after {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
 }
 
 .hero-content {
@@ -138,6 +148,64 @@ body::after {
   backdrop-filter: blur(8px);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-waves {
+  display: none;
+  position: absolute;
+  inset: -18% -10% auto -10%;
+  height: 260px;
+  width: 120%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.75;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+
+.hero-waves .wave {
+  fill: none;
+  stroke: rgba(216, 179, 116, 0.55);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 10 14;
+  animation: heroWaveMove 7s linear infinite;
+}
+
+.hero-waves .wave-2 {
+  stroke: rgba(216, 179, 116, 0.35);
+  stroke-width: 1.6;
+  stroke-dasharray: 8 18;
+  animation-duration: 10s;
+}
+
+.hero-waves .wave-3 {
+  stroke: rgba(255, 209, 168, 0.25);
+  stroke-width: 1.4;
+  stroke-dasharray: 6 20;
+  animation-duration: 13s;
+}
+
+.hero-waves .wave-4 {
+  stroke: rgba(255, 243, 223, 0.2);
+  stroke-width: 1.2;
+  stroke-dasharray: 12 22;
+  animation-duration: 16s;
+}
+
+@keyframes heroWaveMove {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -240;
+  }
 }
 
 .hero-slider {
@@ -778,7 +846,7 @@ section {
 .menu-item-image .menu-item-name,
 .menu-item-image .item-title {
   color: #fff9ee;
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "ION Cottrill", "Santa Catorina", "Manrope", serif;
   font-weight: 500;
   font-size: 17px;
   line-height: 1.35;
@@ -917,7 +985,7 @@ section {
   flex-direction: column;
   gap: 6px;
   font-size: 15px;
-  font-family: "Santa Catorina", "Manrope", serif;
+  font-family: "ION Cottrill", "Santa Catorina", "Manrope", serif;
   font-weight: 400;
   letter-spacing: 0.4px;
 }
@@ -1238,6 +1306,35 @@ section {
   .menu-toggle {
     bottom: 116px;
     min-width: 240px;
+  }
+}
+
+@media (min-width: 721px) {
+  .hero {
+    min-height: 100vh;
+    padding: 132px 0 60px;
+    display: grid;
+    place-items: center;
+  }
+
+  /* Desktop: center the hero block, remove plaque */
+  .hero-content {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .hero-content::before,
+  .hero-content::after {
+    display: none;
+  }
+
+  .hero-waves {
+    display: block;
   }
 }
 

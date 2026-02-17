@@ -48,13 +48,15 @@ mkdir -p /root/.ssh && chmod 700 /root/.ssh && echo "PASTE_PUBLIC_KEY_HERE" >> /
 - `SSH_HOST` = `62.113.41.14`
 - `SSH_USER` = `root`
 - `SSH_PORT` = `22`
-- `SSH_PRIVATE_KEY` = содержимое файла `~/.ssh/ermitage_deploy` (PRIVATE key)
+- `SSH_PRIVATE_KEY_B64` = приватный ключ в формате base64 (так в GitHub не ломаются переносы строк)
 
-Как скопировать private key:
+Как получить значение для `SSH_PRIVATE_KEY_B64` (в терминале на Mac):
 
 ```bash
-cat ~/.ssh/ermitage_deploy
+cat ~/.ssh/ermitage_deploy | base64
 ```
+
+Скопируй **весь** вывод одной строкой и вставь в секрет `SSH_PRIVATE_KEY_B64`. Старый секрет `SSH_PRIVATE_KEY` можно удалить — workflow его больше не использует.
 
 ## 2) Один раз: запушить обновлённый workflow
 
