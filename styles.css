@@ -438,11 +438,13 @@ body::after {
 }
 
 .hero-slider-block {
-  padding: 48px 0 64px;
+  padding: 48px 6vw 64px;
   overflow: hidden;
-  width: min(1400px, 100vw);
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   position: relative;
+  box-sizing: border-box;
 }
 
 .hero-slider-block .hero-slider {
