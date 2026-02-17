@@ -278,14 +278,14 @@ if (menuToggle) {
   });
 }
 
-const normalizeLabel = (value) =>
-  String(value || '')
-    .normalize('NFKD')
+const normalizeLabel = (value) => {
+  const s = String(value || '')
+    .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
-    .replace(/ё/g, 'е')
-    .replace(/[^a-zа-я0-9]+/gi, ' ')
-    .trim();
+    .replace(/ё/g, 'е');
+  return s.replace(/[^a-zа-я0-9]+/gi, ' ').trim();
+};
 
 const getMenuItemTitle = (row) => {
   const titleFromBadge = row.querySelector('.item-title .title-text')?.textContent?.trim();
@@ -301,17 +301,28 @@ const getMenuItemTitle = (row) => {
   return firstTextNode?.textContent?.trim() || '';
 };
 
-const menuSearchForm = document.querySelector('.menu-search');
-if (menuSearchForm) {
-  const searchInput = menuSearchForm.querySelector('input[name="q"]');
+function initSearch() {
+  const menuSearchForm = document.querySelector('.menu-search');
+  const searchInput = menuSearchForm?.querySelector('input[name="q"]');
+  if (!menuSearchForm || !searchInput) return;
+
   const suggestBox = document.createElement('div');
   suggestBox.className = 'menu-search-suggest';
   suggestBox.setAttribute('role', 'listbox');
   suggestBox.setAttribute('aria-label', 'Результаты поиска');
-  menuSearchForm.appendChild(suggestBox);
+  document.body.appendChild(suggestBox);
+
   let searchResults = [];
   let activeResultIndex = -1;
   let suggestCloseTimer = 0;
+
+  const positionSuggest = () => {
+    const rect = searchInput.getBoundingClientRect();
+    suggestBox.style.position = 'fixed';
+    suggestBox.style.left = rect.left + 'px';
+    suggestBox.style.top = (rect.bottom + 8) + 'px';
+    suggestBox.style.width = Math.max(rect.width, 280) + 'px';
+  };
 
   const scrollToWithOffset = (element) => {
     if (!element || !element.getBoundingClientRect) return;
@@ -398,6 +409,9 @@ if (menuSearchForm) {
     activeResultIndex = -1;
   };
 
+  window.addEventListener('scroll', () => { if (suggestBox.classList.contains('is-open')) positionSuggest(); }, { passive: true });
+  window.addEventListener('resize', () => { if (suggestBox.classList.contains('is-open')) positionSuggest(); });
+
   const setActiveSuggest = (index) => {
     activeResultIndex = index;
     const items = Array.from(suggestBox.querySelectorAll('.menu-search-item'));
@@ -438,6 +452,7 @@ if (menuSearchForm) {
     searchResults = ranked.map((item) => item.entry);
     if (searchResults.length === 0) {
       suggestBox.innerHTML = `<div class="menu-search-item menu-search-empty">Ничего не найдено</div>`;
+      positionSuggest();
       suggestBox.classList.add('is-open');
       return;
     }
@@ -452,6 +467,7 @@ if (menuSearchForm) {
       )
       .join('');
     activeResultIndex = 0;
+    positionSuggest();
     suggestBox.classList.add('is-open');
   };
 
@@ -528,6 +544,12 @@ if (menuSearchForm) {
       hideSuggest();
     }
   });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSearch);
+} else {
+  initSearch();
 }
 
 const menuImageItems = [
