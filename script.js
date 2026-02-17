@@ -307,8 +307,9 @@ const getMenuItemTitle = (row) => {
 
 function initSearch() {
   const menuSearchForm = document.querySelector('.menu-search');
-  const searchInput = menuSearchForm?.querySelector('input[name="q"]');
-  if (!menuSearchForm || !searchInput) return;
+  const searchInput = menuSearchForm?.querySelector('input[name="q"]') || document.querySelector('input[name="q"]');
+  if (!searchInput) return;
+  const form = menuSearchForm || searchInput.closest('form');
 
   const suggestBox = document.createElement('div');
   suggestBox.className = 'menu-search-suggest';
@@ -322,11 +323,21 @@ function initSearch() {
 
   const positionSuggest = () => {
     const rect = searchInput.getBoundingClientRect();
-    if (rect.width <= 0) return;
     suggestBox.style.position = 'fixed';
-    suggestBox.style.left = rect.left + 'px';
-    suggestBox.style.top = (rect.bottom + 8) + 'px';
-    suggestBox.style.width = Math.max(rect.width, 280) + 'px';
+    suggestBox.style.visibility = 'visible';
+    suggestBox.style.opacity = '1';
+    suggestBox.style.display = 'block';
+    if (rect.width > 0 && rect.height > 0) {
+      suggestBox.style.left = rect.left + 'px';
+      suggestBox.style.top = (rect.bottom + 8) + 'px';
+      suggestBox.style.width = Math.max(rect.width, 280) + 'px';
+      suggestBox.style.transform = '';
+    } else {
+      suggestBox.style.left = '50%';
+      suggestBox.style.top = '120px';
+      suggestBox.style.width = '320px';
+      suggestBox.style.transform = 'translateX(-50%)';
+    }
   };
 
   const scrollToWithOffset = (element) => {
@@ -428,11 +439,8 @@ function initSearch() {
   };
 
   const openSuggest = () => {
-    suggestBox.style.display = 'block';
     positionSuggest();
-    requestAnimationFrame(() => {
-      suggestBox.classList.add('is-open');
-    });
+    suggestBox.classList.add('is-open');
   };
 
   const renderSuggest = (query) => {
@@ -444,8 +452,7 @@ function initSearch() {
     try {
       searchResults = matchSearch(raw);
     } catch (e) {
-      hideSuggest();
-      return;
+      searchResults = [];
     }
     if (searchResults.length === 0) {
       suggestBox.innerHTML = '<div class="menu-search-item menu-search-empty">Ничего не найдено</div>';
@@ -478,10 +485,12 @@ function initSearch() {
     }
   };
 
-  menuSearchForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    submitSearch();
-  });
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      submitSearch();
+    });
+  }
 
   searchInput?.addEventListener('input', () => {
     if (suggestCloseTimer) {
