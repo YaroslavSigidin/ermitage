@@ -170,7 +170,17 @@ if (slider) {
 
   const scrollToIndex = (index) => {
     const step = cardStep();
-    track.scrollTo({ left: step * index, behavior: 'smooth' });
+    const left = step * index;
+    if (!track) return;
+    try {
+      if (typeof track.scrollTo === 'function') {
+        track.scrollTo({ left: left, behavior: 'smooth' });
+        return;
+      }
+    } catch (e) {
+      // Fallback below for older browsers/webviews.
+    }
+    track.scrollLeft = left;
   };
 
   const getActiveIndex = () => {
