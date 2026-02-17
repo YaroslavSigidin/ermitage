@@ -460,7 +460,7 @@ body::after {
 
 .logo {
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: 90px;
+  font-size: 48px;
   letter-spacing: 1.6px;
   color: var(--gold);
 }
@@ -475,7 +475,7 @@ body::after {
 
 h1 {
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: clamp(72px, 18vw, 140px);
+  font-size: clamp(48px, 12vw, 88px);
   margin-bottom: 8px;
   letter-spacing: 2px;
   white-space: nowrap;
@@ -1358,11 +1358,11 @@ section {
   }
 
   .hero .logo {
-    font-size: clamp(72px, 10vw, 90px);
+    font-size: clamp(40px, 6vw, 52px);
   }
 
   .hero h1 {
-    font-size: clamp(72px, 11vw, 140px);
+    font-size: clamp(44px, 7vw, 80px);
     white-space: nowrap;
   }
 }
