@@ -614,10 +614,25 @@ function initSearchFallback() {
     }
   };
 
-  form.addEventListener('submit', (event) => {
-    if (window.__richSearchReady) return;
-    event.preventDefault();
+  const execute = () => {
     runFallbackSearch();
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    execute();
+  });
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    execute();
+  });
+
+  input.addEventListener('input', () => {
+    const q = normalizeLabel(input.value || '');
+    if (q.length < 3) return;
+    execute();
   });
 }
 
@@ -739,6 +754,43 @@ menuImageItems.forEach((item) => {
   });
 });
 
+const resolveDishImageByTitle = (title) => {
+  const normalizedTitle = normalizeLabel(title);
+  if (!normalizedTitle) return '';
+
+  const exact = menuImageMap.get(normalizedTitle);
+  if (exact) return exact;
+
+  let bestSrc = '';
+  let bestScore = 0;
+  const titleTokens = normalizedTitle.split(' ').filter(Boolean);
+
+  for (const [alias, src] of menuImageMap.entries()) {
+    if (!alias) continue;
+    if (normalizedTitle.includes(alias) || alias.includes(normalizedTitle)) {
+      const score = alias.length;
+      if (score > bestScore) {
+        bestScore = score;
+        bestSrc = src;
+      }
+      continue;
+    }
+
+    const aliasTokens = alias.split(' ').filter(Boolean);
+    let common = 0;
+    for (const token of titleTokens) {
+      if (token.length < 3) continue;
+      if (aliasTokens.includes(token)) common += 1;
+    }
+    if (common > bestScore && common >= 2) {
+      bestScore = common;
+      bestSrc = src;
+    }
+  }
+
+  return bestSrc;
+};
+
 function resolveImageUrl(path) {
   if (!path) return path;
   return path;
@@ -748,7 +800,7 @@ const attachMenuImages = () => {
   const rows = Array.from(document.querySelectorAll('.menu-list li'));
   rows.forEach((row) => {
     const title = getMenuItemTitle(row);
-    const imageSrc = menuImageMap.get(normalizeLabel(title));
+    const imageSrc = resolveDishImageByTitle(title);
     if (!imageSrc) return;
 
     const textWrap = getDirectChild(row, 'span');
