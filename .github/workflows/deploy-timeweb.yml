@@ -30,5 +30,14 @@ jobs:
             cd /var/www/ermitage
             git fetch --all
             git reset --hard origin/main
+
+            # Синхронизация в типовые web-root, если nginx/хостинг отдает не /var/www/ermitage.
+            if [ -d /public_html ]; then
+              sudo rsync -a --delete --exclude '.git' /var/www/ermitage/ /public_html/
+            fi
+            if [ -d /var/www/html ]; then
+              sudo rsync -a --delete --exclude '.git' /var/www/ermitage/ /var/www/html/
+            fi
+
             sudo nginx -t
             sudo systemctl reload nginx
