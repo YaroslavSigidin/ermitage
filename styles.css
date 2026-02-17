@@ -16,6 +16,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Aeonik Pro";
+  src: url("assets/fonts/AeonikPro-Trial/AeonikProTRIAL-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  src: url("assets/fonts/AeonikPro-Trial/AeonikProTRIAL-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@300;400;500;600&display=swap");
 
 :root {
@@ -134,6 +150,7 @@ body::after {
   margin: 0 auto;
   width: 100%;
   position: relative;
+  overflow: visible;
 }
 
 .hero-content {
@@ -156,12 +173,26 @@ body::after {
   z-index: 1;
 }
 
-.hero-waves {
-  display: none;
+/* Обёртка линий — ровно на всю ширину окна браузера (от левого до правого края) */
+.hero-waves-wrap {
   position: absolute;
-  inset: -18% -10% auto -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-waves {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
   height: 260px;
-  width: 120%;
   z-index: 0;
   pointer-events: none;
   opacity: 0.75;
@@ -453,7 +484,7 @@ body::after {
 
 h1 {
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: clamp(42px, 12vw, 70px);
+  font-size: clamp(48px, 14vw, 70px);
   margin-bottom: 8px;
   letter-spacing: 2px;
   background: linear-gradient(120deg, #fff3df, #e3c18b, #ffd1a8);
@@ -461,6 +492,7 @@ h1 {
   background-clip: text;
   color: transparent;
 }
+
 
 .lead {
   color: rgba(255, 255, 255, 0.76);
@@ -846,7 +878,7 @@ section {
 .menu-item-image .menu-item-name,
 .menu-item-image .item-title {
   color: #fff9ee;
-  font-family: "ION Cottrill", "Santa Catorina", "Manrope", serif;
+  font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
   font-weight: 500;
   font-size: 17px;
   line-height: 1.35;
@@ -985,7 +1017,7 @@ section {
   flex-direction: column;
   gap: 6px;
   font-size: 15px;
-  font-family: "ION Cottrill", "Santa Catorina", "Manrope", serif;
+  font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
   font-weight: 400;
   letter-spacing: 0.4px;
 }
@@ -1102,7 +1134,7 @@ section {
 
   .menu-item-image .menu-item-name,
   .menu-item-image .item-title {
-    font-family: "Santa Catorina", "Manrope", serif;
+    font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
     font-size: 24px;
     line-height: 1.2;
     font-weight: 400;
@@ -1264,7 +1296,7 @@ section {
 
   .menu-list > li > span {
     font-size: 14px;
-    font-family: "Santa Catorina", "Manrope", serif;
+    font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
   }
 
   .menu-list em {
@@ -1287,7 +1319,7 @@ section {
 
   .menu-item-image .menu-item-name,
   .menu-item-image .item-title {
-    font-family: "Santa Catorina", "Manrope", serif;
+    font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
   }
 
   .menu-item-caption {
@@ -1333,8 +1365,8 @@ section {
     display: none;
   }
 
-  .hero-waves {
-    display: block;
+  .hero h1 {
+    font-size: clamp(72px, 18vw, 160px);
   }
 }
 

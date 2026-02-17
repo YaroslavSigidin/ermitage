@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Проверка: почему ничего не открывается</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 24px;
+      max-width: 560px;
+      margin: 0 auto;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    h1 { font-size: 1.25rem; margin-bottom: 8px; }
+    p { color: #94a3b8; font-size: 0.9rem; margin: 0 0 20px; }
+    .block {
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    label { display: block; font-size: 0.85rem; margin-bottom: 6px; color: #94a3b8; }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    input::placeholder { color: #64748b; }
+    button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .btn-main { background: #3b82f6; color: #fff; }
+    .btn-main:hover { background: #2563eb; }
+    .btn-sec { background: rgba(255,255,255,0.15); color: #e2e8f0; }
+    .btn-sec:hover { background: rgba(255,255,255,0.25); }
+    ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    li { margin-bottom: 6px; }
+    a { color: #60a5fa; }
+    .small { font-size: 0.8rem; color: #64748b; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Проверка: почему ничего не открывается</h1>
+  <p>Открой эту страницу с диска (файл proverka.html). Ниже — по шагам.</p>
+
+  <div class="block">
+    <label>Твой домен (например ermitage.ru):</label>
+    <input type="text" id="domain" placeholder="ermitage.ru" />
+    <button class="btn-main" onclick="openTest()">Открыть test.html на моём домене</button>
+    <button class="btn-sec" onclick="openByIp()">Открыть по IP сервера (62.113.41.14)</button>
+  </div>
+
+  <div class="block">
+    <strong>Что проверить по шагам</strong>
+    <ul>
+      <li><strong>По IP не открывается?</strong> Тогда на Timeweb сайт по IP не отдаётся. Зайди в панель Timeweb → «Мои сайты» / «Сайты» → настройки сайта → корневая папка должна быть <strong>public_html</strong>. Домен должен быть привязан к этому сайту.</li>
+      <li><strong>По IP открывается, по домену — нет?</strong> Подожди 10–30 минут после смены DNS в Reg.ru. Проверь DNS: открой <a href="https://www.whatsmydns.net/" target="_blank" rel="noopener">whatsmydns.net</a>, введи свой домен — для A-записи должен быть IP <strong>62.113.41.14</strong>.</li>
+      <li><strong>В Reg.ru</strong> у записей A (@ и www) должно быть значение <strong>62.113.41.14</strong> (не 95.163.244.138).</li>
+      <li><strong>Деплой:</strong> после <code>git push</code> зайди на <a href="https://github.com/YaroslavSigidin/ermitage/actions" target="_blank" rel="noopener">GitHub Actions</a> — последний «Deploy to Timeweb» должен быть с зелёной галочкой.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <strong>Полезные ссылки</strong>
+    <ul>
+      <li><a href="https://www.whatsmydns.net/" target="_blank" rel="noopener">Проверить DNS (whatsmydns.net)</a></li>
+      <li><a href="https://github.com/YaroslavSigidin/ermitage/actions" target="_blank" rel="noopener">Логи деплоя на Timeweb</a></li>
+    </ul>
+  </div>
+
+  <p class="small">Файл proverka.html можно удалить с сервера после проверки или оставить.</p>
+
+  <script>
+    function openTest() {
+      var d = document.getElementById('domain').value.trim().replace(/^https?:\/\//, '').split('/')[0];
+      if (!d) { alert('Введи домен'); return; }
+      window.open('http://' + d + '/test.html', '_blank');
+    }
+    function openByIp() {
+      window.open('http://62.113.41.14/test.html', '_blank');
+    }
+  </script>
+</body>
+</html>
