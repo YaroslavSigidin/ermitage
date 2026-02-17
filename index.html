@@ -9,12 +9,29 @@
 </head>
 <body>
   <header class="hero" id="top">
-    <div class="hero-waves-wrap" aria-hidden="true">
-      <svg class="hero-waves" viewBox="0 0 1200 220" preserveAspectRatio="none" focusable="false">
-        <path class="wave wave-1" d="M0,120 C120,80 240,160 360,120 C480,80 600,160 720,120 C840,80 960,160 1080,120 C1140,100 1170,90 1200,120" />
-        <path class="wave wave-2" d="M0,138 C140,110 220,170 360,138 C500,106 580,170 720,138 C860,106 940,170 1080,138 C1145,124 1175,118 1200,138" />
-        <path class="wave wave-3" d="M0,156 C120,170 240,120 360,156 C480,192 600,120 720,156 C840,192 960,120 1080,156 C1140,176 1170,186 1200,156" />
-        <path class="wave wave-4" d="M0,102 C150,62 210,148 360,102 C510,56 570,148 720,102 C870,56 930,148 1080,102 C1145,82 1175,72 1200,102" />
+    <div class="hero-sound-wrap" aria-hidden="true">
+      <svg class="hero-sound" viewBox="0 0 1200 280" preserveAspectRatio="none" focusable="false">
+        <defs>
+          <linearGradient id="sound-glow" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="rgba(216,179,116,0)" />
+            <stop offset="20%" stop-color="rgba(216,179,116,0.4)" />
+            <stop offset="50%" stop-color="rgba(255,230,180,0.7)" />
+            <stop offset="80%" stop-color="rgba(216,179,116,0.4)" />
+            <stop offset="100%" stop-color="rgba(216,179,116,0)" />
+          </linearGradient>
+          <filter id="sound-glow-blur">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- Волны как осциллограф / звуковой сигнал — плавные, сплошные -->
+        <path class="sound-wave sound-wave-1" fill="none" stroke="url(#sound-glow)" stroke-width="2.5" stroke-linecap="round" d="M0,140 Q150,60 300,140 T600,140 T900,140 T1200,140 M0,140 Q150,220 300,140 T600,140 T900,140 T1200,140" />
+        <path class="sound-wave sound-wave-2" fill="none" stroke="rgba(216,179,116,0.5)" stroke-width="1.8" stroke-linecap="round" d="M0,120 Q120,180 240,120 T480,120 T720,120 T960,120 T1200,120 M0,160 Q120,100 240,160 T480,160 T720,160 T960,160 T1200,160" />
+        <path class="sound-wave sound-wave-3" fill="none" stroke="rgba(255,230,180,0.35)" stroke-width="1.4" stroke-linecap="round" d="M0,100 Q180,160 360,100 T720,100 T1080,100 T1440,100 M0,180 Q180,120 360,180 T720,180 T1080,180 T1440,180" />
+        <path class="sound-wave sound-wave-4" fill="none" stroke="rgba(216,179,116,0.25)" stroke-width="1.2" stroke-linecap="round" d="M0,80 Q200,200 400,80 T800,80 T1200,80 T1600,80 M0,200 Q200,80 400,200 T800,200 T1200,200 T1600,200" />
       </svg>
     </div>
     <div class="hero-content">
