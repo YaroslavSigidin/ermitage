@@ -616,20 +616,23 @@ h1 {
 
 .menu-nav-phones {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px 20px;
   font-family: "Santa Catorina", "Manrope", serif;
-  font-size: 25px;
+  font-size: 28px;
   letter-spacing: 0.9px;
   font-weight: 400;
-  color: var(--gold);
+  color: #d8b374;
 }
 
 .menu-nav-phone {
-  color: inherit;
+  color: #d8b374;
   text-decoration: none;
   transition: color 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .menu-nav-phone:hover {
@@ -653,6 +656,11 @@ h1 {
   width: min(620px, 100%);
   position: relative;
   overflow: visible;
+  z-index: 1;
+}
+
+.menu-search:focus-within {
+  z-index: 100;
 }
 
 .menu-search-icon {

@@ -337,24 +337,27 @@ if (menuSearchForm) {
   const splitTokens = (value) => normalizeLabel(value).split(' ').filter(Boolean);
 
   const buildSearchIndex = () => {
-    const rowEntries = Array.from(document.querySelectorAll('.menu-list li')).map((row) => {
+    const rows = document.querySelectorAll('.menu-list li');
+    const rowEntries = Array.from(rows).map((row) => {
       const title = getMenuItemTitle(row) || row.querySelector(':scope > span')?.textContent || '';
-      const section = row.closest('.menu-group, .menu-section')?.querySelector('h3')?.textContent?.trim() || '';
+      const sectionEl = row.closest('.menu-group, .menu-section');
+      const section = sectionEl?.querySelector('h3')?.textContent?.trim() || '';
       const details = row.querySelector(':scope > span')?.textContent || '';
       return {
         type: 'row',
-        label: title.trim(),
+        label: String(title).trim(),
         secondary: section,
         searchText: `${title} ${details} ${section}`,
         element: row
       };
     });
 
-    const sectionEntries = sections.map((section) => ({
+    const sectionEls = sections.length > 0 ? sections : Array.from(document.querySelectorAll('.menu-group[id]'));
+    const sectionEntries = sectionEls.map((section) => ({
       type: 'section',
-      label: section.querySelector('h3')?.textContent?.trim() || section.id,
+      label: section.querySelector('h3')?.textContent?.trim() || section.id || '',
       secondary: 'Раздел',
-      searchText: `${section.id} ${section.textContent}`,
+      searchText: `${section.id || ''} ${section.textContent || ''}`,
       element: section
     }));
 
@@ -365,20 +368,23 @@ if (menuSearchForm) {
     const query = normalizeLabel(rawQuery);
     if (!query) return -1;
     const tokens = splitTokens(query);
-    const label = normalizeLabel(entry.label);
-    const text = normalizeLabel(entry.searchText);
+    const label = normalizeLabel(String(entry.label || ''));
+    const text = normalizeLabel(String(entry.searchText || ''));
 
     let score = 0;
     if (label === query) score += 1200;
-    if (label.startsWith(query)) score += 900;
-    if (text.includes(query)) score += 550;
+    else if (label.startsWith(query)) score += 900;
+    else if (text.includes(query)) score += 400;
 
     const labelTokens = splitTokens(label);
+    let tokenPenalty = 0;
     tokens.forEach((token) => {
-      if (labelTokens.some((t) => t.startsWith(token))) score += 180;
+      if (token.length === 0) return;
+      if (labelTokens.some((t) => t.startsWith(token) || t.includes(token))) score += 180;
       else if (text.includes(token)) score += 90;
-      else score -= 120;
+      else tokenPenalty += 80;
     });
+    score -= tokenPenalty;
 
     if (entry.type === 'row') score += 30;
     if (score < 0) return -1;
@@ -480,7 +486,7 @@ if (menuSearchForm) {
   });
 
   searchInput?.addEventListener('blur', () => {
-    suggestCloseTimer = window.setTimeout(() => hideSuggest(), 120);
+    suggestCloseTimer = window.setTimeout(() => hideSuggest(), 200);
   });
 
   searchInput?.addEventListener('keydown', (event) => {
@@ -511,11 +517,12 @@ if (menuSearchForm) {
   });
 
   suggestBox.addEventListener('click', (event) => {
-    const btn = event.target.closest('.menu-search-item');
+    const btn = event.target.closest('.menu-search-item[data-index]');
     if (!btn) return;
     const index = Number(btn.getAttribute('data-index'));
+    if (Number.isNaN(index) || index < 0) return;
     const selected = searchResults[index];
-    if (selected) {
+    if (selected && selected.element) {
       setActiveSuggest(index);
       navigateToResult(selected);
       hideSuggest();
