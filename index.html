@@ -9,34 +9,25 @@
 </head>
 <body>
   <header class="hero" id="top">
-    <div class="hero-sound-wrap" aria-hidden="true">
-      <svg class="hero-sound" viewBox="0 0 1200 280" preserveAspectRatio="none" focusable="false">
-        <defs>
-          <linearGradient id="sound-glow" x1="0%" y1="50%" x2="100%" y2="50%">
-            <stop offset="0%" stop-color="rgba(216,179,116,0)" />
-            <stop offset="20%" stop-color="rgba(216,179,116,0.4)" />
-            <stop offset="50%" stop-color="rgba(255,230,180,0.7)" />
-            <stop offset="80%" stop-color="rgba(216,179,116,0.4)" />
-            <stop offset="100%" stop-color="rgba(216,179,116,0)" />
-          </linearGradient>
-          <filter id="sound-glow-blur">
-            <feGaussianBlur stdDeviation="2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        <!-- Волны как осциллограф / звуковой сигнал — плавные, сплошные -->
-        <path class="sound-wave sound-wave-1" fill="none" stroke="url(#sound-glow)" stroke-width="2.5" stroke-linecap="round" d="M0,140 Q150,60 300,140 T600,140 T900,140 T1200,140 M0,140 Q150,220 300,140 T600,140 T900,140 T1200,140" />
-        <path class="sound-wave sound-wave-2" fill="none" stroke="rgba(216,179,116,0.5)" stroke-width="1.8" stroke-linecap="round" d="M0,120 Q120,180 240,120 T480,120 T720,120 T960,120 T1200,120 M0,160 Q120,100 240,160 T480,160 T720,160 T960,160 T1200,160" />
-        <path class="sound-wave sound-wave-3" fill="none" stroke="rgba(255,230,180,0.35)" stroke-width="1.4" stroke-linecap="round" d="M0,100 Q180,160 360,100 T720,100 T1080,100 T1440,100 M0,180 Q180,120 360,180 T720,180 T1080,180 T1440,180" />
-        <path class="sound-wave sound-wave-4" fill="none" stroke="rgba(216,179,116,0.25)" stroke-width="1.2" stroke-linecap="round" d="M0,80 Q200,200 400,80 T800,80 T1200,80 T1600,80 M0,200 Q200,80 400,200 T800,200 T1200,200 T1600,200" />
-      </svg>
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-gradient hero-gradient-1"></div>
+      <div class="hero-gradient hero-gradient-2"></div>
+      <div class="hero-particles">
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+        <span class="hero-particle"></span>
+      </div>
     </div>
     <div class="hero-content">
-      <div class="logo">Караоке «Эрмитаж»</div>
-      <h1>Электронное меню</h1>
+      <p class="hero-eyebrow">Караоке «Эрмитаж»</p>
+      <h1 class="hero-title"><span class="hero-title-line">Электронное меню</span></h1>
     </div>
   </header>
 
@@ -50,9 +41,15 @@
     <div class="menu-nav-top">
       <div class="menu-nav-meta menu-nav-meta--left">Караоке «Эрмитаж»</div>
       <form class="menu-search" role="search" aria-label="Поиск по меню">
+        <span class="menu-search-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
         <input type="search" name="q" placeholder="Поиск по меню" autocomplete="off" />
       </form>
-      <div class="menu-nav-meta menu-nav-meta--right">+7 (___) ___-__-__</div>
+      <div class="menu-nav-meta menu-nav-meta--right menu-nav-phones">
+        <a href="tel:+79892627070" class="menu-nav-phone">+7 (989) 262-70-70</a>
+        <a href="tel:+79530744198" class="menu-nav-phone">+7 (953) 074-41-98</a>
+      </div>
     </div>
     <div class="menu-nav-links">
       <a href="#cold-snacks">Закуски</a>
