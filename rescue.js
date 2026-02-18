@@ -106,6 +106,48 @@
       img.decoding = 'async';
       wrap.appendChild(img);
 
+      var caption = document.createElement('div');
+      caption.className = 'menu-item-caption';
+      var left = document.createElement('div');
+      left.className = 'menu-item-caption-main';
+      var right = document.createElement('div');
+      right.className = 'menu-item-caption-right';
+
+      var titleBlock = getDirectChild(span, 'SPAN');
+      if (titleBlock && titleBlock.classList && titleBlock.classList.contains('item-title')) {
+        left.appendChild(titleBlock);
+      } else if (title) {
+        var fallbackTitle = document.createElement('span');
+        fallbackTitle.className = 'menu-item-name';
+        fallbackTitle.textContent = title;
+        left.appendChild(fallbackTitle);
+      }
+
+      var notes = span.querySelectorAll('small');
+      var details = document.createElement('div');
+      details.className = 'menu-item-details';
+      var hasDetails = false;
+      for (var n = 0; n < notes.length; n += 1) {
+        var note = notes[n];
+        if (note.classList && note.classList.contains('volume')) {
+          note.classList.add('menu-item-volume');
+          right.appendChild(note);
+        } else {
+          details.appendChild(note);
+          hasDetails = true;
+        }
+      }
+      if (hasDetails) left.appendChild(details);
+
+      var price = getDirectChild(row, 'EM');
+      if (price) {
+        price.classList.add('menu-item-price');
+        right.appendChild(price);
+      }
+
+      caption.appendChild(left);
+      caption.appendChild(right);
+      wrap.appendChild(caption);
       span.insertBefore(wrap, span.firstChild);
       row.classList.add('has-image');
     }
