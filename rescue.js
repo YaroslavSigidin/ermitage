@@ -117,10 +117,19 @@
       if (titleBlock && titleBlock.classList && titleBlock.classList.contains('item-title')) {
         left.appendChild(titleBlock);
       } else if (title) {
+        var firstTextNode = null;
+        for (var t = 0; t < span.childNodes.length; t += 1) {
+          var n = span.childNodes[t];
+          if (n.nodeType === 3 && String(n.textContent || '').trim()) {
+            firstTextNode = n;
+            break;
+          }
+        }
         var fallbackTitle = document.createElement('span');
         fallbackTitle.className = 'menu-item-name';
         fallbackTitle.textContent = title;
         left.appendChild(fallbackTitle);
+        if (firstTextNode) firstTextNode.textContent = '';
       }
 
       var notes = span.querySelectorAll('small');
