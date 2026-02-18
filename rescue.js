@@ -6,6 +6,15 @@
     return s.replace(/[^a-zа-я0-9]+/gi, ' ').replace(/\s+/g, ' ').trim();
   }
 
+  function resolveImageUrl(path) {
+    if (!path) return path;
+    try {
+      return encodeURI(String(path));
+    } catch (e) {
+      return path;
+    }
+  }
+
   var imagePairs = [
     ['европейские сыры', 'assets/images/европейские сыры.jpg'],
     ['мясная коллекция', 'assets/images/мясная коллекция.jpg'],
@@ -100,7 +109,7 @@
       wrap.className = 'menu-item-image';
 
       var img = document.createElement('img');
-      img.src = src;
+      img.src = resolveImageUrl(src);
       img.alt = title;
       img.loading = 'lazy';
       img.decoding = 'async';

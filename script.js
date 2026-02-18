@@ -868,7 +868,11 @@ const resolveDishImageByTitle = (title) => {
 
 function resolveImageUrl(path) {
   if (!path) return path;
-  return path;
+  try {
+    return encodeURI(String(path));
+  } catch (e) {
+    return path;
+  }
 }
 
 const attachMenuImages = () => {
