@@ -410,9 +410,61 @@
     });
   }
 
+  function bindToggle() {
+    if (window.__rescueToggleBound) return;
+    if (window.__richToggleReady) return;
+
+    var toggle = document.querySelector('.menu-toggle');
+    if (!toggle) return;
+    var buttons = toggle.querySelectorAll('[data-filter]');
+    if (!buttons || !buttons.length) return;
+
+    window.__rescueToggleBound = true;
+
+    var groups = document.querySelectorAll('.menu-group');
+
+    function apply(filter) {
+      if (!filter) return;
+
+      for (var i = 0; i < buttons.length; i += 1) {
+        var b = buttons[i];
+        if (b.getAttribute('data-filter') === filter) b.classList.add('is-active');
+        else b.classList.remove('is-active');
+      }
+
+      for (var j = 0; j < groups.length; j += 1) {
+        var g = groups[j];
+        var category = String(g.getAttribute('data-category') || '').toLowerCase();
+        var showFood = filter === 'food' && category === 'food';
+        var showDrinks = filter === 'drinks' && (category === 'drinks' || category === 'cocktails');
+        var show = showFood || showDrinks;
+        if (show) g.classList.remove('is-hidden');
+        else g.classList.add('is-hidden');
+      }
+    }
+
+    for (var k = 0; k < buttons.length; k += 1) {
+      (function (btn) {
+        btn.addEventListener('click', function () {
+          apply(btn.getAttribute('data-filter'));
+        });
+      })(buttons[k]);
+    }
+
+    var initial = 'food';
+    for (var m = 0; m < buttons.length; m += 1) {
+      if (buttons[m].classList.contains('is-active')) {
+        initial = buttons[m].getAttribute('data-filter') || 'food';
+        break;
+      }
+    }
+    apply(initial);
+  }
+
   function boot() {
     attachDishImages();
     bindSearch();
+    bindToggle();
   }
 
   if (document.readyState === 'loading') {
