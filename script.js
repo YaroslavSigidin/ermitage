@@ -222,7 +222,7 @@ if (slider) {
     btnPrev.addEventListener('click', () => {
       if (!track) return;
       const current = getActiveIndex();
-      const prevIndex = Math.max(0, current - 1);
+      const prevIndex = (current - 1 + cards.length) % cards.length;
       scrollToIndex(prevIndex);
     });
   }
@@ -231,7 +231,7 @@ if (slider) {
     btnNext.addEventListener('click', () => {
       if (!track) return;
       const current = getActiveIndex();
-      const nextIndex = Math.min(cards.length - 1, current + 1);
+      const nextIndex = (current + 1) % cards.length;
       scrollToIndex(nextIndex);
     });
   }
