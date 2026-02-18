@@ -1373,13 +1373,13 @@ section {
   }
 
   .menu-nav {
-    top: auto;
+    top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
+    bottom: auto;
     display: block;
     margin: 0;
-    padding: 8px 10px;
+    padding: calc(8px + env(safe-area-inset-top)) 10px 8px;
     border-radius: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(8, 9, 13, 0.88);
@@ -1403,9 +1403,9 @@ section {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 
   .menu-nav-top .menu-nav-meta--left,
@@ -1450,6 +1450,7 @@ section {
 
   section {
     padding-bottom: 240px;
+    padding-top: 86px;
   }
 
   .hero-slider-block {
