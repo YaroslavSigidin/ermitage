@@ -1074,6 +1074,7 @@ section {
   flex: 0 0 auto;
   font-family: "Santa Catorina", "Manrope", serif;
   padding-top: 4px;
+  order: 0;
 }
 
 .menu-item-volume {
@@ -1081,6 +1082,7 @@ section {
   font-size: 12px;
   line-height: 1.2;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+  order: 1;
 }
 
 
@@ -1374,6 +1376,28 @@ section {
 
   .menu-col h3 {
     font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .menu-grid {
+    gap: 16px;
+  }
+
+  .menu-col {
+    gap: 16px;
+  }
+
+  .menu-group {
+    gap: 16px;
+  }
+
+  .menu-section {
+    padding: 14px 12px 10px;
+    border-radius: 16px;
+  }
+
+  .menu-col ul {
+    gap: 8px;
   }
 
   h1 {
