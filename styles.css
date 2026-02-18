@@ -1357,18 +1357,21 @@ section {
   body {
     font-size: 16px;
     line-height: 1.55;
+    overflow-x: hidden;
   }
 
   .hero {
-    padding: calc(8px + var(--mobile-top-nav-height)) 5vw 8px;
+    padding: calc(8px + var(--mobile-top-nav-height)) 12px 4px;
     min-height: 60svh;
     box-sizing: border-box;
     display: grid;
     place-items: center;
+    overflow: hidden;
   }
 
   .hero-content {
-    width: min(96vw, 760px);
+    width: 100%;
+    max-width: 100%;
     min-height: 220px;
     padding: 30px 18px 28px;
     margin: 0 auto;
@@ -1481,16 +1484,20 @@ section {
   }
 
   section {
-    padding-bottom: 240px;
     padding-top: 0;
+    padding-bottom: 18px;
   }
 
   .hero-slider-block {
-    padding: 10px 0 28px;
+    padding: 2px 0 10px;
   }
 
   .hero-slider-block .hero-slider {
-    padding: 18px 0 14px;
+    padding: 8px 0 10px;
+  }
+
+  .menu {
+    padding-bottom: 140px;
   }
 
   /* Keep side fades on mobile, but move them behind content and soften them. */
