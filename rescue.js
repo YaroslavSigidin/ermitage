@@ -420,26 +420,34 @@
 
     window.__rescueToggleBound = true;
 
-    var groups = document.querySelectorAll('.menu-group');
+    var targets = {
+      food: '#cold-snacks',
+      drinks: '#cocktails'
+    };
 
-    function apply(filter) {
+    function scrollToTarget(filter) {
+      var selector = targets[filter];
+      if (!selector) return;
+      var target = document.querySelector(selector);
+      if (!target) return;
+      var nav = document.querySelector('.menu-nav');
+      var isMobile = window.matchMedia('(max-width: 720px)').matches;
+      var offset = isMobile ? 14 : (((nav && nav.offsetHeight) ? nav.offsetHeight : 0) + 18);
+      var top = Math.max(target.offsetTop - offset, 0);
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    function apply(filter, opts) {
       if (!filter) return;
+      var options = opts || {};
+      var shouldScroll = options.scroll !== false;
 
       for (var i = 0; i < buttons.length; i += 1) {
         var b = buttons[i];
         if (b.getAttribute('data-filter') === filter) b.classList.add('is-active');
         else b.classList.remove('is-active');
       }
-
-      for (var j = 0; j < groups.length; j += 1) {
-        var g = groups[j];
-        var category = String(g.getAttribute('data-category') || '').toLowerCase();
-        var showFood = filter === 'food' && category === 'food';
-        var showDrinks = filter === 'drinks' && (category === 'drinks' || category === 'cocktails');
-        var show = showFood || showDrinks;
-        if (show) g.classList.remove('is-hidden');
-        else g.classList.add('is-hidden');
-      }
+      if (shouldScroll) scrollToTarget(filter);
     }
 
     for (var k = 0; k < buttons.length; k += 1) {
@@ -457,7 +465,7 @@
         break;
       }
     }
-    apply(initial);
+    apply(initial, { scroll: false });
   }
 
   function boot() {

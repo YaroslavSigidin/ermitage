@@ -267,7 +267,6 @@ if (menuToggle) {
     food: '#cold-snacks',
     drinks: '#cocktails'
   };
-  const groups = Array.from(document.querySelectorAll('.menu-group'));
 
   const scrollToFilterTarget = (filter) => {
     const selector = filterTargets[filter];
@@ -285,13 +284,6 @@ if (menuToggle) {
     const shouldScroll = options.scroll !== false;
     buttons.forEach((btn) => {
       btn.classList.toggle('is-active', btn.getAttribute('data-filter') === filter);
-    });
-    groups.forEach((group) => {
-      const category = (group.getAttribute('data-category') || '').toLowerCase();
-      const showFood = filter === 'food' && category === 'food';
-      const showDrinks = filter === 'drinks' && (category === 'drinks' || category === 'cocktails');
-      const shouldShow = showFood || showDrinks;
-      group.classList.toggle('is-hidden', !shouldShow);
     });
     window.requestAnimationFrame(() => {
       onScroll();
@@ -323,7 +315,7 @@ if (menuToggle) {
 
   const activeButton = buttons.find((btn) => btn.classList.contains('is-active'));
   const initiallyActive = (activeButton && activeButton.getAttribute('data-filter')) || 'food';
-  applyFilter(initiallyActive);
+  applyFilter(initiallyActive, { scroll: false });
   window.__applyMenuFilter = applyFilter;
   window.__getMenuFilterForElement = getFilterForElement;
   window.__richToggleReady = true;
