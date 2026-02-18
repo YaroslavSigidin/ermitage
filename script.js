@@ -852,6 +852,8 @@ const attachMenuImages = () => {
     caption.className = 'menu-item-caption';
     const captionMain = document.createElement('div');
     captionMain.className = 'menu-item-caption-main';
+    const captionRight = document.createElement('div');
+    captionRight.className = 'menu-item-caption-right';
 
     const decoratedTitle = getDirectChild(textWrap, '.item-title');
     let titleNode = decoratedTitle;
@@ -876,17 +878,25 @@ const attachMenuImages = () => {
     if (notes.length > 0) {
       const details = document.createElement('div');
       details.className = 'menu-item-details';
+      let hasDetails = false;
       notes.forEach((note) => {
+        if (note.classList.contains('volume')) {
+          note.classList.add('menu-item-volume');
+          captionRight.appendChild(note);
+          return;
+        }
         details.appendChild(note);
+        hasDetails = true;
       });
-      captionMain.appendChild(details);
+      if (hasDetails) captionMain.appendChild(details);
     }
 
     caption.appendChild(captionMain);
     if (price) {
       price.classList.add('menu-item-price');
-      caption.appendChild(price);
+      captionRight.appendChild(price);
     }
+    caption.appendChild(captionRight);
 
     imageWrap.appendChild(image);
     imageWrap.appendChild(caption);

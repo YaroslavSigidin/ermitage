@@ -1010,7 +1010,7 @@ section {
   bottom: 0;
   z-index: 2;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 14px;
   background: linear-gradient(180deg, rgba(10, 11, 15, 0.24), rgba(10, 11, 15, 0.72));
@@ -1024,6 +1024,16 @@ section {
   min-width: 0;
   display: grid;
   gap: 8px;
+  flex: 1 1 auto;
+}
+
+.menu-item-caption-right {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  align-content: end;
+  text-align: right;
+  flex: 0 0 auto;
 }
 
 .menu-item-details {
@@ -1062,6 +1072,13 @@ section {
   flex: 0 0 auto;
   font-family: "Santa Catorina", "Manrope", serif;
   padding-top: 4px;
+}
+
+.menu-item-volume {
+  color: rgba(255, 243, 221, 0.9);
+  font-size: 12px;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
 }
 
 
@@ -1498,6 +1515,10 @@ section {
   .menu-item-image .item-title,
   .menu-item-image .menu-item-price {
     font-size: 16px;
+  }
+
+  .menu-item-volume {
+    font-size: 11px;
   }
 
   .menu-item-details small {
