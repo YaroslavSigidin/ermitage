@@ -168,13 +168,13 @@ if (slider) {
     return step > 1 ? step : track.clientWidth * 0.8;
   };
 
-  const scrollToIndex = (index) => {
+  const scrollToIndex = (index, behavior = 'smooth') => {
     const step = cardStep();
     const left = step * index;
     if (!track) return;
     try {
       if (typeof track.scrollTo === 'function') {
-        track.scrollTo({ left: left, behavior: 'smooth' });
+        track.scrollTo({ left: left, behavior });
         return;
       }
     } catch (e) {
@@ -252,8 +252,19 @@ if (slider) {
     setActiveDot();
     applyCurve();
   });
-  // Start from the 3rd cocktail (index 2)
-  scrollToIndex(2);
+  const initialIndex = window.matchMedia('(max-width: 720px)').matches ? 3 : 2;
+  const applyInitialSliderPosition = () => {
+    const safeIndex = Math.max(0, Math.min(initialIndex, cards.length - 1));
+    scrollToIndex(safeIndex, 'auto');
+    setActiveDot();
+    applyCurve();
+  };
+
+  applyInitialSliderPosition();
+  setTimeout(() => {
+    applyInitialSliderPosition();
+  }, 180);
+  window.addEventListener('load', applyInitialSliderPosition, { once: true });
   setTimeout(() => {
     setActiveDot();
     applyCurve();
