@@ -267,11 +267,7 @@ if (menuToggle) {
     food: '#cold-snacks',
     drinks: '#cocktails'
   };
-
-  // Safety: keep all groups visible, the toggle should only scroll.
-  document.querySelectorAll('.menu-group').forEach((group) => {
-    group.classList.remove('is-hidden', 'is-entering');
-  });
+  const groups = Array.from(document.querySelectorAll('.menu-group'));
 
   const scrollToFilterTarget = (filter) => {
     const selector = filterTargets[filter];
@@ -289,6 +285,16 @@ if (menuToggle) {
     buttons.forEach((btn) => {
       btn.classList.toggle('is-active', btn.getAttribute('data-filter') === filter);
     });
+    groups.forEach((group) => {
+      const category = (group.getAttribute('data-category') || '').toLowerCase();
+      const showFood = filter === 'food' && category === 'food';
+      const showDrinks = filter === 'drinks' && (category === 'drinks' || category === 'cocktails');
+      const shouldShow = showFood || showDrinks;
+      group.classList.toggle('is-hidden', !shouldShow);
+    });
+    window.requestAnimationFrame(() => {
+      onScroll();
+    });
     scrollToFilterTarget(filter);
   };
 
@@ -300,6 +306,9 @@ if (menuToggle) {
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => onFilterClick(btn));
   });
+
+  const initiallyActive = buttons.find((btn) => btn.classList.contains('is-active'))?.getAttribute('data-filter') || 'food';
+  applyFilter(initiallyActive);
 }
 
 const normalizeLabel = (value) => {
