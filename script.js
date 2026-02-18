@@ -252,8 +252,13 @@ if (slider) {
     setActiveDot();
     applyCurve();
   });
-  const initialIndex = window.matchMedia('(max-width: 720px)').matches ? 3 : 2;
+  const getInitialSliderIndex = () => {
+    const isMobile = window.matchMedia('(max-width: 720px)').matches;
+    if (isMobile) return Math.floor(cards.length / 2);
+    return 2;
+  };
   const applyInitialSliderPosition = () => {
+    const initialIndex = getInitialSliderIndex();
     const safeIndex = Math.max(0, Math.min(initialIndex, cards.length - 1));
     scrollToIndex(safeIndex, 'auto');
     setActiveDot();
