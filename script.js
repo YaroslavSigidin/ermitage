@@ -875,6 +875,36 @@ function resolveImageUrl(path) {
   }
 }
 
+function buildImageCandidates(path) {
+  const raw = String(path || '').trim();
+  if (!raw) return [];
+
+  const idx = raw.lastIndexOf('/');
+  const dir = idx >= 0 ? raw.slice(0, idx + 1) : '';
+  const file = idx >= 0 ? raw.slice(idx + 1) : raw;
+
+  const variants = [raw];
+  variants.push(dir + file.normalize('NFC'));
+  variants.push(dir + file.normalize('NFD'));
+
+  return Array.from(new Set(variants));
+}
+
+function setImageSrcWithFallback(imageEl, path) {
+  const candidates = buildImageCandidates(path).map(resolveImageUrl).filter(Boolean);
+  if (candidates.length === 0) return;
+
+  let index = 0;
+  const applyNext = () => {
+    if (index >= candidates.length) return;
+    imageEl.src = candidates[index];
+    index += 1;
+  };
+
+  imageEl.addEventListener('error', applyNext);
+  applyNext();
+}
+
 const attachMenuImages = () => {
   const rows = Array.from(document.querySelectorAll('.menu-list li'));
   rows.forEach((row) => {
@@ -889,7 +919,7 @@ const attachMenuImages = () => {
     imageWrap.className = 'menu-item-image';
 
     const image = document.createElement('img');
-    image.src = resolveImageUrl(imageSrc);
+    setImageSrcWithFallback(image, imageSrc);
     image.alt = title;
     image.loading = 'lazy';
     image.decoding = 'async';
@@ -963,7 +993,7 @@ const attachCocktailSliderImages = () => {
     const imageSrc = menuImageMap.get(normalizeLabel(title));
     if (!imageSrc) return;
     const img = document.createElement('img');
-    img.src = resolveImageUrl(imageSrc);
+    setImageSrcWithFallback(img, imageSrc);
     img.alt = title;
     img.loading = 'lazy';
     img.decoding = 'async';
