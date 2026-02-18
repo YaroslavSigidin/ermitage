@@ -48,27 +48,34 @@ jobs:
             echo "Deploy host: $(hostname)"
 
             REPO_DIR="/var/www/ermitage"
-            [ -d "$REPO_DIR/.git" ] || { echo "Repo not found: $REPO_DIR"; exit 1; }
+            REPO_URL="https://github.com/${{ github.repository }}.git"
+
+            # Самовосстановление: если директории или git-репо нет, создаём и клонируем.
+            if [ ! -d "$REPO_DIR/.git" ]; then
+              rm -rf "$REPO_DIR"
+              mkdir -p "$(dirname "$REPO_DIR")"
+              git clone "$REPO_URL" "$REPO_DIR"
+            fi
 
             cd "$REPO_DIR"
             git fetch --all
             git reset --hard origin/main
 
-            # Синхронизация в типовые web-root, если nginx/хостинг отдает не /var/www/ermitage.
-            if [ -d /public_html ]; then
+            # Собираем список web-root: из nginx + типовые пути.
+            ROOTS="$(grep -RhoE 'root[[:space:]]+[^;]+' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null | awk '{print $2}' || true)"
+            ROOTS="$ROOTS /public_html /var/www/html"
+            for root in $ROOTS; do
+              [ -n "$root" ] || continue
+              [ -d "$root" ] || continue
+              [ "$root" = "$REPO_DIR" ] && continue
+
               if command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1; then
-                sudo rsync -a --delete --exclude '.git' /var/www/ermitage/ /public_html/
+                sudo rsync -a --delete --exclude '.git' "$REPO_DIR"/ "$root"/
               else
-                rsync -a --delete --exclude '.git' /var/www/ermitage/ /public_html/
+                rsync -a --delete --exclude '.git' "$REPO_DIR"/ "$root"/
               fi
-            fi
-            if [ -d /var/www/html ]; then
-              if command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1; then
-                sudo rsync -a --delete --exclude '.git' /var/www/ermitage/ /var/www/html/
-              else
-                rsync -a --delete --exclude '.git' /var/www/ermitage/ /var/www/html/
-              fi
-            fi
+              echo "Synced to $root"
+            done
 
             if command -v nginx >/dev/null 2>&1; then
               if command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1; then
