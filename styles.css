@@ -1366,7 +1366,9 @@ section {
   }
 
   .hero-content {
-    padding: 20px 14px 18px;
+    width: min(96vw, 760px);
+    min-height: 220px;
+    padding: 30px 18px 28px;
     margin: 0 auto;
   }
 
@@ -1490,6 +1492,10 @@ section {
   .slider-dots {
     position: relative;
     z-index: 2;
+  }
+
+  .slider-btn {
+    display: none !important;
   }
 
   .slider-track {
