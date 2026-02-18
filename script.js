@@ -800,7 +800,7 @@ const menuImageItems = [
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
   // Коктейли (фото из assets/images/2/)
-  { src: 'assets/images/2/1.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic'] },
+  { src: 'assets/images/2/1.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic', 'Мартини Фиеро и Тоник'] },
   { src: 'assets/images/2/2.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
   { src: 'assets/images/2/3.jpg', aliases: ['Слезы бывшего'] },
   { src: 'assets/images/2/4.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
