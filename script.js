@@ -731,7 +731,7 @@ if (document.readyState !== 'loading') runInitSearchOnce();
 
 const menuImageItems = [
   {
-    src: 'assets/images/европейские сыры.jpg',
+    src: 'assets/images/европейские сыры.jpg',
     aliases: ['Европейские сыры']
   },
   {
@@ -751,7 +751,7 @@ const menuImageItems = [
     aliases: ['Цезарь с курицей']
   },
   {
-    src: 'assets/images/салат цезарь с креветкой.jpg',
+    src: 'assets/images/салат цезарь с креветкой.jpg',
     aliases: ['Цезарь с креветками']
   },
   {
@@ -763,7 +763,7 @@ const menuImageItems = [
     aliases: ['Тартар из лосося']
   },
   {
-    src: 'assets/images/салат морской.jpg',
+    src: 'assets/images/салат морской.jpg',
     aliases: ['Морской']
   },
   {
@@ -771,7 +771,7 @@ const menuImageItems = [
     aliases: ['Креветка руккола с томлёной грушей']
   },
   {
-    src: 'assets/images/пивной сет.jpg',
+    src: 'assets/images/пивной сет.jpg',
     aliases: ['Пивной сет']
   },
   {
@@ -799,7 +799,7 @@ const menuImageItems = [
     aliases: ['С морепродуктами', 'Паста с морепродуктами']
   },
   {
-    src: 'assets/images/стейк из семги с овощами.jpg',
+    src: 'assets/images/стейк из семги с овощами.jpg',
     aliases: ['Стейк из сёмги с овощами-гриль', 'Стейк из сёмги с овощами‑гриль']
   },
   {
