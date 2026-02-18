@@ -1346,6 +1346,7 @@ section {
 @media (max-width: 720px) {
   :root {
     --menu-content-inset: 11px;
+    --mobile-top-nav-height: 86px;
   }
 
   body.menu-open {
@@ -1357,7 +1358,9 @@ section {
   }
 
   .hero {
-    padding: 28px 5vw 16px;
+    padding: calc(28px + var(--mobile-top-nav-height)) 5vw 16px;
+    min-height: 100svh;
+    box-sizing: border-box;
   }
 
   .hero-content {
@@ -1450,7 +1453,7 @@ section {
 
   section {
     padding-bottom: 240px;
-    padding-top: 86px;
+    padding-top: 0;
   }
 
   .hero-slider-block {
