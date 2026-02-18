@@ -1358,13 +1358,16 @@ section {
   }
 
   .hero {
-    padding: calc(28px + var(--mobile-top-nav-height)) 5vw 16px;
-    min-height: 100svh;
+    padding: calc(8px + var(--mobile-top-nav-height)) 5vw 8px;
+    min-height: 60svh;
     box-sizing: border-box;
+    display: grid;
+    place-items: center;
   }
 
   .hero-content {
     padding: 20px 14px 18px;
+    margin: 0 auto;
   }
 
   .menu-col h3 {
