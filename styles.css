@@ -1427,11 +1427,7 @@ section {
   }
 
   .menu-nav-links {
-    justify-content: flex-start;
-    gap: 14px;
-    row-gap: 0;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    display: none !important;
   }
 
   .menu-nav a {
