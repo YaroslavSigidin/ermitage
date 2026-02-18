@@ -280,8 +280,9 @@ if (menuToggle) {
     window.scrollTo({ top, behavior: 'smooth' });
   };
 
-  const applyFilter = (filter) => {
+  const applyFilter = (filter, options = {}) => {
     if (!filter) return;
+    const shouldScroll = options.scroll !== false;
     buttons.forEach((btn) => {
       btn.classList.toggle('is-active', btn.getAttribute('data-filter') === filter);
     });
@@ -295,7 +296,8 @@ if (menuToggle) {
     window.requestAnimationFrame(() => {
       onScroll();
     });
-    scrollToFilterTarget(filter);
+    if (shouldScroll) scrollToFilterTarget(filter);
+    window.__menuCurrentFilter = filter;
   };
 
   const onFilterClick = (button) => {
@@ -307,8 +309,24 @@ if (menuToggle) {
     btn.addEventListener('click', () => onFilterClick(btn));
   });
 
-  const initiallyActive = buttons.find((btn) => btn.classList.contains('is-active'))?.getAttribute('data-filter') || 'food';
+  const getFilterForElement = (element) => {
+    if (!element) return '';
+    const group = element.classList && element.classList.contains('menu-group')
+      ? element
+      : element.closest('.menu-group');
+    if (!group) return '';
+    const category = (group.getAttribute('data-category') || '').toLowerCase();
+    if (category === 'food') return 'food';
+    if (category === 'drinks' || category === 'cocktails') return 'drinks';
+    return '';
+  };
+
+  const activeButton = buttons.find((btn) => btn.classList.contains('is-active'));
+  const initiallyActive = (activeButton && activeButton.getAttribute('data-filter')) || 'food';
   applyFilter(initiallyActive);
+  window.__applyMenuFilter = applyFilter;
+  window.__getMenuFilterForElement = getFilterForElement;
+  window.__richToggleReady = true;
 }
 
 const normalizeLabel = (value) => {
@@ -343,6 +361,23 @@ const getMenuItemTitle = (row) => {
   );
 
   return firstTextNode ? firstTextNode.textContent.trim() : '';
+};
+
+const ensureResultVisible = (element) => {
+  if (!element) return;
+  const getFilter = window.__getMenuFilterForElement;
+  const applyFilter = window.__applyMenuFilter;
+  if (typeof getFilter === 'function' && typeof applyFilter === 'function') {
+    const needed = getFilter(element);
+    if (needed) {
+      applyFilter(needed, { scroll: false });
+      return;
+    }
+  }
+  const group = element.classList && element.classList.contains('menu-group')
+    ? element
+    : element.closest('.menu-group');
+  if (group) group.classList.remove('is-hidden');
 };
 
 function initSearch() {
@@ -476,6 +511,7 @@ function initSearch() {
 
   const navigateToResult = (result) => {
     if (!result || !result.element) return;
+    ensureResultVisible(result.element);
     scrollToWithOffset(result.element);
     if (result.type === 'row') highlightFoundRow(result.element);
   };
@@ -530,6 +566,7 @@ function initSearch() {
     const rows = Array.from(document.querySelectorAll('.menu-list li'));
     const fallbackRow = rows.find((row) => normalizeLabel(row.textContent || '').includes(query));
     if (fallbackRow) {
+      ensureResultVisible(fallbackRow);
       navigateToResult({ type: 'row', element: fallbackRow });
       hideSuggest();
     }
@@ -634,6 +671,7 @@ function initSearchFallback() {
     const rows = Array.from(document.querySelectorAll('.menu-list li'));
     const hitRow = rows.find((row) => normalizeLabel(row.textContent || '').includes(q));
     if (hitRow) {
+      ensureResultVisible(hitRow);
       scrollToWithOffset(hitRow);
       hitRow.classList.add('search-hit');
       window.setTimeout(() => hitRow.classList.remove('search-hit'), 1300);
@@ -643,6 +681,7 @@ function initSearchFallback() {
     const sections = Array.from(document.querySelectorAll('.menu-group[id], .menu-section'));
     const hitSection = sections.find((section) => normalizeLabel(section.textContent || '').includes(q));
     if (hitSection) {
+      ensureResultVisible(hitSection);
       scrollToWithOffset(hitSection);
     }
   };

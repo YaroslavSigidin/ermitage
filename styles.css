@@ -262,6 +262,7 @@ body::after {
   gap: 14px 10px;
   position: relative;
   z-index: 1;
+  isolation: isolate;
 }
 
 .slider-track { order: 0; grid-column: 1 / -1; }
@@ -440,6 +441,7 @@ body::after {
   position: relative;
   z-index: 10;
   pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .slider-dots {
@@ -1102,11 +1104,12 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: none;
   backdrop-filter: blur(14px);
-  z-index: 20;
+  z-index: 120;
   min-width: 260px;
   width: max-content;
   justify-content: center;
   max-width: 90vw;
+  pointer-events: auto;
 }
 
 .toggle-pill {
@@ -1122,6 +1125,8 @@ section {
   transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .toggle-pill.is-active {

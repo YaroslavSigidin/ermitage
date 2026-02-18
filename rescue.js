@@ -412,7 +412,6 @@
 
   function bindToggle() {
     if (window.__rescueToggleBound) return;
-    if (window.__richToggleReady) return;
 
     var toggle = document.querySelector('.menu-toggle');
     if (!toggle) return;
