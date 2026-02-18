@@ -1042,7 +1042,7 @@ section {
 .menu-item-image .item-title {
   color: #fff9ee;
   font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
-  font-weight: 300;
+  font-weight: 200;
   font-size: 17px;
   line-height: 1.35;
   letter-spacing: 0.1px;
@@ -1181,7 +1181,7 @@ section {
   gap: 6px;
   font-size: 15px;
   font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
-  font-weight: 300;
+  font-weight: 200;
   letter-spacing: 0.4px;
 }
 
@@ -1200,7 +1200,7 @@ section {
   order: 1;
   flex: 0 1 auto;
   min-width: 0;
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .menu-list .item-title .icon {
@@ -1301,7 +1301,7 @@ section {
     font-family: "Aeonik Pro", "Santa Catorina", "Manrope", serif;
     font-size: 24px;
     line-height: 1.2;
-    font-weight: 300;
+    font-weight: 200;
   }
 
   .menu-item-details small {
