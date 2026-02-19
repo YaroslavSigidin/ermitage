@@ -47,68 +47,45 @@ function initHeroWave() {
   const wrap = document.querySelector('.hero-wave');
   const wavePath = wrap ? wrap.querySelector('.hero-wave-line') : null;
   const basePath = wrap ? wrap.querySelector('.hero-wave-base') : null;
-  const svg = wrap ? wrap.querySelector('.hero-wave-svg') : null;
-  if (!wrap || !wavePath || !svg) return;
-
-  const ns = 'http://www.w3.org/2000/svg';
-  let recHead = wrap.querySelector('.hero-wave-head');
-  if (!recHead) {
-    recHead = document.createElementNS(ns, 'circle');
-    recHead.setAttribute('class', 'hero-wave-head');
-    svg.appendChild(recHead);
-  }
+  if (!wrap || !wavePath) return;
 
   const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const barsCount = 110;
-  const samples = Array.from({ length: barsCount }, () => 0.14);
-  let smoothedSample = 0.2;
+  const pointsCount = 132;
 
-  const nextSample = (timeS) => {
-    const beat = (Math.sin(timeS * 2.8) + 1) * 0.5;
-    const phrase = (Math.sin(timeS * 0.95) + 1) * 0.5;
-    const burst = Math.pow(Math.max(0, Math.sin(timeS * 6.2)), 4) * 0.95;
-    const noise = Math.random() * 0.22;
-    let target = 0.06 + beat * 0.17 + phrase * 0.14 + burst * 0.48 + noise;
-
-    if (Math.random() < 0.06) target *= 0.3;
-
-    smoothedSample += (target - smoothedSample) * 0.35;
-    return Math.min(Math.max(smoothedSample, 0.05), 1);
-  };
-
-  const draw = (timeMs = 0, freeze = false) => {
+  const draw = (timeMs = 0) => {
     const width = Math.max(wrap.clientWidth, 360);
     const height = Math.max(wrap.clientHeight, 36);
     const centerY = height * 0.5;
-    const maxAmplitude = height * 0.42;
     const timeS = timeMs * 0.001;
+    const xStep = width / (pointsCount - 1);
+    let d = `M 0 ${centerY.toFixed(2)}`;
 
-    if (!freeze) {
-      for (let i = 0; i < 2; i += 1) {
-        samples.shift();
-        samples.push(nextSample(timeS + i * 0.025));
-      }
-    }
-
-    const xStep = width / (barsCount - 1);
-    let d = '';
-    for (let i = 0; i < barsCount; i += 1) {
+    for (let i = 1; i < pointsCount; i += 1) {
       const x = i * xStep;
-      const amp = samples[i] * maxAmplitude;
-      d += `M ${x.toFixed(2)} ${(centerY - amp).toFixed(2)} L ${x.toFixed(2)} ${(centerY + amp).toFixed(2)} `;
+      const normX = x / width;
+
+      const carrier = Math.sin((normX * 9.5 - timeS * 2.2) * Math.PI * 2);
+      const texture = Math.sin((normX * 21.0 - timeS * 3.4) * Math.PI * 2);
+      const low = Math.sin((normX * 2.2 - timeS * 0.8) * Math.PI * 2);
+
+      const packet1 = Math.exp(-Math.pow((normX - (0.18 + (timeS * 0.10) % 0.9)) / 0.09, 2));
+      const packet2 = Math.exp(-Math.pow((normX - (0.52 + (timeS * 0.07) % 0.85)) / 0.11, 2));
+      const packet3 = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.06) % 0.8)) / 0.08, 2));
+      const envelope = 0.2 + packet1 * 0.55 + packet2 * 0.45 + packet3 * 0.5;
+
+      const amplitude = height * (0.06 + envelope * 0.28);
+      const y = centerY + (carrier * 0.62 + texture * 0.25 + low * 0.13) * amplitude;
+
+      d += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
     }
 
-    wavePath.setAttribute('d', d.trim());
+    wavePath.setAttribute('d', d);
     if (basePath) {
       basePath.setAttribute('d', `M 0 ${centerY.toFixed(2)} L ${width.toFixed(2)} ${centerY.toFixed(2)}`);
     }
-
-    recHead.setAttribute('cx', (width - 3).toFixed(2));
-    recHead.setAttribute('cy', centerY.toFixed(2));
-    recHead.setAttribute('r', Math.max(3.5, height * 0.13).toFixed(2));
   };
 
-  draw(0, true);
+  draw(0);
   if (reducedMotion) return;
 
   const animate = (ts) => {
@@ -118,10 +95,10 @@ function initHeroWave() {
   window.requestAnimationFrame(animate);
 
   if (typeof ResizeObserver !== 'undefined') {
-    const ro = new ResizeObserver(() => draw(performance.now(), true));
+    const ro = new ResizeObserver(() => draw(performance.now()));
     ro.observe(wrap);
   } else {
-    window.addEventListener('resize', () => draw(performance.now(), true));
+    window.addEventListener('resize', () => draw(performance.now()));
   }
 }
 
