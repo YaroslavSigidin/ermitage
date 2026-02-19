@@ -924,6 +924,10 @@ function setImageSrcWithFallback(imageEl, path) {
 const attachMenuImages = () => {
   const rows = Array.from(document.querySelectorAll('.menu-list li'));
   rows.forEach((row) => {
+    const group = row.closest('.menu-group');
+    const category = (group && group.getAttribute('data-category') || '').toLowerCase();
+    if (category === 'cocktails' || (group && group.id === 'cocktails')) return;
+
     const title = getMenuItemTitle(row);
     const imageSrc = resolveDishImageByTitle(title);
     if (!imageSrc) return;
