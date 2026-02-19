@@ -73,10 +73,11 @@ function initHeroWave() {
       const packetB = Math.exp(-Math.pow((normX - (0.38 + (timeS * 0.13) % 0.9)) / 0.09, 2));
       const packetC = Math.exp(-Math.pow((normX - (0.62 + (timeS * 0.11) % 0.9)) / 0.095, 2));
       const packetD = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.15) % 0.9)) / 0.07, 2));
-      const voiceEnvelope = 0.18 + packetA * 0.55 + packetB * 0.72 + packetC * 0.68 + packetD * 0.5;
+      const voiceEnvelope = 0.2 + packetA * 0.62 + packetB * 0.86 + packetC * 0.82 + packetD * 0.6;
+      const megaSpike = Math.pow(Math.max(0, Math.sin((normX * 7.0 - timeS * 0.95) * Math.PI * 2)), 8);
 
       const edgeFade = Math.pow(Math.sin(Math.PI * normX), 0.7);
-      const amplitude = height * (0.08 + voiceEnvelope * 0.46) * edgeFade;
+      const amplitude = height * (0.1 + voiceEnvelope * 0.58 + megaSpike * 0.65) * edgeFade;
       const shape = fast * 0.42 + mid * 0.33 + ultra * 0.17 + low * 0.08;
       const y = centerY + shape * amplitude;
 
