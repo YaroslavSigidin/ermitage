@@ -639,6 +639,34 @@ body::after {
   animation: heroTextReveal 0.8s ease-out both;
 }
 
+.hero-wave {
+  width: min(560px, 82vw);
+  height: 44px;
+  margin: 0 auto 12px;
+  opacity: 0.95;
+}
+
+.hero-wave-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-wave-base {
+  fill: none;
+  stroke: rgba(216, 179, 116, 0.22);
+  stroke-width: 1.2;
+}
+
+.hero-wave-line {
+  fill: none;
+  stroke: #d8b374;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(216, 179, 116, 0.45));
+}
+
 .hero-title {
   font-family: "Santa Catorina", "Manrope", serif;
   font-size: clamp(40px, 10vw, 80px);

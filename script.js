@@ -43,6 +43,57 @@ if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
   revealTargets.forEach((el) => el.classList.add('is-visible'));
 }
 
+function initHeroWave() {
+  const wrap = document.querySelector('.hero-wave');
+  const wavePath = wrap ? wrap.querySelector('.hero-wave-line') : null;
+  if (!wrap || !wavePath) return;
+
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pointsCount = 72;
+
+  const draw = (timeMs = 0) => {
+    const width = Math.max(wrap.clientWidth, 320);
+    const height = Math.max(wrap.clientHeight, 32);
+    const centerY = height * 0.5;
+    const xStep = width / (pointsCount - 1);
+    const t = timeMs * 0.0012;
+    const breathing = 0.6 + 0.4 * Math.sin(t * 0.9);
+    const amplitude = Math.max(3, height * 0.23 * breathing);
+
+    let d = `M 0 ${centerY.toFixed(2)}`;
+    for (let i = 1; i < pointsCount; i += 1) {
+      const x = i * xStep;
+      const phase = i * 0.33;
+      const y =
+        centerY +
+        Math.sin(t * 2.4 + phase) * amplitude * 0.54 +
+        Math.sin(t * 3.9 + phase * 0.7) * amplitude * 0.28 +
+        Math.cos(t * 1.8 + phase * 1.4) * amplitude * 0.18;
+      d += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
+    }
+    wavePath.setAttribute('d', d);
+  };
+
+  draw(0);
+  if (reducedMotion) return;
+
+  let rafId = 0;
+  const animate = (ts) => {
+    draw(ts);
+    rafId = window.requestAnimationFrame(animate);
+  };
+  rafId = window.requestAnimationFrame(animate);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(() => draw(performance.now()));
+    ro.observe(wrap);
+  } else {
+    window.addEventListener('resize', () => draw(performance.now()));
+  }
+}
+
+initHeroWave();
+
 const sectionLinks = Array.from(document.querySelectorAll('.menu-nav a[href^="#"]'));
 const sections = sectionLinks
   .map((link) => {
