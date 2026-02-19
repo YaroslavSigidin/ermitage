@@ -814,16 +814,16 @@ const menuImageItems = [
     src: 'assets/images/grilled-chicken-fillet.jpg',
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
-  // Коктейли (фото из assets/images/2/ с обновленными названиями файлов)
-  { src: 'assets/images/2/Эрмитаж.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic', 'Мартини Фиеро и Тоник'] },
-  { src: 'assets/images/2/Ромовая баба.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
-  { src: 'assets/images/2/Слезы бывшего.jpg', aliases: ['Слезы бывшего'] },
-  { src: 'assets/images/2/Розовая пантера.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
-  { src: 'assets/images/2/Северное сияние.jpg', aliases: ['Северное сияние'] },
-  { src: 'assets/images/2/Клубничный джин тоник.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
-  { src: 'assets/images/2/Лимонад клубника базилик.jpg', aliases: ['Лимонад клубника базилик'] },
-  { src: 'assets/images/2/Российский флаг.jpg', aliases: ['Российский флаг'] },
-  { src: 'assets/images/2/Хиросима.jpg', aliases: ['Хиросима'] }
+  // Коктейли (ASCII-имена файлов для стабильной загрузки)
+  { src: 'assets/images/2/ermitazh.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic', 'Мартини Фиеро и Тоник'] },
+  { src: 'assets/images/2/romovaya-baba.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
+  { src: 'assets/images/2/slezy-byvshego.jpg', aliases: ['Слезы бывшего'] },
+  { src: 'assets/images/2/rozovaya-pantera.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
+  { src: 'assets/images/2/severnoe-siyanie.jpg', aliases: ['Северное сияние'] },
+  { src: 'assets/images/2/klubnichnyy-dzhin-tonik.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
+  { src: 'assets/images/2/limonad-klubnika-bazilik.jpg', aliases: ['Лимонад клубника базилик'] },
+  { src: 'assets/images/2/rossiyskiy-flag.jpg', aliases: ['Российский флаг'] },
+  { src: 'assets/images/2/hiroshima.jpg', aliases: ['Хиросима'] }
 ];
 
 const menuImageMap = new Map();
