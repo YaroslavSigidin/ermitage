@@ -50,7 +50,7 @@ function initHeroWave() {
   if (!wrap || !wavePath) return;
 
   const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const pointsCount = 132;
+  const pointsCount = 220;
 
   const draw = (timeMs = 0) => {
     const width = Math.max(wrap.clientWidth, 360);
@@ -64,17 +64,21 @@ function initHeroWave() {
       const x = i * xStep;
       const normX = x / width;
 
-      const carrier = Math.sin((normX * 9.5 - timeS * 2.2) * Math.PI * 2);
-      const texture = Math.sin((normX * 21.0 - timeS * 3.4) * Math.PI * 2);
-      const low = Math.sin((normX * 2.2 - timeS * 0.8) * Math.PI * 2);
+      const fast = Math.sin((normX * 30.0 - timeS * 4.6) * Math.PI * 2);
+      const mid = Math.sin((normX * 16.0 - timeS * 2.9) * Math.PI * 2);
+      const ultra = Math.sin((normX * 44.0 - timeS * 5.2) * Math.PI * 2);
+      const low = Math.sin((normX * 4.0 - timeS * 1.1) * Math.PI * 2);
 
-      const packet1 = Math.exp(-Math.pow((normX - (0.18 + (timeS * 0.10) % 0.9)) / 0.09, 2));
-      const packet2 = Math.exp(-Math.pow((normX - (0.52 + (timeS * 0.07) % 0.85)) / 0.11, 2));
-      const packet3 = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.06) % 0.8)) / 0.08, 2));
-      const envelope = 0.2 + packet1 * 0.55 + packet2 * 0.45 + packet3 * 0.5;
+      const packetA = Math.exp(-Math.pow((normX - (0.14 + (timeS * 0.16) % 0.9)) / 0.075, 2));
+      const packetB = Math.exp(-Math.pow((normX - (0.38 + (timeS * 0.13) % 0.9)) / 0.09, 2));
+      const packetC = Math.exp(-Math.pow((normX - (0.62 + (timeS * 0.11) % 0.9)) / 0.095, 2));
+      const packetD = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.15) % 0.9)) / 0.07, 2));
+      const voiceEnvelope = 0.18 + packetA * 0.55 + packetB * 0.72 + packetC * 0.68 + packetD * 0.5;
 
-      const amplitude = height * (0.06 + envelope * 0.28);
-      const y = centerY + (carrier * 0.62 + texture * 0.25 + low * 0.13) * amplitude;
+      const edgeFade = Math.pow(Math.sin(Math.PI * normX), 0.7);
+      const amplitude = height * (0.08 + voiceEnvelope * 0.46) * edgeFade;
+      const shape = fast * 0.42 + mid * 0.33 + ultra * 0.17 + low * 0.08;
+      const y = centerY + shape * amplitude;
 
       d += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
     }
