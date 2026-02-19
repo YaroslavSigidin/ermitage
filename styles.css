@@ -640,9 +640,10 @@ body::after {
 }
 
 .hero-wave {
-  width: min(560px, 82vw);
+  width: 100vw;
+  max-width: none;
   height: 44px;
-  margin: 0 auto 12px;
+  margin: 14px calc(50% - 50vw) 0;
   opacity: 0.95;
 }
 
@@ -1486,7 +1487,7 @@ section {
     box-sizing: border-box;
     display: grid;
     place-items: center;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero-content {
@@ -1495,6 +1496,11 @@ section {
     min-height: 220px;
     padding: 30px 18px 28px;
     margin: 0 auto;
+  }
+
+  .hero-wave {
+    height: 40px;
+    margin-top: 8px;
   }
 
   .menu-col h3 {
