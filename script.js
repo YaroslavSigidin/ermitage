@@ -814,16 +814,16 @@ const menuImageItems = [
     src: 'assets/images/grilled-chicken-fillet.jpg',
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
-  // Коктейли (фото из assets/images/2/)
-  { src: 'assets/images/2/1.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic', 'Мартини Фиеро и Тоник'] },
-  { src: 'assets/images/2/2.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
-  { src: 'assets/images/2/3.jpg', aliases: ['Слезы бывшего'] },
-  { src: 'assets/images/2/4.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
-  { src: 'assets/images/2/mph-8174-redakt.jpg', aliases: ['Северное сияние'] },
-  { src: 'assets/images/2/mph-8184-redakt.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
-  { src: 'assets/images/2/mph-8200-redakt.jpg', aliases: ['Лимонад клубника базилик'] },
-  { src: 'assets/images/2/mph-8248-redakt.jpg', aliases: ['Российский флаг'] },
-  { src: 'assets/images/2/mph-8249-redakt.jpg', aliases: ['Хиросима'] }
+  // Коктейли (фото из assets/images/2/ с обновленными названиями файлов)
+  { src: 'assets/images/2/Эрмитаж.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic', 'Мартини Фиеро и Тоник'] },
+  { src: 'assets/images/2/Ромовая баба.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
+  { src: 'assets/images/2/Слезы бывшего.jpg', aliases: ['Слезы бывшего'] },
+  { src: 'assets/images/2/Розовая пантера.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
+  { src: 'assets/images/2/Северное сияние.jpg', aliases: ['Северное сияние'] },
+  { src: 'assets/images/2/Клубничный джин тоник.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
+  { src: 'assets/images/2/Лимонад клубника базилик.jpg', aliases: ['Лимонад клубника базилик'] },
+  { src: 'assets/images/2/Российский флаг.jpg', aliases: ['Российский флаг'] },
+  { src: 'assets/images/2/Хиросима.jpg', aliases: ['Хиросима'] }
 ];
 
 const menuImageMap = new Map();
