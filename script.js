@@ -736,83 +736,83 @@ if (document.readyState !== 'loading') runInitSearchOnce();
 
 const menuImageItems = [
   {
-    src: 'assets/images/европейские сыры.jpg',
+    src: 'assets/images/european-cheeses.jpg',
     aliases: ['Европейские сыры']
   },
   {
-    src: 'assets/images/мясная коллекция.jpg',
+    src: 'assets/images/meat-collection.jpg',
     aliases: ['Мясная коллекция']
   },
   {
-    src: 'assets/images/рыбная коллекция.jpg',
+    src: 'assets/images/fish-collection.jpg',
     aliases: ['Рыбная коллекция']
   },
   {
-    src: 'assets/images/ассорти сезонных фруктов.jpg',
+    src: 'assets/images/seasonal-fruit-platter.jpg',
     aliases: ['Ассорти сезонных фруктов']
   },
   {
-    src: 'assets/images/салат цезарь.jpg',
+    src: 'assets/images/caesar-salad.jpg',
     aliases: ['Цезарь с курицей']
   },
   {
-    src: 'assets/images/салат цезарь с креветкой.jpg',
+    src: 'assets/images/caesar-salad-shrimp.jpg',
     aliases: ['Цезарь с креветками']
   },
   {
-    src: 'assets/images/салат эрмитаж.jpg',
+    src: 'assets/images/ermitage-salad.jpg',
     aliases: ['Фирменный салат Эрмитаж с говядиной', 'Фирменный салат «Эрмитаж» с говядиной']
   },
   {
-    src: 'assets/images/тар тар из лосося салат.jpg',
+    src: 'assets/images/salmon-tartare-salad.jpg',
     aliases: ['Тартар из лосося']
   },
   {
-    src: 'assets/images/салат морской.jpg',
+    src: 'assets/images/seafood-salad.jpg',
     aliases: ['Морской']
   },
   {
-    src: 'assets/images/салат креветка рукола.jpg',
+    src: 'assets/images/shrimp-arugula-salad.jpg',
     aliases: ['Креветка руккола с томлёной грушей']
   },
   {
-    src: 'assets/images/пивной сет.jpg',
+    src: 'assets/images/beer-set.jpg',
     aliases: ['Пивной сет']
   },
   {
-    src: 'assets/images/мидии киви.jpg',
+    src: 'assets/images/kiwi-mussels.jpg',
     aliases: ['Мидии киви', 'Мидии-киви']
   },
   {
-    src: 'assets/images/тигровые креветки фламбе.jpg',
+    src: 'assets/images/tiger-shrimp-flambe.jpg',
     aliases: ['Тигровые креветки Фламбе', 'Тигровые креветки «Фламбе» с чесноком и розмарином']
   },
   {
-    src: 'assets/images/микс баварских колбасок.jpg',
+    src: 'assets/images/bavarian-sausage-mix.jpg',
     aliases: ['Микс баварских колбас', 'Микс баварских колбасок']
   },
   {
-    src: 'assets/images/борщ.jpg',
+    src: 'assets/images/borscht.jpg',
     aliases: ['Борщ']
   },
   {
-    src: 'assets/images/том ям.jpg',
+    src: 'assets/images/tom-yum.jpg',
     aliases: ['Том Ям Кунг', 'Том Ям']
   },
   {
-    src: 'assets/images/паста с морепродуктами.jpg',
+    src: 'assets/images/seafood-pasta.jpg',
     aliases: ['С морепродуктами', 'Паста с морепродуктами']
   },
   {
-    src: 'assets/images/стейк из семги с овощами.jpg',
+    src: 'assets/images/salmon-steak-vegetables.jpg',
     aliases: ['Стейк из сёмги с овощами-гриль', 'Стейк из сёмги с овощами‑гриль']
   },
   {
-    src: 'assets/images/филе судака с рисом венера.jpg',
+    src: 'assets/images/pikeperch-fillet-venere-rice.jpg',
     aliases: ['Филе судака с рисом Венера в кокосовом молоке', 'Филе судака с рисом «Венера» в кокосовом молоке']
   },
   {
-    src: 'assets/images/куриное филе гриль.jpg',
+    src: 'assets/images/grilled-chicken-fillet.jpg',
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
   // Коктейли (фото из assets/images/2/)
@@ -820,11 +820,11 @@ const menuImageItems = [
   { src: 'assets/images/2/2.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
   { src: 'assets/images/2/3.jpg', aliases: ['Слезы бывшего'] },
   { src: 'assets/images/2/4.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
-  { src: 'assets/images/2/MPH_8174-редакт.jpg', aliases: ['Северное сияние'] },
-  { src: 'assets/images/2/MPH_8184-редакт.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
-  { src: 'assets/images/2/MPH_8200-редакт.jpg', aliases: ['Лимонад клубника базилик'] },
-  { src: 'assets/images/2/MPH_8248-редакт.jpg', aliases: ['Российский флаг'] },
-  { src: 'assets/images/2/MPH_8249-редакт.jpg', aliases: ['Хиросима'] }
+  { src: 'assets/images/2/mph-8174-redakt.jpg', aliases: ['Северное сияние'] },
+  { src: 'assets/images/2/mph-8184-redakt.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
+  { src: 'assets/images/2/mph-8200-redakt.jpg', aliases: ['Лимонад клубника базилик'] },
+  { src: 'assets/images/2/mph-8248-redakt.jpg', aliases: ['Российский флаг'] },
+  { src: 'assets/images/2/mph-8249-redakt.jpg', aliases: ['Хиросима'] }
 ];
 
 const menuImageMap = new Map();
