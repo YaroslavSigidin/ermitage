@@ -354,7 +354,7 @@ body::after {
   grid-template-rows: 1fr auto;
   gap: 14px 10px;
   position: relative;
-  z-index: 1;
+  z-index: 3;
   isolation: isolate;
 }
 
@@ -367,14 +367,12 @@ body::after {
   display: flex;
   gap: 14px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
-  padding: 12px 48px 28px;
+  padding: 20px 48px 36px;
   scrollbar-width: none;
-  transform: perspective(1200px) rotateX(2deg);
   position: relative;
   z-index: 1;
-  overflow-y: visible;
 }
 
 .slider-track::-webkit-scrollbar {
@@ -473,7 +471,7 @@ body::after {
 
   .slider-track {
     gap: 14px;
-    padding: 12px 24px 28px;
+    padding: 20px 18px 36px;
   }
 
   /* Desktop: show only three cocktail cards in viewport; others scroll horizontally. */
@@ -532,9 +530,10 @@ body::after {
   line-height: 1;
   cursor: pointer;
   position: relative;
-  z-index: 10;
+  z-index: 30;
   pointer-events: auto;
   touch-action: manipulation;
+  flex-shrink: 0;
 }
 
 .slider-dots {
@@ -590,7 +589,7 @@ body::after {
   background: transparent;
   box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   margin-top: 0;
   animation: none;
 }
@@ -602,7 +601,7 @@ body::after {
   top: 0;
   bottom: 0;
   width: 80px;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
   backdrop-filter: blur(10px);
 }

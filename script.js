@@ -163,18 +163,13 @@ if (slider) {
 
   const dots = createDots();
 
-  const cardStep = () => {
-    const card = cards[0];
-    if (!card) return 0;
-    const style = window.getComputedStyle(track);
-    const gap = parseFloat(style.columnGap || style.gap || 0) || 0;
-    const step = card.getBoundingClientRect().width + gap;
-    return step > 1 ? step : track.clientWidth * 0.8;
-  };
-
   const scrollToIndex = (index, behavior = 'smooth') => {
-    const step = cardStep();
-    const left = step * index;
+    const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
+    const card = cards[safeIndex];
+    if (!card) return;
+    const centeredLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+    const maxLeft = Math.max(track.scrollWidth - track.clientWidth, 0);
+    const left = Math.max(0, Math.min(centeredLeft, maxLeft));
     if (!track) return;
     try {
       if (typeof track.scrollTo === 'function') {
