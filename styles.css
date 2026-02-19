@@ -75,6 +75,99 @@ main {
   width: 100%;
 }
 
+.lead-capture,
+.faq-block {
+  max-width: 1120px;
+  margin: 0 auto 24px;
+  padding: 0 14px;
+}
+
+.lead-capture-inner,
+.faq-block {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(16, 16, 24, 0.85), rgba(10, 10, 14, 0.7));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  padding: 18px 18px 16px;
+}
+
+.lead-capture h2,
+.faq-block h2 {
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: clamp(26px, 4vw, 38px);
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.lead-capture p {
+  color: rgba(246, 241, 232, 0.9);
+  margin-bottom: 10px;
+}
+
+.lead-points {
+  margin: 0 0 14px 18px;
+  color: rgba(246, 241, 232, 0.88);
+}
+
+.lead-points li {
+  margin: 0 0 6px;
+}
+
+.lead-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lead-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 500;
+}
+
+.lead-btn-primary {
+  border-color: rgba(216, 179, 116, 0.55);
+  background: linear-gradient(130deg, rgba(216, 179, 116, 0.26), rgba(216, 179, 116, 0.1));
+}
+
+.faq-block details {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 0;
+}
+
+.faq-block details:first-of-type {
+  border-top: 0;
+}
+
+.faq-block summary {
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: #fff4dc;
+}
+
+.faq-block summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-block p {
+  margin-top: 8px;
+  color: rgba(246, 241, 232, 0.86);
+}
+
+.faq-block a {
+  color: #ffe4a8;
+}
+
 .menu-toggle-btn {
   position: fixed;
   top: 12px;
