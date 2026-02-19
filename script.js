@@ -845,13 +845,20 @@ const resolveDishImageByTitle = (title) => {
   const exact = menuImageMap.get(normalizedTitle);
   if (exact) return exact;
 
+  const hasWholePhrase = (text, phrase) => {
+    const t = String(text || '').trim();
+    const p = String(phrase || '').trim();
+    if (!t || !p) return false;
+    return (` ${t} `).includes(` ${p} `);
+  };
+
   let bestSrc = '';
   let bestScore = 0;
   const titleTokens = normalizedTitle.split(' ').filter(Boolean);
 
   for (const [alias, src] of menuImageMap.entries()) {
     if (!alias) continue;
-    if (normalizedTitle.includes(alias) || alias.includes(normalizedTitle)) {
+    if (hasWholePhrase(normalizedTitle, alias) || hasWholePhrase(alias, normalizedTitle)) {
       const score = alias.length;
       if (score > bestScore) {
         bestScore = score;
