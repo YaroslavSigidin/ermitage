@@ -865,13 +865,13 @@ const menuImageItems = [
     src: 'assets/images/grilled-chicken-fillet.jpg',
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
-  // Коктейли (ASCII-имена файлов для стабильной загрузки)
-  { src: 'assets/images/2/ermitazh.jpg', aliases: ['Эрмитаж', 'Martini Fiero & Tonic', 'Мартини Фиеро и Тоник'] },
-  { src: 'assets/images/2/romovaya-baba.jpg', aliases: ['Ромовая Баба', 'Ромовая баба', 'Тропический джин-тоник', 'Тропический джин‑тоник'] },
-  { src: 'assets/images/2/slezy-byvshego.jpg', aliases: ['Слезы бывшего'] },
-  { src: 'assets/images/2/rozovaya-pantera.jpg', aliases: ['Розовая пантера', 'Гранатовый шприц'] },
+  // Коктейли в слайдере
+  { src: 'assets/images/2/ermitazh.jpg', aliases: ['Эрмитаж', 'Коктейль Эрмитаж'] },
+  { src: 'assets/images/2/romovaya-baba.jpg', aliases: ['Тропический джин-тоник', 'Тропический джин‑тоник', 'Ромовая Баба', 'Ромовая баба'] },
+  { src: 'assets/images/2/rozovaya-pantera.jpg', aliases: ['Розовая Пантера', 'Розовая пантера'] },
+  { src: 'assets/images/2/slezy-byvshego.jpg', aliases: ['Слезы бывшего', 'Слёзы бывшего'] },
   { src: 'assets/images/2/severnoe-siyanie.jpg', aliases: ['Северное сияние'] },
-  { src: 'assets/images/2/klubnichnyy-dzhin-tonik.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Негрони'] },
+  { src: 'assets/images/2/klubnichnyy-dzhin-tonik.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Клубничный джин - тоник'] },
   { src: 'assets/images/2/limonad-klubnika-bazilik.jpg', aliases: ['Лимонад клубника базилик'] },
   { src: 'assets/images/2/rossiyskiy-flag.jpg', aliases: ['Российский флаг'] },
   { src: 'assets/images/2/hiroshima.jpg', aliases: ['Хиросима'] }
