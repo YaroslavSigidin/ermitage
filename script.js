@@ -43,9 +43,13 @@ if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
   revealTargets.forEach((el) => el.classList.add('is-visible'));
 }
 
-const sectionLinks = Array.from(document.querySelectorAll('.menu-nav a'));
+const sectionLinks = Array.from(document.querySelectorAll('.menu-nav a[href^="#"]'));
 const sections = sectionLinks
-  .map((link) => document.querySelector(link.getAttribute('href')))
+  .map((link) => {
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return null;
+    return document.querySelector(href);
+  })
   .filter(Boolean);
 let currentActiveNavId = '';
 
