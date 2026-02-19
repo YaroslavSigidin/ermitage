@@ -921,7 +921,7 @@ const attachMenuImages = () => {
   rows.forEach((row) => {
     const group = row.closest('.menu-group');
     const category = (group && group.getAttribute('data-category') || '').toLowerCase();
-    if (category === 'cocktails' || (group && group.id === 'cocktails')) return;
+    if (category !== 'food') return;
 
     const title = getMenuItemTitle(row);
     const imageSrc = resolveDishImageByTitle(title);

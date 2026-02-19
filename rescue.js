@@ -97,6 +97,10 @@
     var rows = document.querySelectorAll('.menu-list li');
     for (var i = 0; i < rows.length; i += 1) {
       var row = rows[i];
+      var group = closestEl(row, '.menu-group');
+      var category = group ? String(group.getAttribute('data-category') || '').toLowerCase() : '';
+      if (category !== 'food') continue;
+
       var span = getDirectChild(row, 'span');
       if (!span) continue;
       if (span.querySelector('.menu-item-image')) continue;
