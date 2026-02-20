@@ -1615,11 +1615,14 @@ section {
   }
 
   .hero-slider-block {
-    padding: 2px 0 10px;
+    padding: 2px 0 14px;
+    overflow: visible;
   }
 
   .hero-slider-block .hero-slider {
-    padding: 8px 0 10px;
+    padding: 8px 0 12px;
+    grid-template-columns: 1fr;
+    gap: 10px 0;
   }
 
   .menu {
@@ -1629,17 +1632,7 @@ section {
   /* Keep side fades on mobile, but move them behind content and soften them. */
   .hero-slider-block::before,
   .hero-slider-block::after {
-    width: 34px;
-    z-index: 0;
-    backdrop-filter: blur(3px);
-  }
-
-  .hero-slider-block::before {
-    background: linear-gradient(90deg, rgba(6, 7, 11, 0.35), rgba(6, 7, 11, 0));
-  }
-
-  .hero-slider-block::after {
-    background: linear-gradient(270deg, rgba(6, 7, 11, 0.35), rgba(6, 7, 11, 0));
+    display: none;
   }
 
   .hero-slider-block .hero-slider,
@@ -1656,13 +1649,26 @@ section {
   }
 
   .slider-track {
-    padding: 8px 24px 20px;
+    padding: 8px 12px 20px;
+    scroll-padding-inline: calc((100vw - min(82vw, 300px)) / 2);
   }
 
   .cocktail-card {
-    min-width: 220px;
-    max-width: 260px;
+    min-width: min(82vw, 300px);
+    max-width: min(82vw, 300px);
     padding: 14px;
+  }
+
+  .slider-controls {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: center;
+  }
+
+  .slider-dots {
+    width: 100%;
+    justify-content: center;
   }
 
   .card-desc {
@@ -1715,7 +1721,7 @@ section {
   }
 
   .menu-toggle {
-    bottom: 116px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
     min-width: 240px;
   }
 }
