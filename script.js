@@ -50,13 +50,14 @@ function initHeroWave() {
   if (!wrap || !wavePath) return;
 
   const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const pointsCount = 220;
+  const pointsCount = 180;
+  const smoothY = Array.from({ length: pointsCount }, () => 0);
 
   const draw = (timeMs = 0) => {
     const width = Math.max(wrap.clientWidth, 360);
     const height = Math.max(wrap.clientHeight, 36);
     const centerY = height * 0.5;
-    const timeS = timeMs * 0.001;
+    const timeS = timeMs * 0.00035;
     const xStep = width / (pointsCount - 1);
     let d = `M 0 ${centerY.toFixed(2)}`;
 
@@ -64,22 +65,24 @@ function initHeroWave() {
       const x = i * xStep;
       const normX = x / width;
 
-      const fast = Math.sin((normX * 30.0 - timeS * 2.2) * Math.PI * 2);
-      const mid = Math.sin((normX * 16.0 - timeS * 1.4) * Math.PI * 2);
-      const ultra = Math.sin((normX * 44.0 - timeS * 2.5) * Math.PI * 2);
-      const low = Math.sin((normX * 4.0 - timeS * 0.55) * Math.PI * 2);
+      const fast = Math.sin((normX * 24.0 - timeS * 0.9) * Math.PI * 2);
+      const mid = Math.sin((normX * 13.0 - timeS * 0.55) * Math.PI * 2);
+      const ultra = Math.sin((normX * 31.0 - timeS * 1.05) * Math.PI * 2);
+      const low = Math.sin((normX * 3.0 - timeS * 0.25) * Math.PI * 2);
 
-      const packetA = Math.exp(-Math.pow((normX - (0.14 + (timeS * 0.08) % 0.9)) / 0.075, 2));
-      const packetB = Math.exp(-Math.pow((normX - (0.38 + (timeS * 0.065) % 0.9)) / 0.09, 2));
-      const packetC = Math.exp(-Math.pow((normX - (0.62 + (timeS * 0.055) % 0.9)) / 0.095, 2));
-      const packetD = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.075) % 0.9)) / 0.07, 2));
-      const voiceEnvelope = 0.2 + packetA * 0.62 + packetB * 0.86 + packetC * 0.82 + packetD * 0.6;
-      const megaSpike = Math.pow(Math.max(0, Math.sin((normX * 7.0 - timeS * 0.45) * Math.PI * 2)), 8);
+      const packetA = Math.exp(-Math.pow((normX - (0.16 + (timeS * 0.03) % 0.9)) / 0.085, 2));
+      const packetB = Math.exp(-Math.pow((normX - (0.42 + (timeS * 0.025) % 0.9)) / 0.1, 2));
+      const packetC = Math.exp(-Math.pow((normX - (0.66 + (timeS * 0.02) % 0.9)) / 0.11, 2));
+      const packetD = Math.exp(-Math.pow((normX - (0.84 + (timeS * 0.028) % 0.9)) / 0.09, 2));
+      const voiceEnvelope = 0.15 + packetA * 0.42 + packetB * 0.5 + packetC * 0.48 + packetD * 0.38;
+      const megaSpike = Math.pow(Math.max(0, Math.sin((normX * 6.2 - timeS * 0.17) * Math.PI * 2)), 6);
 
       const edgeFade = Math.pow(Math.sin(Math.PI * normX), 0.7);
-      const amplitude = height * (1.0 + voiceEnvelope * 5.8 + megaSpike * 6.5) * edgeFade;
-      const shape = fast * 0.42 + mid * 0.33 + ultra * 0.17 + low * 0.08;
-      const y = centerY + shape * amplitude;
+      const amplitude = height * (0.08 + voiceEnvelope * 0.34 + megaSpike * 0.22) * edgeFade;
+      const shape = fast * 0.44 + mid * 0.31 + ultra * 0.15 + low * 0.1;
+      const targetY = centerY + shape * amplitude;
+      smoothY[i] += (targetY - smoothY[i]) * 0.14;
+      const y = smoothY[i] || targetY;
 
       d += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
     }
