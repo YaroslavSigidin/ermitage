@@ -64,17 +64,17 @@ function initHeroWave() {
       const x = i * xStep;
       const normX = x / width;
 
-      const fast = Math.sin((normX * 30.0 - timeS * 4.6) * Math.PI * 2);
-      const mid = Math.sin((normX * 16.0 - timeS * 2.9) * Math.PI * 2);
-      const ultra = Math.sin((normX * 44.0 - timeS * 5.2) * Math.PI * 2);
-      const low = Math.sin((normX * 4.0 - timeS * 1.1) * Math.PI * 2);
+      const fast = Math.sin((normX * 30.0 - timeS * 2.2) * Math.PI * 2);
+      const mid = Math.sin((normX * 16.0 - timeS * 1.4) * Math.PI * 2);
+      const ultra = Math.sin((normX * 44.0 - timeS * 2.5) * Math.PI * 2);
+      const low = Math.sin((normX * 4.0 - timeS * 0.55) * Math.PI * 2);
 
-      const packetA = Math.exp(-Math.pow((normX - (0.14 + (timeS * 0.16) % 0.9)) / 0.075, 2));
-      const packetB = Math.exp(-Math.pow((normX - (0.38 + (timeS * 0.13) % 0.9)) / 0.09, 2));
-      const packetC = Math.exp(-Math.pow((normX - (0.62 + (timeS * 0.11) % 0.9)) / 0.095, 2));
-      const packetD = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.15) % 0.9)) / 0.07, 2));
+      const packetA = Math.exp(-Math.pow((normX - (0.14 + (timeS * 0.08) % 0.9)) / 0.075, 2));
+      const packetB = Math.exp(-Math.pow((normX - (0.38 + (timeS * 0.065) % 0.9)) / 0.09, 2));
+      const packetC = Math.exp(-Math.pow((normX - (0.62 + (timeS * 0.055) % 0.9)) / 0.095, 2));
+      const packetD = Math.exp(-Math.pow((normX - (0.82 + (timeS * 0.075) % 0.9)) / 0.07, 2));
       const voiceEnvelope = 0.2 + packetA * 0.62 + packetB * 0.86 + packetC * 0.82 + packetD * 0.6;
-      const megaSpike = Math.pow(Math.max(0, Math.sin((normX * 7.0 - timeS * 0.95) * Math.PI * 2)), 8);
+      const megaSpike = Math.pow(Math.max(0, Math.sin((normX * 7.0 - timeS * 0.45) * Math.PI * 2)), 8);
 
       const edgeFade = Math.pow(Math.sin(Math.PI * normX), 0.7);
       const amplitude = height * (1.0 + voiceEnvelope * 5.8 + megaSpike * 6.5) * edgeFade;
