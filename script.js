@@ -77,7 +77,7 @@ function initHeroWave() {
       const megaSpike = Math.pow(Math.max(0, Math.sin((normX * 7.0 - timeS * 0.95) * Math.PI * 2)), 8);
 
       const edgeFade = Math.pow(Math.sin(Math.PI * normX), 0.7);
-      const amplitude = height * (0.1 + voiceEnvelope * 0.58 + megaSpike * 0.65) * edgeFade;
+      const amplitude = height * (1.0 + voiceEnvelope * 5.8 + megaSpike * 6.5) * edgeFade;
       const shape = fast * 0.42 + mid * 0.33 + ultra * 0.17 + low * 0.08;
       const y = centerY + shape * amplitude;
 
