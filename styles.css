@@ -628,6 +628,14 @@ body::after {
 }
 
 /* Первый блок — подпись и заголовок */
+.hero-updated {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(232, 212, 168, 0.72);
+}
+
 .hero-eyebrow {
   font-family: "Santa Catorina", "Manrope", serif;
   font-size: clamp(22px, 4vw, 32px);
