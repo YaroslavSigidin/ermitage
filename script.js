@@ -832,16 +832,8 @@ const menuImageItems = [
     aliases: ['Фирменный салат Эрмитаж с говядиной', 'Фирменный салат «Эрмитаж» с говядиной']
   },
   {
-    src: 'assets/images/salmon-tartare-salad.jpg',
-    aliases: ['Тартар из лосося']
-  },
-  {
     src: 'assets/images/seafood-salad.jpg',
     aliases: ['Морской']
-  },
-  {
-    src: 'assets/images/shrimp-arugula-salad.jpg',
-    aliases: ['Креветка руккола с томлёной грушей']
   },
   {
     src: 'assets/images/beer-set.jpg',
@@ -853,7 +845,7 @@ const menuImageItems = [
   },
   {
     src: 'assets/images/tiger-shrimp-flambe.jpg',
-    aliases: ['Тигровые креветки Фламбе', 'Тигровые креветки «Фламбе» с чесноком и розмарином']
+    aliases: ['Тигровые креветки Фламбе', 'Тигровые креветки «Фламбе» с чесноком и розмарином', 'Тигровые креветки в темпуре с фирменным соусом']
   },
   {
     src: 'assets/images/bavarian-sausage-mix.jpg',
@@ -873,7 +865,7 @@ const menuImageItems = [
   },
   {
     src: 'assets/images/salmon-steak-vegetables.jpg',
-    aliases: ['Стейк из сёмги с овощами-гриль', 'Стейк из сёмги с овощами‑гриль']
+    aliases: ['Стейк из сёмги со спаржей', 'Стейк из семги со спаржей', 'Стейк из сёмги с овощами-гриль', 'Стейк из сёмги с овощами‑гриль']
   },
   {
     src: 'assets/images/pikeperch-fillet-venere-rice.jpg',
