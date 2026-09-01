@@ -23,9 +23,7 @@
     ['цезарь с курицей', 'assets/images/caesar-salad.jpg'],
     ['цезарь с креветками', 'assets/images/caesar-salad-shrimp.jpg'],
     ['фирменный салат эрмитаж с говядиной', 'assets/images/ermitage-salad.jpg'],
-    ['тартар из лосося', 'assets/images/salmon-tartare-salad.jpg'],
     ['морской', 'assets/images/seafood-salad.jpg'],
-    ['креветка руккола с томленой грушей', 'assets/images/shrimp-arugula-salad.jpg'],
     ['пивной сет', 'assets/images/beer-set.jpg'],
     ['мидии киви', 'assets/images/kiwi-mussels.jpg'],
     ['мидии киви запеченные в сырно сливочном соусе', 'assets/images/kiwi-mussels.jpg'],
@@ -36,8 +34,9 @@
     ['том ям кунг', 'assets/images/tom-yum.jpg'],
     ['паста с морепродуктами', 'assets/images/seafood-pasta.jpg'],
     ['с морепродуктами', 'assets/images/seafood-pasta.jpg'],
-    ['стейк из семги с овощами гриль', 'assets/images/salmon-steak-vegetables.jpg'],
-    ['стейк из семги с овощами', 'assets/images/salmon-steak-vegetables.jpg'],
+    ['паста из цукини с морепродуктами', ''],
+    ['стейк из семги со спаржей', 'assets/images/salmon-steak-vegetables.jpg'],
+    ['тигровые креветки в темпуре с фирменным соусом', ''],
     ['филе судака с рисом венера', 'assets/images/pikeperch-fillet-venere-rice.jpg'],
     ['куриное филе гриль', 'assets/images/grilled-chicken-fillet.jpg']
   ];

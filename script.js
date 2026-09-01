@@ -845,7 +845,11 @@ const menuImageItems = [
   },
   {
     src: 'assets/images/tiger-shrimp-flambe.jpg',
-    aliases: ['Тигровые креветки Фламбе', 'Тигровые креветки «Фламбе» с чесноком и розмарином', 'Тигровые креветки в темпуре с фирменным соусом']
+    aliases: ['Тигровые креветки Фламбе', 'Тигровые креветки «Фламбе» с чесноком и розмарином']
+  },
+  {
+    src: '',
+    aliases: ['Тигровые креветки в темпуре с фирменным соусом']
   },
   {
     src: 'assets/images/bavarian-sausage-mix.jpg',
@@ -861,7 +865,11 @@ const menuImageItems = [
   },
   {
     src: 'assets/images/seafood-pasta.jpg',
-    aliases: ['С морепродуктами', 'Паста с морепродуктами']
+    aliases: ['С морепродуктами']
+  },
+  {
+    src: '',
+    aliases: ['Паста из цукини с морепродуктами']
   },
   {
     src: 'assets/images/salmon-steak-vegetables.jpg',
@@ -898,8 +906,7 @@ const resolveDishImageByTitle = (title) => {
   const normalizedTitle = normalizeLabel(title);
   if (!normalizedTitle) return '';
 
-  const exact = menuImageMap.get(normalizedTitle);
-  if (exact) return exact;
+  if (menuImageMap.has(normalizedTitle)) return menuImageMap.get(normalizedTitle) || '';
 
   const hasWholePhrase = (text, phrase) => {
     const t = String(text || '').trim();
@@ -1079,20 +1086,3 @@ const attachCocktailSliderImages = () => {
   });
 };
 attachCocktailSliderImages();
-
-const orderMenuItemsByImage = () => {
-  const lists = Array.from(document.querySelectorAll('.menu-list'));
-  lists.forEach((list) => {
-    const rows = getDirectChildren(list, 'li');
-    if (rows.length < 2) return;
-
-    const withImage = rows.filter((row) => row.classList.contains('has-image'));
-    const withoutImage = rows.filter((row) => !row.classList.contains('has-image'));
-
-    if (withImage.length === 0 || withoutImage.length === 0) return;
-
-    [...withImage, ...withoutImage].forEach((row) => list.appendChild(row));
-  });
-};
-
-orderMenuItemsByImage();
