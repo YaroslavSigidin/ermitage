@@ -215,6 +215,8 @@ if (slider) {
   const dotsWrap = slider.querySelector('.slider-dots');
   const btnPrev = slider.querySelector('[data-dir="prev"]');
   const btnNext = slider.querySelector('[data-dir="next"]');
+  const mobileMq = window.matchMedia('(max-width: 720px)');
+  const reducedMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const createDots = () => {
     if (!dotsWrap) return [];
@@ -232,17 +234,22 @@ if (slider) {
 
   const dots = createDots();
 
-  const scrollToIndex = (index, behavior = 'smooth') => {
+  const getScrollBehavior = () => {
+    if (reducedMotionMq.matches || mobileMq.matches) return 'auto';
+    return 'smooth';
+  };
+
+  const scrollToIndex = (index, behavior) => {
     const safeIndex = Math.max(0, Math.min(index, cards.length - 1));
     const card = cards[safeIndex];
-    if (!card) return;
+    if (!card || !track) return;
+    const scrollBehavior = behavior || getScrollBehavior();
     const centeredLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
     const maxLeft = Math.max(track.scrollWidth - track.clientWidth, 0);
     const left = Math.max(0, Math.min(centeredLeft, maxLeft));
-    if (!track) return;
     try {
       if (typeof track.scrollTo === 'function') {
-        track.scrollTo({ left: left, behavior });
+        track.scrollTo({ left: left, behavior: scrollBehavior });
         return;
       }
     } catch (e) {
@@ -273,7 +280,19 @@ if (slider) {
     });
   };
 
+  const clearCurve = () => {
+    cards.forEach((card) => {
+      card.style.removeProperty('--curve');
+      card.style.removeProperty('--scale');
+    });
+  };
+
   const applyCurve = () => {
+    // На мобиле кривая анимация слишком тяжёлая — отключаем.
+    if (mobileMq.matches || reducedMotionMq.matches) {
+      clearCurve();
+      return;
+    }
     const center = track.scrollLeft + track.clientWidth / 2;
     const spread = Math.max(track.clientWidth * 0.6, 1);
     cards.forEach((card) => {
@@ -316,13 +335,18 @@ if (slider) {
   };
 
   track.addEventListener('scroll', onSliderScroll, { passive: true });
-  window.addEventListener('resize', () => {
+  const onViewportChange = () => {
     setActiveDot();
     applyCurve();
-  });
+  };
+  window.addEventListener('resize', onViewportChange);
+  if (typeof mobileMq.addEventListener === 'function') {
+    mobileMq.addEventListener('change', onViewportChange);
+  } else if (typeof mobileMq.addListener === 'function') {
+    mobileMq.addListener(onViewportChange);
+  }
   const getInitialSliderIndex = () => {
-    const isMobile = window.matchMedia('(max-width: 720px)').matches;
-    if (isMobile) return Math.floor(cards.length / 2);
+    if (mobileMq.matches) return Math.floor(cards.length / 2);
     return 2;
   };
   const applyInitialSliderPosition = () => {
@@ -334,14 +358,11 @@ if (slider) {
   };
 
   applyInitialSliderPosition();
-  setTimeout(() => {
+  // Один повтор после layout вместо нескольких таймеров.
+  window.requestAnimationFrame(() => {
     applyInitialSliderPosition();
-  }, 180);
+  });
   window.addEventListener('load', applyInitialSliderPosition, { once: true });
-  setTimeout(() => {
-    setActiveDot();
-    applyCurve();
-  }, 0);
 }
 
 const menuToggle = document.querySelector('.menu-toggle');
@@ -883,16 +904,16 @@ const menuImageItems = [
     src: 'assets/images/grilled-chicken-fillet.jpg',
     aliases: ['Куриное филе-гриль', 'Куриное филе‑гриль']
   },
-  // Коктейли в слайдере
-  { src: 'assets/images/2/ermitazh.jpg', aliases: ['Эрмитаж', 'Коктейль Эрмитаж'] },
-  { src: 'assets/images/2/romovaya-baba.jpg', aliases: ['Ромовая Баба', 'Ромовая баба'] },
-  { src: 'assets/images/2/rozovaya-pantera.jpg', aliases: ['Розовая Пантера', 'Розовая пантера'] },
-  { src: 'assets/images/2/slezy-byvshego.jpg', aliases: ['Слезы бывшего', 'Слёзы бывшего'] },
-  { src: 'assets/images/2/severnoe-siyanie.jpg', aliases: ['Северное сияние'] },
-  { src: 'assets/images/2/klubnichnyy-dzhin-tonik.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Клубничный джин - тоник'] },
-  { src: 'assets/images/2/limonad-klubnika-bazilik.jpg', aliases: ['Лимонад клубника базилик'] },
-  { src: 'assets/images/2/rossiyskiy-flag.jpg', aliases: ['Российский флаг'] },
-  { src: 'assets/images/2/hiroshima.jpg', aliases: ['Хиросима'] }
+  // Коктейли в слайдере (оптимизированные 900px)
+  { src: 'assets/images/2/opt/ermitazh.jpg', aliases: ['Эрмитаж', 'Коктейль Эрмитаж'] },
+  { src: 'assets/images/2/opt/romovaya-baba.jpg', aliases: ['Ромовая Баба', 'Ромовая баба'] },
+  { src: 'assets/images/2/opt/rozovaya-pantera.jpg', aliases: ['Розовая Пантера', 'Розовая пантера'] },
+  { src: 'assets/images/2/opt/slezy-byvshego.jpg', aliases: ['Слезы бывшего', 'Слёзы бывшего'] },
+  { src: 'assets/images/2/opt/severnoe-siyanie.jpg', aliases: ['Северное сияние'] },
+  { src: 'assets/images/2/opt/klubnichnyy-dzhin-tonik.jpg', aliases: ['Клубничный джин тоник', 'Клубничный джин-тоник', 'Клубничный джин - тоник'] },
+  { src: 'assets/images/2/opt/limonad-klubnika-bazilik.jpg', aliases: ['Лимонад клубника базилик'] },
+  { src: 'assets/images/2/opt/rossiyskiy-flag.jpg', aliases: ['Российский флаг'] },
+  { src: 'assets/images/2/opt/hiroshima.jpg', aliases: ['Хиросима'] }
 ];
 
 const menuImageMap = new Map();
@@ -1072,6 +1093,8 @@ const attachCocktailSliderImages = () => {
     const titleEl = card.querySelector('h2');
     const mediaEl = card.querySelector('.card-media');
     if (!titleEl || !mediaEl) return;
+    // Не перетираем уже оптимизированные <picture>/<img> из HTML.
+    if (mediaEl.querySelector('.card-media-img')) return;
     const title = titleEl.textContent.trim().replace(/\s+/g, ' ');
     const imageSrc = menuImageMap.get(normalizeLabel(title));
     if (!imageSrc) return;
