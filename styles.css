@@ -1362,6 +1362,15 @@ section {
   display: none;
 }
 
+.menu-list li.is-priority .item-title .icon {
+  display: inline-block;
+}
+
+.menu-list li.is-priority .item-title .title-text {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
 .icon {
   width: 18px;
   height: 18px;
