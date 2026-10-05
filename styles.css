@@ -444,48 +444,82 @@ body::after {
 }
 
 @media (min-width: 721px) {
+  .hero-slider-block {
+    max-width: min(1680px, calc(100% - 40px));
+    padding: 36px 8px 72px;
+    overflow: visible;
+  }
+
+  .hero-slider-block::before,
+  .hero-slider-block::after {
+    display: none;
+  }
+
   .hero-slider {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0;
+    position: relative;
+  }
+
+  .hero-slider .slider-btn--prev,
+  .hero-slider .slider-btn--next {
+    position: absolute;
+    top: 38%;
+    transform: translateY(-50%);
+    margin: 0;
+    z-index: 40;
   }
 
   .hero-slider .slider-btn--prev {
     order: 0;
-    flex: 0 0 auto;
-    margin-right: 12px;
+    left: 0;
   }
 
   .hero-slider .slider-track {
     order: 1;
-    flex: 1 1 0%;
+    flex: 1 1 100%;
+    width: 100%;
     min-width: 0;
     margin: 0;
+    gap: 24px;
+    padding: 16px 68px 40px;
+    overflow-x: auto;
+    overflow-y: visible;
   }
 
   .hero-slider .slider-btn--next {
     order: 2;
-    flex: 0 0 auto;
-    margin-left: 12px;
+    right: 0;
   }
 
   .hero-slider .slider-controls {
     order: 3;
     width: 100%;
-    margin-top: 16px;
+    margin-top: 8px;
   }
 
-  .slider-track {
-    gap: 14px;
-    padding: 20px 18px 36px;
-  }
-
-  /* Desktop: show only three cocktail cards in viewport; others scroll horizontally. */
+  /* Desktop: three full cards, nothing cropped at the sides. */
   .cocktail-card {
-    flex: 0 0 calc((100% - 28px) / 3);
+    flex: 0 0 calc((100% - 48px) / 3);
     min-width: 0;
     max-width: none;
+    padding: 22px;
+    gap: 14px;
+  }
+
+  .cocktail-card h2 {
+    font-size: clamp(24px, 2.1vw, 34px);
+  }
+
+  .card-desc {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .card-meta {
+    font-size: 15px;
   }
 }
 
@@ -574,7 +608,7 @@ body::after {
 
 .hero-slider-block {
   padding: 48px 6vw 64px;
-  overflow: hidden;
+  overflow: visible;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
