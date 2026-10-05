@@ -629,10 +629,12 @@ body::after {
 /* Первый блок — подпись и заголовок */
 .hero-updated {
   margin: 0.75rem 0 0;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(232, 212, 168, 0.72);
+  font-family: "Santa Catorina", "Manrope", serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: none;
+  color: rgba(216, 179, 116, 0.42);
 }
 
 .hero-eyebrow {
@@ -1766,8 +1768,8 @@ section {
   }
 
   .hero-updated {
-    margin-top: 2vw;
-    font-size: clamp(0.85rem, 1.3vw, 1.4rem);
+    margin-top: 1.4vw;
+    font-size: clamp(0.7rem, 1.05vw, 1.05rem);
   }
 
   .hero-title-line {
