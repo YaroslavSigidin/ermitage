@@ -646,36 +646,6 @@ body::after {
   animation: heroTextReveal 0.8s ease-out both;
 }
 
-.hero-wave {
-  width: 100vw;
-  max-width: none;
-  height: 44px;
-  margin: 14px calc(50% - 50vw) 0;
-  opacity: 0.95;
-}
-
-.hero-wave-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: visible;
-}
-
-.hero-wave-base {
-  fill: none;
-  stroke: rgba(216, 179, 116, 0.22);
-  stroke-width: 1.2;
-}
-
-.hero-wave-line {
-  fill: none;
-  stroke: #d8b374;
-  stroke-width: 2.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 14px rgba(216, 179, 116, 0.7));
-}
-
 .hero-title {
   font-family: "Santa Catorina", "Manrope", serif;
   font-size: clamp(40px, 10vw, 80px);
@@ -1515,8 +1485,8 @@ section {
     margin: 0 auto;
   }
 
-  .hero-wave {
-    display: none;
+  .hero-title {
+    font-size: 11vw;
   }
 
   .menu-col h3 {
@@ -1769,13 +1739,15 @@ section {
 @media (min-width: 721px) {
   .hero {
     min-height: 100vh;
+    max-width: none;
     padding: 132px 0 60px;
     display: grid;
     place-items: center;
   }
 
-  /* Desktop: larger hero type */
+  /* Desktop: hero type spans almost the full viewport width */
   .hero-content {
+    max-width: none;
     padding: 0;
   }
 
@@ -1785,11 +1757,17 @@ section {
   }
 
   .hero-eyebrow {
-    font-size: clamp(24px, 3.5vw, 32px);
+    font-size: 4.2vw;
+    margin-bottom: 1vw;
   }
 
   .hero-title {
-    font-size: clamp(44px, 8vw, 88px);
+    font-size: 12vw;
+  }
+
+  .hero-updated {
+    margin-top: 2vw;
+    font-size: clamp(0.85rem, 1.3vw, 1.4rem);
   }
 
   .hero-title-line {
